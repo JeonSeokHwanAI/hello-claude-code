@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>미리 공부하기 · Hello Claude Code</title>
+<meta name="description" content="강의 시작 전 미리 보고 오면 좋은 5개 챕터 — AI 종류, CLI, Claude Code 구조, Skill, 환경 설정">
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./styles.css">
+<link rel="stylesheet" href="./study.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="./index.html" class="brand">
+      <span class="brand-mark">●</span>
+      <span class="brand-text">Hello Claude Code</span>
+    </a>
+    <nav class="nav">
+      <a href="./index.html#schedule">일정</a>
+      <a href="./index.html#curriculum">커리큘럼</a>
+      <a href="./study.html">미리 공부</a>
+      <a href="./index.html#prep">사전 준비</a>
+      <a href="./survey.html">설문</a>
+    </nav>
+  </div>
+</header>
+
+<section class="detail-hero">
+  <div class="container">
+    <a href="./index.html" class="detail-back">← 처음으로</a>
+    <div class="detail-eyebrow">PRE-STUDY · 5 CHAPTERS</div>
+    <h1 class="detail-title">미리 공부하기</h1>
+    <p class="detail-sub">강의 시작 전에 한 번 훑어 두면 첫 강의가 훨씬 가볍습니다. 5개 챕터, 약 15분 분량. 부담 갖지 마시고 흐름만 잡고 오세요.</p>
+
+    <nav class="study-toc">
+      <a href="#ch01"><span class="toc-num">01</span> AI의 종류</a>
+      <a href="#ch02"><span class="toc-num">02</span> 왜 CLI?</a>
+      <a href="#ch03"><span class="toc-num">03</span> Claude Code 핵심</a>
+      <a href="#ch04"><span class="toc-num">04</span> Skill (스킬)</a>
+      <a href="#ch05"><span class="toc-num">05</span> 환경 설정</a>
+    </nav>
+  </div>
+</section>
+
+<!-- ============== Chapter 01 ============== -->
+<section class="study-section" id="ch01">
+  <div class="container">
+    <div class="ch-head">
+      <div class="ch-num">CHAPTER 01</div>
+      <h2>AI의 종류 — 우리가 쓸 건 어느 것?</h2>
+    </div>
+
+    <h3 class="study-h3">AI를 <span class="hl">크게 나누면</span></h3>
+    <div class="study-grid-4">
+      <div class="study-card">
+        <div class="study-icon">💬</div>
+        <div class="study-card-title">대화형 AI (챗봇)</div>
+        <p>질문에 답변하고, 글을 쓰고, 요약한다</p>
+        <div class="study-examples">ChatGPT · Claude · Gemini</div>
+      </div>
+      <div class="study-card">
+        <div class="study-icon">🎨</div>
+        <div class="study-card-title">이미지 생성 AI</div>
+        <p>텍스트를 입력하면 이미지를 만들어준다</p>
+        <div class="study-examples">Midjourney · DALL-E · Stable Diffusion</div>
+      </div>
+      <div class="study-card accent-card">
+        <div class="study-icon">⌨️</div>
+        <div class="study-card-title">코딩 AI ⭐</div>
+        <p>코드를 작성하고, 파일을 만들고, 업무를 자동화한다</p>
+        <div class="study-examples">Claude Code · GitHub Copilot · OpenAI Codex</div>
+      </div>
+      <div class="study-card">
+        <div class="study-icon">🎯</div>
+        <div class="study-card-title">특화 AI</div>
+        <p>번역·음성·영상 등 특정 분야에 최적화</p>
+        <div class="study-examples">DeepL · Whisper · Sora</div>
+      </div>
+    </div>
+
+    <div class="big-quote">
+      <p class="quote-main">일반 챗봇은 <em>"답변"</em>만 한다<br>코딩 AI는 <em>"실행"</em>까지 한다</p>
+      <p class="quote-sub">파일을 읽고, 코드를 실행하고, 결과물(PDF·Excel·HTML)을 직접 생성합니다.<br>프로그래밍을 몰라도 한국어로 지시하면 됩니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============== Chapter 02 ============== -->
+<section class="study-section section-alt" id="ch02">
+  <div class="container">
+    <div class="ch-head">
+      <div class="ch-num">CHAPTER 02</div>
+      <h2>왜 CLI(터미널·IDE)로 사용하는가?</h2>
+    </div>
+
+    <h3 class="study-h3">웹 챗봇 vs <span class="hl">CLI AI</span></h3>
+    <div class="compare-wrap">
+      <table class="study-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>🌐 웹 챗봇 (ChatGPT, claude.ai)</th>
+            <th>⌨️ CLI AI (Claude Code)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="row-label">파일 접근</td><td class="bad">파일을 직접 업로드해야 한다</td><td class="good">내 컴퓨터의 파일을 직접 읽고 쓴다</td></tr>
+          <tr><td class="row-label">실행 능력</td><td class="bad">코드를 보여줄 뿐이다</td><td class="good">코드를 직접 실행하고 결과를 만든다</td></tr>
+          <tr><td class="row-label">연속 작업</td><td class="bad">매번 복사-붙여넣기 반복</td><td class="good">여러 단계를 자동으로 이어서 처리</td></tr>
+          <tr><td class="row-label">결과물</td><td class="bad">텍스트 답변</td><td class="good">실제 파일 (PDF, Excel, HTML) 생성</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="big-quote">
+      <p class="quote-main">웹 챗봇은 <em>조언자</em><br>CLI AI는 <em>실행자</em>다</p>
+    </div>
+
+    <h3 class="study-h3" style="margin-top:48px;">같은 요청, <span class="hl">다른 결과</span></h3>
+    <div class="vs-layout">
+      <div class="vs-card bad">
+        <div class="vs-title">🌐 웹 챗봇에게 "PDF 번역해줘"</div>
+        <ul>
+          <li>PDF를 업로드한다</li>
+          <li>번역된 텍스트를 돌려준다</li>
+          <li>레이아웃? 없다. 텍스트 덩어리</li>
+          <li>워드에 다시 옮긴다</li>
+          <li>서식을 다시 잡는다</li>
+        </ul>
+      </div>
+      <div class="vs-divider">VS</div>
+      <div class="vs-card good">
+        <div class="vs-title">⌨️ CLI AI에게 "PDF 번역해줘"</div>
+        <ul>
+          <li>파일 경로만 알려준다</li>
+          <li>원본 레이아웃을 분석한다</li>
+          <li>텍스트를 번역한다</li>
+          <li>레이아웃 유지한 PDF 생성</li>
+          <li><strong>→ 번역된 PDF 파일이 바로 나온다</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="study-h3" style="margin-top:48px;">업무 처리 <span class="hl">흐름의 차이</span></h3>
+    <div class="flow-section">
+      <div class="flow-label-bad">웹 챗봇 방식</div>
+      <div class="flow-row">
+        <div class="flow-step">파일 업로드</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">AI 텍스트 답변</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">사람 복붙</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">사람 서식</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">사람 저장</div>
+      </div>
+
+      <div class="flow-label-good" style="margin-top:32px;">CLI AI 방식</div>
+      <div class="flow-row">
+        <div class="flow-step accent">사람 명령어</div>
+        <span class="flow-arrow accent-arrow">→</span>
+        <div class="flow-step accent">AI: 읽기 → 처리 → 저장</div>
+        <span class="flow-arrow accent-arrow">→</span>
+        <div class="flow-step accent">결과 파일 완성</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== Chapter 03 ============== -->
+<section class="study-section" id="ch03">
+  <div class="container">
+    <div class="ch-head">
+      <div class="ch-num">CHAPTER 03</div>
+      <h2>Claude Code 핵심 개념</h2>
+    </div>
+
+    <h3 class="study-h3">AI가 일하는 <span class="hl">구조</span></h3>
+    <div class="stack-flow">
+      <div class="stack-box">
+        <div class="stack-label">사용자 (나)</div>
+        <div class="stack-text">한국어로 지시</div>
+      </div>
+      <div class="stack-arrow">↓</div>
+      <div class="stack-box accent">
+        <div class="stack-label">Claude Code (AI)</div>
+        <div class="stack-text">파일 읽기 → 코드 실행 → 파일 생성</div>
+      </div>
+      <div class="stack-arrow">↓</div>
+      <div class="stack-box">
+        <div class="stack-label">내 컴퓨터</div>
+        <div class="stack-text">PDF · Excel · HTML 결과물</div>
+      </div>
+    </div>
+
+    <h3 class="study-h3" style="margin-top:48px;">프로젝트 <span class="hl">폴더 구조</span></h3>
+    <div class="folder-row">
+      <div class="folder-card" style="--c: #f59e0b;">
+        <div class="folder-name">10_input</div>
+        <div class="folder-desc">원본 파일</div>
+        <div class="folder-sub">견적서, PDF 매뉴얼 등</div>
+      </div>
+      <span class="folder-arrow">→</span>
+      <div class="folder-card" style="--c: #3b82f6;">
+        <div class="folder-name">20_working</div>
+        <div class="folder-desc">중간 결과물</div>
+        <div class="folder-sub">마크다운 (.md)</div>
+      </div>
+      <span class="folder-arrow">→</span>
+      <div class="folder-card" style="--c: #10b981;">
+        <div class="folder-name">30_output</div>
+        <div class="folder-desc">최종 결과물</div>
+        <div class="folder-sub">PDF · Excel · HTML</div>
+      </div>
+    </div>
+    <p class="centerline">입력 → 작업 → 출력</p>
+
+    <h3 class="study-h3" style="margin-top:48px;">왜 <span class="hl">마크다운(.md)</span>이 필요한가?</h3>
+    <div class="md-compare">
+      <div class="md-bad">
+        <div class="md-title">기존 — 한 번에 변환</div>
+        <div class="md-flow"><span>이미지</span><b>──→</b><span>Excel</span></div>
+        <p class="md-warn">중간 확인 불가 — 틀려도 모른다</p>
+      </div>
+      <div class="md-good">
+        <div class="md-title">마크다운 경유</div>
+        <div class="md-flow"><span>이미지</span><b>→</b><span class="hl-box">마크다운 (.md)</span><b>→</b><span>Excel</span></div>
+        <p class="md-ok">검수 단계가 있어 신뢰도 ↑</p>
+      </div>
+    </div>
+
+    <h3 class="study-h3" style="margin-top:48px;">마크다운은 <span class="hl">"반제품"</span>이다</h3>
+    <div class="study-grid-4">
+      <div class="study-card">
+        <div class="study-icon">👁️</div>
+        <div class="study-card-title">사람이 읽는다</div>
+        <p>메모장으로 열어 내용 바로 확인</p>
+      </div>
+      <div class="study-card">
+        <div class="study-icon">✏️</div>
+        <div class="study-card-title">수정이 쉽다</div>
+        <p>틀린 숫자·빠진 항목을 직접 고친다</p>
+      </div>
+      <div class="study-card">
+        <div class="study-icon">🔄</div>
+        <div class="study-card-title">변환이 쉽다</div>
+        <p>하나의 .md → Excel · PDF · HTML</p>
+      </div>
+      <div class="study-card">
+        <div class="study-icon">🤖</div>
+        <div class="study-card-title">AI 친화적</div>
+        <p>"이 표를 수정해줘" 한마디면 OK</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== Chapter 04 ============== -->
+<section class="study-section section-alt" id="ch04">
+  <div class="container">
+    <div class="ch-head">
+      <div class="ch-num">CHAPTER 04</div>
+      <h2>Skill — AI에게 업무 매뉴얼 주기</h2>
+    </div>
+
+    <h3 class="study-h3"><span class="hl">스킬</span>이란?</h3>
+    <div class="big-quote">
+      <p class="quote-main">AI에게 미리 정의해둔<br><em>업무 매뉴얼</em></p>
+      <p class="quote-sub">/스킬이름 형태로 호출하면 AI가 정해진 절차대로 작업을 수행합니다.</p>
+    </div>
+
+    <div class="study-grid-3">
+      <div class="study-card accent-card">
+        <div class="skill-cmd">/img-to-docs</div>
+        <p>이미지 → 마크다운 → Excel</p>
+      </div>
+      <div class="study-card accent-card">
+        <div class="skill-cmd">/approval-doc</div>
+        <p>견적서·목록 → 품의서 HTML</p>
+      </div>
+      <div class="study-card accent-card">
+        <div class="skill-cmd">/translate-pdf</div>
+        <p>PDF → 번역 PDF (레이아웃 유지)</p>
+      </div>
+    </div>
+
+    <h3 class="study-h3" style="margin-top:48px;">데모 ① 품의서 — <span class="bad-text">사람</span> vs <span class="good-text">AI</span></h3>
+    <div class="compare-wrap">
+      <table class="study-table">
+        <thead>
+          <tr>
+            <th>단계</th>
+            <th>🧑 사람 (~55분)</th>
+            <th>🤖 AI (~7분)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="row-label">1</td><td>견적서 확인 (5분)</td><td>견적서 폴더에 넣기 (1분)</td></tr>
+          <tr><td class="row-label">2</td><td>Excel에 품목·금액 타이핑 (15분)</td><td><code>/img-to-docs 견적서.png xlsx</code> (2분)</td></tr>
+          <tr><td class="row-label">3</td><td>오타·금액 검산 (5분)</td><td>Excel 열어 확인 (1분)</td></tr>
+          <tr><td class="row-label">4</td><td>품의서 양식 열기 (2분)</td><td><code>/approval-doc 부품목록.xlsx</code> (2분)</td></tr>
+          <tr><td class="row-label">5</td><td>제목·본문·비용표 작성 (15분)</td><td>HTML 복사 → 그룹웨어 붙이기 (1분)</td></tr>
+          <tr><td class="row-label">6</td><td>HTML 표 정렬·서식 (10분)</td><td></td></tr>
+          <tr><td class="row-label">7</td><td>최종 확인 후 상신 (3분)</td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="big-quote">
+      <p class="quote-main"><span class="bad-text">55분</span> &nbsp;→&nbsp; <span class="good-text">7분</span></p>
+      <p class="quote-sub">오타 위험 ↓ · 양식 자동화 · 명령어 한 줄로 반복</p>
+    </div>
+
+    <h3 class="study-h3" style="margin-top:48px;">데모 ② 매뉴얼 번역 — <span class="bad-text">사람</span> vs <span class="good-text">AI</span></h3>
+    <div class="compare-wrap">
+      <table class="study-table">
+        <thead>
+          <tr>
+            <th>항목</th>
+            <th>🧑 사람</th>
+            <th>🤖 AI</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="row-label">소요 시간</td><td class="bad">2~3일</td><td class="good">5~15분</td></tr>
+          <tr><td class="row-label">레이아웃</td><td class="bad">수동 복원 필요</td><td class="good">자동 유지</td></tr>
+          <tr><td class="row-label">기술 용어</td><td class="bad">일일이 검수</td><td class="good">업계 표준 자동 적용</td></tr>
+          <tr><td class="row-label">반복 번역</td><td class="bad">매번 같은 노력</td><td class="good"><code>/translate-pdf</code> 한 줄</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============== Chapter 05 ============== -->
+<section class="study-section" id="ch05">
+  <div class="container">
+    <div class="ch-head">
+      <div class="ch-num">CHAPTER 05</div>
+      <h2>환경 설정 — 실습 준비</h2>
+    </div>
+
+    <h3 class="study-h3">설치할 <span class="hl">프로그램 3가지</span></h3>
+    <div class="study-grid-3">
+      <div class="study-card">
+        <div class="study-icon">💻</div>
+        <div class="study-card-title">VS Code</div>
+        <p>코드 편집기 — Claude Code가 여기서 실행됨</p>
+        <a class="study-link" href="https://code.visualstudio.com/" target="_blank" rel="noopener">다운로드 ↗</a>
+      </div>
+      <div class="study-card">
+        <div class="study-icon">🐍</div>
+        <div class="study-card-title">Python 3.11.9</div>
+        <p>AI 코드 실행에 필요. Windows는 PATH 체크 필수</p>
+        <a class="study-link" href="https://www.python.org/downloads/release/python-3119/" target="_blank" rel="noopener">다운로드 ↗</a>
+      </div>
+      <div class="study-card">
+        <div class="study-icon">📂</div>
+        <div class="study-card-title">Git</div>
+        <p>파일 버전 관리 — Windows는 Git for Windows</p>
+        <a class="study-link" href="https://git-scm.com/install/windows" target="_blank" rel="noopener">Windows ↗</a>
+        <a class="study-link" href="https://git-scm.com/download/mac" target="_blank" rel="noopener">Mac ↗</a>
+      </div>
+    </div>
+
+    <h3 class="study-h3" style="margin-top:48px;">Claude Code <span class="hl">확장 설치</span></h3>
+    <div class="install-card">
+      <ol class="install-steps">
+        <li>VS Code 실행</li>
+        <li>좌측 사이드바 <strong>Extensions</strong> 클릭 (또는 <code>Ctrl+Shift+X</code>)</li>
+        <li>검색창에 <strong>Claude Code</strong> 입력</li>
+        <li>Anthropic 제공 확장 → <strong>Install</strong></li>
+        <li>사이드바 Claude 아이콘 클릭</li>
+        <li><strong>Anthropic 계정으로 로그인</strong> (Pro 결제 필요)</li>
+      </ol>
+    </div>
+
+    <p class="study-end-note">
+      자세한 설치 과정은 <a href="./index.html#prep">사전 준비 섹션</a>과 <strong>5월 1주차에 배포될 설치 동영상</strong>을 참고하세요.
+    </p>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="container cta-inner">
+    <h2>준비됐다면 사전 설문으로</h2>
+    <p>여러분의 환경과 관심사를 알려주시면 강의가 더 알맞게 준비됩니다.</p>
+    <a class="btn btn-primary btn-lg" href="./survey.html">사전 설문 참여 →</a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="brand">
+      <span class="brand-mark">●</span>
+      <span class="brand-text">Hello Claude Code</span>
+    </div>
+    <div class="footer-meta">
+      <span>© 2025 Jeonseokhwan · Hello Claude Code</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
