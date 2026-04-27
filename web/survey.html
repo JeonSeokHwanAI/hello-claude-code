@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>사전 설문 · Hello Claude Code</title>
+<meta name="description" content="Hello Claude Code 4주 강의 사전 설문지">
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./styles.css">
+<link rel="stylesheet" href="./survey.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="./index.html" class="brand">
+      <span class="brand-mark">●</span>
+      <span class="brand-text">Hello Claude Code</span>
+    </a>
+    <nav class="nav">
+      <a href="./index.html#schedule">일정</a>
+      <a href="./index.html#curriculum">커리큘럼</a>
+      <a href="./index.html#prep">사전 준비</a>
+      <a href="./index.html#faq">FAQ</a>
+    </nav>
+  </div>
+</header>
+
+<section class="detail-hero">
+  <div class="container">
+    <a href="./index.html" class="detail-back">← 처음으로</a>
+    <div class="detail-eyebrow">PRE-SURVEY</div>
+    <h1 class="detail-title">사전 설문지</h1>
+    <p class="detail-sub">강의 시작 전 여러분의 환경과 관심사를 미리 파악해, 강의를 더 알맞게 준비하기 위함입니다. 약 5분 소요되며, 답변은 강사에게만 공유됩니다.</p>
+  </div>
+</section>
+
+<section class="detail-section">
+  <div class="container survey-container">
+
+    <form id="survey-form" class="survey-form" novalidate>
+
+      <div class="survey-section">
+        <h2>🅰️ 기본 정보</h2>
+
+        <div class="field">
+          <label for="name">성함 <span class="required">*</span></label>
+          <input id="name" name="name" type="text" required placeholder="홍길동">
+        </div>
+
+        <div class="field">
+          <label for="email">이메일 <span class="required">*</span></label>
+          <input id="email" name="email" type="email" required placeholder="you@example.com">
+          <p class="hint">강의 안내·자료를 받으실 주소</p>
+        </div>
+      </div>
+
+      <div class="survey-section">
+        <h2>🅱️ 환경</h2>
+
+        <div class="field">
+          <label>사용할 컴퓨터의 OS <span class="required">*</span></label>
+          <div class="radio-group">
+            <label class="radio"><input type="radio" name="os" value="windows" required> Windows 10/11</label>
+            <label class="radio"><input type="radio" name="os" value="mac"> macOS</label>
+            <label class="radio"><input type="radio" name="os" value="other"> 기타</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>VS Code 사용 경험</label>
+          <div class="radio-group">
+            <label class="radio"><input type="radio" name="vscode" value="daily"> 자주 쓴다</label>
+            <label class="radio"><input type="radio" name="vscode" value="some"> 써본 적 있다</label>
+            <label class="radio"><input type="radio" name="vscode" value="none"> 처음이다</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>코딩 경험</label>
+          <div class="radio-group">
+            <label class="radio"><input type="radio" name="coding" value="none"> 거의 없다 (HTML 정도만)</label>
+            <label class="radio"><input type="radio" name="coding" value="beginner"> 한두 번 책·강의로 따라해 봤다</label>
+            <label class="radio"><input type="radio" name="coding" value="some"> 어느 정도 가능 (Python·JS 등)</label>
+            <label class="radio"><input type="radio" name="coding" value="pro"> 직업적으로 코딩한다</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="survey-section">
+        <h2>🅲️ Claude / AI 사용 경험</h2>
+
+        <div class="field">
+          <label>AI 챗봇(ChatGPT·Claude·Gemini 등) 사용 빈도</label>
+          <div class="radio-group">
+            <label class="radio"><input type="radio" name="ai_experience" value="daily"> 매일 쓴다</label>
+            <label class="radio"><input type="radio" name="ai_experience" value="weekly"> 주에 몇 번 쓴다</label>
+            <label class="radio"><input type="radio" name="ai_experience" value="rare"> 가끔 써봤다</label>
+            <label class="radio"><input type="radio" name="ai_experience" value="never"> 거의/전혀 안 써봤다</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Claude Code(VS Code 확장)를 써본 적 있나요?</label>
+          <div class="radio-group">
+            <label class="radio"><input type="radio" name="claude_code" value="yes"> 써봤다</label>
+            <label class="radio"><input type="radio" name="claude_code" value="heard"> 들어는 봤다</label>
+            <label class="radio"><input type="radio" name="claude_code" value="new"> 처음 듣는다</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Anthropic 유료 결제 상태 <span class="required">*</span></label>
+          <div class="radio-group">
+            <label class="radio"><input type="radio" name="payment" value="done" required> 결제 완료</label>
+            <label class="radio"><input type="radio" name="payment" value="planning"> 강의 시작 전 결제 예정</label>
+            <label class="radio"><input type="radio" name="payment" value="question"> 결제 방법이 헷갈려요 (안내 부탁)</label>
+          </div>
+          <p class="hint">본 강의는 실습 분량이 많아 Pro 이상 결제가 필요합니다.</p>
+        </div>
+      </div>
+
+      <div class="survey-section">
+        <h2>🅳️ 관심사</h2>
+
+        <div class="field">
+          <label>3주차에 만들어 보고 싶은 것 <span class="hint-inline">(중복 선택 가능)</span></label>
+          <div class="check-group">
+            <label class="check"><input type="checkbox" name="interests" value="blog"> 📝 블로그 분석 도구</label>
+            <label class="check"><input type="checkbox" name="interests" value="youtube"> 🎬 유튜브 채널 분석</label>
+            <label class="check"><input type="checkbox" name="interests" value="calendar"> 📅 Google Calendar 자동화</label>
+            <label class="check"><input type="checkbox" name="interests" value="sheets"> 📊 Google Sheets 자동화</label>
+            <label class="check"><input type="checkbox" name="interests" value="survey"> 🌐 설문 페이지 + DB + 배포</label>
+            <label class="check"><input type="checkbox" name="interests" value="other"> 기타 (아래 자유 입력)</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="automation_idea">본인 업무·일상 중 "이거 자동화되면 진짜 좋겠다" 싶은 일</label>
+          <textarea id="automation_idea" name="automation_idea" rows="4" placeholder="자유롭게 적어주세요. 강의에서 사례로 다룰 수도 있습니다."></textarea>
+        </div>
+      </div>
+
+      <div class="survey-section">
+        <h2>🅴️ 마지막</h2>
+
+        <div class="field">
+          <label for="notes">강사에게 미리 알리고 싶은 것 <span class="hint-inline">(선택)</span></label>
+          <textarea id="notes" name="notes" rows="3" placeholder="예: 코딩이 정말 처음이라 천천히 부탁드려요 / 설치 막히는 부분 있어요"></textarea>
+        </div>
+
+        <div class="field">
+          <label>강의 후 사용 후기 공유 의향</label>
+          <div class="radio-group">
+            <label class="radio"><input type="radio" name="testimonial" value="ok"> 흔쾌히 OK</label>
+            <label class="radio"><input type="radio" name="testimonial" value="anonymous"> 익명이라면 OK</label>
+            <label class="radio"><input type="radio" name="testimonial" value="no"> 비공개를 원함</label>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-lg" id="submit-btn">제출하기</button>
+      <div id="form-message" class="form-message" hidden></div>
+    </form>
+
+    <div id="thanks" class="thanks-card" hidden>
+      <h2>🎉 답변 감사드립니다</h2>
+      <p>여러분의 답변을 바탕으로 강의를 준비하겠습니다. 5월 1주차에 설치 동영상 + 카톡방 안내가 메일로 발송됩니다.</p>
+      <a href="./index.html" class="btn btn-ghost">처음으로 돌아가기</a>
+    </div>
+
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="brand">
+      <span class="brand-mark">●</span>
+      <span class="brand-text">Hello Claude Code</span>
+    </div>
+    <div class="footer-meta">
+      <span>© 2025 Hello Claude Code Lecture</span>
+    </div>
+  </div>
+</footer>
+
+<script src="./survey.js" defer></script>
+</body>
+</html>

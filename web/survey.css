@@ -1,0 +1,170 @@
+/* ===== Survey Page ===== */
+.survey-container {
+  max-width: 720px;
+}
+.survey-form {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 40px;
+}
+.survey-section {
+  padding-bottom: 32px;
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--border);
+}
+.survey-section:last-of-type {
+  border-bottom: none;
+  margin-bottom: 24px;
+}
+.survey-section h2 {
+  font-size: 22px;
+  margin: 0 0 24px;
+  letter-spacing: -0.01em;
+  color: var(--accent-strong);
+}
+.field {
+  margin-bottom: 24px;
+}
+.field:last-child {
+  margin-bottom: 0;
+}
+.field label {
+  display: block;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.field .required {
+  color: var(--accent);
+  margin-left: 2px;
+}
+.field .hint {
+  font-size: 13px;
+  color: var(--text-mute);
+  margin: 6px 0 0;
+}
+.field .hint-inline {
+  font-weight: 400;
+  color: var(--text-mute);
+  font-size: 13px;
+  margin-left: 4px;
+}
+input[type="text"],
+input[type="email"],
+textarea {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-family: inherit;
+  font-size: 15px;
+  color: var(--text);
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+input[type="text"]:focus,
+input[type="email"]:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: var(--bg-card-hover);
+}
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-mute);
+}
+textarea {
+  resize: vertical;
+  min-height: 80px;
+  font-family: inherit;
+}
+.radio-group,
+.check-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+.radio,
+.check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 14.5px;
+  color: var(--text-soft);
+  transition: border-color 0.15s ease, background 0.15s ease;
+  margin-bottom: 0;
+}
+.radio:hover,
+.check:hover {
+  border-color: var(--border-strong);
+  background: var(--bg-card-hover);
+}
+.radio input,
+.check input {
+  accent-color: var(--accent);
+  width: 16px;
+  height: 16px;
+}
+.radio:has(input:checked),
+.check:has(input:checked) {
+  border-color: var(--accent);
+  background: rgba(217, 119, 87, 0.08);
+  color: var(--text);
+}
+#submit-btn {
+  width: 100%;
+  margin-top: 8px;
+}
+#submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.form-message {
+  margin-top: 16px;
+  padding: 14px 18px;
+  border-radius: 10px;
+  font-size: 14.5px;
+  text-align: center;
+}
+.form-message.error {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #f87171;
+}
+.form-message.warning {
+  background: rgba(217, 119, 87, 0.1);
+  border: 1px solid rgba(217, 119, 87, 0.3);
+  color: var(--accent-strong);
+}
+.thanks-card {
+  background: var(--bg-card);
+  border: 1px solid var(--accent);
+  border-radius: 16px;
+  padding: 56px 40px;
+  text-align: center;
+}
+.thanks-card h2 {
+  font-size: 28px;
+  margin: 0 0 16px;
+  letter-spacing: -0.02em;
+}
+.thanks-card p {
+  color: var(--text-soft);
+  font-size: 16px;
+  margin: 0 0 32px;
+  line-height: 1.7;
+}
+
+@media (max-width: 640px) {
+  .survey-form { padding: 24px; }
+  .survey-section h2 { font-size: 20px; }
+}

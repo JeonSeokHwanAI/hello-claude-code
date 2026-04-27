@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 4 — Skill ↔ Agent 연동 · Hello Claude Code</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="./index.html" class="brand">
+      <span class="brand-mark">●</span>
+      <span class="brand-text">Hello Claude Code</span>
+    </a>
+    <nav class="nav">
+      <a href="./index.html#schedule">일정</a>
+      <a href="./index.html#curriculum">커리큘럼</a>
+      <a href="./index.html#prep">사전 준비</a>
+      <a href="./index.html#faq">FAQ</a>
+    </nav>
+  </div>
+</header>
+
+<section class="detail-hero">
+  <div class="container">
+    <a href="./index.html" class="detail-back">← 전체 커리큘럼</a>
+    <div class="detail-eyebrow">WEEK 04</div>
+    <h1 class="detail-title">코워크 + Agent 연동 🤖</h1>
+    <p class="detail-sub">Agent에 들어가기 전에 <strong>코워크</strong>(Claude와 함께 일하는 법)를 먼저 다집니다. 그 위에 <strong>3주차에 만든 Skill</strong>을 Agent와 연결해 한 단계 위 자동화로 넘어갑니다. 블로그·유튜브·Calendar·Sheets·설문 페이지 — 무엇을 만들었든 Agent로 묶을 수 있습니다.</p>
+    <div class="detail-meta">
+      <div class="detail-meta-item">날짜<strong>2025-06-10 (수)</strong></div>
+      <div class="detail-meta-item">시간<strong>21:00~ (기본 2h)</strong></div>
+      <div class="detail-meta-item">난이도<strong>초급~중급</strong></div>
+      <div class="detail-meta-item">선수 학습<strong>Week 3</strong></div>
+      <div class="detail-meta-item">제공 자료<strong>없음 (실습 중심)</strong></div>
+    </div>
+  </div>
+</section>
+
+<section class="detail-section">
+  <div class="container">
+    <h2>학습 목표</h2>
+    <div class="session">
+      <ul>
+        <li><strong>코워크</strong> — Claude와 효율적으로 협업하는 패턴 체화</li>
+        <li>Skill과 Agent의 차이를 한 문장으로 설명</li>
+        <li>.claude/agents/ 폴더에 본인 Agent 1개 작성·호출</li>
+        <li>Skill 1~2개를 묶은 미니 워크플로우 동작 확인</li>
+        <li>강의 이후 학습 경로 인지 (MCP, SDK, 커뮤니티)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="detail-section">
+  <div class="container">
+    <h2>Skill vs Agent</h2>
+    <div class="session">
+      <ul>
+        <li><strong>Skill</strong> — 정해진 절차(매뉴얼). 부르면 그대로 실행. 비유: 엑셀 매크로</li>
+        <li><strong>Agent</strong> — 목표를 받고 어떤 Skill·도구를 쓸지 스스로 결정. 비유: 비서에게 일 맡기기</li>
+        <li>Agent 사용 시 장점: 컨텍스트 절약, 자동 분기, 병렬 작업</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="detail-section">
+  <div class="container">
+    <h2>커리큘럼 구성</h2>
+
+    <div class="session-list">
+      <div class="session">
+        <div class="session-num">1ST · 25min · 코워크</div>
+        <h3>Claude와 함께 일하는 법 (Co-work)</h3>
+        <ul>
+          <li><strong>코워크 마인드셋</strong> — Claude는 "도구"가 아니라 "동료"</li>
+          <li>역할 분담 패턴: 내가 결정 / Claude가 실행 / 함께 검토</li>
+          <li>컨텍스트 공유: CLAUDE.md, 슬래시 커맨드, 파일 첨부</li>
+          <li>리뷰 루프: 결과 → 피드백 → 재실행 사이클을 짧게</li>
+          <li>Git으로 함께 일하기 — 커밋 메시지, PR, 코드 리뷰 협업</li>
+          <li>막혔을 때 빠져나오기: /clear, 새 세션, 더 작은 단위로 쪼개기</li>
+        </ul>
+      </div>
+
+      <div class="session">
+        <div class="session-num">2ND · 25min · Agent</div>
+        <h3>Agent 개념 + Skill 연동 ⭐</h3>
+        <ul>
+          <li>Skill vs Agent 한 장 정리</li>
+          <li>Subagent 종류: Explore / Plan / general-purpose</li>
+          <li>라이브 비교: (a) Skill만 호출 vs (b) Agent + Skill</li>
+          <li>강사 라이브: <strong>위클리-에이전트</strong> 작성 — Calendar + Sheets + 분석 결과 통합</li>
+          <li>좋은 Agent 체크리스트 5개</li>
+          <li>본인 3주차 Skill을 묶는 Agent 작성</li>
+        </ul>
+      </div>
+
+      <div class="session">
+        <div class="session-num">3RD · 25min</div>
+        <h3>운영 팁 + 시연 발표 + 수료</h3>
+        <ul>
+          <li>권한 관리 (/permissions) — 위험 명령 가드</li>
+          <li>자원자 시연 발표 (Agent 자랑 타임)</li>
+          <li>더 깊이: 공식 문서, MCP, Claude Agent SDK</li>
+          <li>4주 회고 + 수료</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="detail-section">
+  <div class="container">
+    <h2>Agent 샘플 3종 — 3주차 결과물별 묶음</h2>
+    <p class="sub">본인이 3주차에 무엇을 만들었느냐에 따라 어울리는 Agent 패턴이 달라집니다.</p>
+    <div class="for-grid" style="margin-top: 24px;">
+      <div class="for-card">
+        <div class="for-icon">📚</div>
+        <h3>콘텐츠-에이전트</h3>
+        <p style="text-align: left;">3주차에 <strong>블로그·유튜브 분석</strong> 만든 분 추천. 채널/블로거 던지면 알아서 수집·분석·요약 시트 정리까지.</p>
+        <p style="text-align: left; color: var(--text-mute); font-size: 13px; margin-top: 8px;"><code>/blog-search</code> + <code>/yt-channel-summary</code> + <code>/sheet-sync</code> 묶음</p>
+      </div>
+      <div class="for-card">
+        <div class="for-icon">📆</div>
+        <h3>위클리-에이전트</h3>
+        <p style="text-align: left;">3주차에 <strong>Calendar·Sheets</strong> 자동화 만든 분 추천. 매주 일요일 저녁 자동 실행되는 한 주 정리 비서.</p>
+        <p style="text-align: left; color: var(--text-mute); font-size: 13px; margin-top: 8px;"><code>/weekly-digest</code> + <code>/sheet-sync</code> + 메일 발송</p>
+      </div>
+      <div class="for-card" style="border-color: var(--accent);">
+        <div class="for-icon">🌐</div>
+        <h3>설문-운영-에이전트 ⭐</h3>
+        <p style="text-align: left;">3주차에 <strong>설문 페이지</strong> 만든 분 추천. 응답 모니터링·통계 자동 정리·답변자 메일 회신까지 한 번에.</p>
+        <p style="text-align: left; color: var(--text-mute); font-size: 13px; margin-top: 8px;">Supabase 조회 + 통계 + 시트 갱신 + 메일 회신</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="detail-section">
+  <div class="container">
+    <h2>4주 동안 한 일</h2>
+    <div class="session">
+      <ul>
+        <li>✅ 환경 구축 (VS Code + Claude 확장)</li>
+        <li>✅ 첫 응용 프로그램 (자기소개 페이지)</li>
+        <li>✅ Skill 사용 (품의서 자동화)</li>
+        <li>✅ Skill 직접 작성 (블로그·SNS·업무 시나리오)</li>
+        <li>✅ Agent 연동 (워크플로우 자동화)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="detail-section">
+  <div class="container">
+    <h2>강의 이후 — 다음 1개월 권장</h2>
+    <div class="homework">
+      <h3>🚀 챌린지</h3>
+      <ul>
+        <li><strong>1주차</strong>: 만든 Skill 매일 사용</li>
+        <li><strong>2주차</strong>: 부족한 부분 description·절차 개선</li>
+        <li><strong>3주차</strong>: 새 시나리오 1개 추가</li>
+        <li><strong>4주차</strong>: 동기들과 Agent 1개씩 교환·리뷰</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="container cta-inner">
+    <h2>수료를 축하합니다 🎉</h2>
+    <p>여러분만의 Skill과 Agent를 가지고 다음 단계로.</p>
+    <a class="btn btn-primary btn-lg" href="./index.html">처음으로</a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="brand">
+      <span class="brand-mark">●</span>
+      <span class="brand-text">Hello Claude Code</span>
+    </div>
+    <div class="footer-meta">
+      <span>© 2025 Hello Claude Code Lecture</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
