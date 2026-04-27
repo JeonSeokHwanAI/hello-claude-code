@@ -478,11 +478,80 @@
   font-weight: 600;
 }
 
-@media (max-width: 768px) {
+/* ===== Responsive ===== */
+@media (max-width: 900px) {
+  .study-section { padding: 56px 0; }
+  .ch-head h2 { font-size: 30px; }
+  .study-grid-4 { grid-template-columns: 1fr 1fr; }
   .vs-layout { grid-template-columns: 1fr; }
-  .vs-divider { transform: rotate(90deg); }
+  .vs-divider { transform: rotate(90deg); padding: 8px 0; }
   .md-compare { grid-template-columns: 1fr; }
-  .ch-head h2 { font-size: 28px; }
-  .study-h3 { font-size: 20px; }
+}
+
+@media (max-width: 640px) {
+  .study-section { padding: 44px 0; }
+  .ch-head { margin-bottom: 32px; }
+  .ch-head h2 { font-size: 24px; }
+  .study-h3 { font-size: 19px; margin-bottom: 18px; }
+
+  /* TOC scrollable */
+  .study-toc {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    margin-left: -16px;
+    margin-right: -16px;
+    padding: 0 16px 8px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .study-toc::-webkit-scrollbar { display: none; }
+  .study-toc a { flex-shrink: 0; padding: 10px 14px; }
+
+  /* Grids → 1 column */
+  .study-grid-4,
+  .study-grid-3 { grid-template-columns: 1fr; gap: 12px; }
+  .study-card { padding: 20px; }
+
+  /* Quotes */
+  .big-quote { padding: 24px 22px; margin: 24px 0; }
   .quote-main { font-size: 22px; }
+  .quote-sub { font-size: 14px; }
+
+  /* Tables — horizontal scroll */
+  .compare-wrap {
+    overflow-x: auto;
+    margin-left: -16px;
+    margin-right: -16px;
+    padding: 0 16px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .study-table { min-width: 540px; font-size: 13.5px; }
+  .study-table th, .study-table td { padding: 10px 12px; }
+
+  /* Stack flow */
+  .stack-box { padding: 16px 20px; }
+  .stack-text { font-size: 15px; }
+
+  /* Folder row stacks vertically */
+  .folder-row { flex-direction: column; }
+  .folder-arrow { transform: rotate(90deg); }
+  .folder-card { width: 100%; padding: 16px 20px; }
+  .centerline { font-size: 16px; }
+
+  /* Markdown compare */
+  .md-flow { font-size: 14px; gap: 8px; }
+  .md-flow span { padding: 8px 12px; }
+
+  /* VS layout */
+  .vs-card { padding: 20px; }
+
+  /* Flow row */
+  .flow-section { padding: 22px; }
+  .flow-row { flex-direction: column; align-items: stretch; }
+  .flow-arrow { transform: rotate(90deg); }
+  .flow-step { width: 100%; }
+
+  /* Install */
+  .install-card { padding: 22px 24px; }
+  .install-steps { font-size: 14.5px; line-height: 1.9; }
 }

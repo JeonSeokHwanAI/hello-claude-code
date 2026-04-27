@@ -165,6 +165,26 @@ textarea {
 }
 
 @media (max-width: 640px) {
-  .survey-form { padding: 24px; }
-  .survey-section h2 { font-size: 20px; }
+  .survey-form { padding: 22px 18px; border-radius: 12px; }
+  .survey-section { padding-bottom: 24px; margin-bottom: 24px; }
+  .survey-section h2 { font-size: 18px; margin-bottom: 18px; }
+  .field { margin-bottom: 18px; }
+  .field label { font-size: 14px; }
+  input[type="text"],
+  input[type="email"],
+  textarea {
+    padding: 11px 12px;
+    font-size: 16px; /* iOS 줌 방지 */
+  }
+  .radio,
+  .check {
+    padding: 11px 12px;
+    font-size: 14px;
+  }
+  .thanks-card {
+    padding: 40px 24px;
+    border-radius: 12px;
+  }
+  .thanks-card h2 { font-size: 23px; }
+  .thanks-card p { font-size: 15px; }
 }
