@@ -214,6 +214,13 @@
       </div>
       <div class="prep-card">
         <div class="prep-step">6</div>
+        <h3>설치영상</h3>
+        <p>설치 과정을 영상으로 따라 하세요. 암호는 아래 버튼으로 복사할 수 있어요.</p>
+        <a href="https://us06web.zoom.us/rec/share/Q1Y8aOp_Kva_KifkCVXuaHqhEYdFgReK9NFLnX4ZrErlVhWv3CjqJ-MD04QEQWgK.HWhM168ld6hBnG-B" target="_blank" rel="noopener">설치영상 보기 ↗</a>
+        <button type="button" class="copy-btn" data-copy="@qdNz%4C" onclick="copyPasscode(this)">암호 복사</button>
+      </div>
+      <div class="prep-card">
+        <div class="prep-step">7</div>
         <h3>실습 폴더</h3>
         <p>강의 시작 전 GitHub에 공개될 실습 폴더 ZIP을 받아 VS Code로 열기.</p>
         <span class="prep-pending">강의 1주 전 공개 예정</span>
@@ -363,5 +370,30 @@
   </div>
 </footer>
 
+<script>
+function copyPasscode(btn) {
+  var text = btn.getAttribute('data-copy');
+  var done = function () {
+    var original = btn.textContent;
+    btn.textContent = '복사됨 ✓';
+    setTimeout(function () { btn.textContent = original; }, 1500);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done, function () { fallback(); });
+  } else {
+    fallback();
+  }
+  function fallback() {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); done(); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+}
+</script>
 </body>
 </html>
