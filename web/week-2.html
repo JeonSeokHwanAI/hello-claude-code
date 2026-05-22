@@ -3,12 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Week 2 — Skill 이해와 사용 · Hello Claude Code</title>
+<title>Week 2 — Skill 만들기: PRD로 빌드 · Hello Claude Code</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="./favicon.svg">
 <link rel="stylesheet" href="./styles.css">
+<style>
+  pre.flow-block {
+    background: var(--bg); border: 1px solid var(--border); border-radius: 12px;
+    padding: 20px 22px; overflow-x: auto; margin: 0; -webkit-overflow-scrolling: touch;
+  }
+  pre.flow-block code {
+    font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.7;
+    color: var(--text-soft); white-space: pre;
+  }
+  pre.flow-block .cmt { color: var(--text-mute); }
+  pre.flow-block .key { color: var(--accent-strong); }
+  @media (max-width: 640px) { pre.flow-block { padding: 16px; font-size: 12px; } pre.flow-block code { font-size: 11.5px; } }
+</style>
 </head>
 <body>
 
@@ -31,14 +44,14 @@
   <div class="container">
     <a href="./index.html" class="detail-back">← 전체 커리큘럼</a>
     <div class="detail-eyebrow">WEEK 02</div>
-    <h1 class="detail-title">Skill로 어디까지 가능한가 (시연 회차)</h1>
-    <p class="detail-sub">이번 주는 <strong>Skill이 어떻게 다양하게 활용되는지 보여주는 시간</strong>입니다. 콘텐츠 분석부터 외부 서비스 연동, 풀스택 웹 빌드까지 — 같은 Skill 패턴이 5가지 전혀 다른 분야로 확장되는 모습을 봅니다. 다음 주엔 그중 하나를 직접 만들어 봅니다.</p>
+    <h1 class="detail-title">Skill 만들기 — PRD로 빌드</h1>
+    <p class="detail-sub">이번 주는 <strong>설계 문서(PRD) 한 장을 보고 실제 동작하는 Skill을 직접 빌드</strong>하는 시간입니다. 예제는 강사가 실제로 쓰는 <strong>YouTube 탐색·분석 도구 한 쌍</strong>. "Claude가 PRD를 읽고 도구를 만든다"는 감각을 체득합니다.</p>
     <div class="detail-meta">
       <div class="detail-meta-item">날짜<strong>2026-05-27 (수)</strong></div>
       <div class="detail-meta-item">시간<strong>21:00~ (기본 2h)</strong></div>
       <div class="detail-meta-item">난이도<strong>입문~초급</strong></div>
       <div class="detail-meta-item">선수 학습<strong>Week 1</strong></div>
-      <div class="detail-meta-item">제공 자료<strong>Automation_hub</strong></div>
+      <div class="detail-meta-item">제공 자료<strong>YouTube Tooling PRD</strong></div>
     </div>
   </div>
 </section>
@@ -48,10 +61,10 @@
     <h2>학습 목표</h2>
     <div class="session">
       <ul>
-        <li>"왜 ChatGPT 웹이 아니라 Claude Code인가" 한 문장으로 설명</li>
-        <li>Skill / Command / MCP = AI에게 일을 시키는 3가지 방식 구분</li>
-        <li>5가지 시연을 보고 <strong>다음 주에 직접 만들 1개를 선택</strong></li>
-        <li>"AI가 자료 분석부터 웹사이트 배포까지 한다"는 감각 체득</li>
+        <li><strong>PRD(설계 문서)가 무엇이고</strong> 왜 Skill 제작의 출발점인지 한 문장으로 설명</li>
+        <li>PRD를 Claude에게 던져 <strong>Skill이 자동으로 빌드되는 과정</strong>을 직접 본다</li>
+        <li><code>youtube-explorer</code>로 첫 검색 페이지를 띄우고, <code>youtube-analyze</code>로 영상을 요약한다</li>
+        <li>Skill의 내부 구조(<code>SKILL.md</code> · frontmatter · scripts)를 열어 본다</li>
       </ul>
     </div>
   </div>
@@ -59,50 +72,109 @@
 
 <section class="detail-section">
   <div class="container">
+    <h2>먼저 — Skill로 이런 것들이 됩니다 (짧은 시연)</h2>
+    <p class="sub">본격적으로 만들기 전에, Skill이 어디까지 확장되는지 1~2분짜리 미니 데모로 훑어봅니다.</p>
+    <div class="for-grid" style="margin-top: 8px;">
+      <div class="for-card">
+        <div class="for-icon">📝</div>
+        <h3>블로그 분석</h3>
+        <p>관심 블로거 글 수집 → 핵심 요약·페르소나 추출</p>
+      </div>
+      <div class="for-card">
+        <div class="for-icon">🎬</div>
+        <h3>유튜브 분석 ⭐</h3>
+        <p>채널·영상 자동 정리 + 자막 요약 — <strong>오늘 직접 만듭니다</strong></p>
+      </div>
+      <div class="for-card">
+        <div class="for-icon">📅</div>
+        <h3>Calendar (MCP)</h3>
+        <p>"내일 2시 회의 잡아줘" · 주간 일정 요약</p>
+      </div>
+      <div class="for-card">
+        <div class="for-icon">📊</div>
+        <h3>Sheets (MCP)</h3>
+        <p>분석 결과를 시트에 자동 정리·공유</p>
+      </div>
+    </div>
+    <div style="margin-top: 20px; padding: 16px 20px; background: var(--bg-card); border-left: 4px solid var(--accent); border-radius: 8px; font-size: 14.5px; color: var(--text-soft);">
+      🌐 풀스택 <strong>설문 페이지 + Supabase + Vercel</strong>은 난이도가 있어 <strong>4주차</strong>에서 Agent 운영과 함께 다룹니다.
+    </div>
+  </div>
+</section>
+
+<section class="detail-section">
+  <div class="container">
+    <h2>오늘 만들 것 — YouTube 도구 한 쌍</h2>
+    <p class="sub">PRD <code>YouTube Tooling</code> 한 장에 두 스킬의 설계와 전체 소스가 들어 있습니다. 외부 SaaS 없이 내 컴퓨터에서 완결됩니다.</p>
+    <div class="session-list">
+      <div class="session">
+        <div class="session-num">SKILL ①</div>
+        <h3>youtube-explorer — 탐색</h3>
+        <ul>
+          <li>키워드/채널 검색 → 카드 그리드 HTML 생성</li>
+          <li>로컬 HTTP 서버 + Chrome 자동 오픈</li>
+          <li>카드 클릭 → 모달 재생, "📝 분석 큐에 추가"</li>
+        </ul>
+      </div>
+      <div class="session">
+        <div class="session-num">SKILL ②</div>
+        <h3>youtube-analyze — 분석</h3>
+        <ul>
+          <li>URL/ID 또는 큐 → 자막 추출 → 마크다운 저장</li>
+          <li>Claude가 .md를 읽고 3줄 요약·키워드·논점 분석</li>
+          <li>(선택) 댓글까지 수집해 반응 패턴 분석</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin-top: 24px;">
+      <pre class="flow-block"><code><span class="key">[explorer]</span>                          <span class="key">[analyze]</span>
+키워드 → API → 필터 → HTML           URL/ID 또는 큐 → 자막 추출 → .md
+   │                                    │
+   └─ 뷰어에서 카드 클릭                └─ Claude가 .md 읽고 요약·키워드·논점
+        │
+        └─ "📝 분석 큐에 추가" ───────→ analyze-queue.jsonl
+                                  <span class="cmt">↑ 두 스킬을 잇는 단 한 줄의 계약</span></code></pre>
+    </div>
+  </div>
+</section>
+
+<section class="detail-section">
+  <div class="container">
     <h2>커리큘럼 구성</h2>
-    <p class="sub">참고 자료: <code style="color: var(--accent-strong)">Automation_hub</code> Ch 01~04 (이론) + 강사 자체 제작 도구 <code style="color: var(--accent-strong)">AI Blog Writer</code></p>
+    <p class="sub">3교시 × 25분 — "PRD 이해 → 라이브 빌드 → 고도화·실습"</p>
 
     <div class="session-list">
       <div class="session">
         <div class="session-num">1ST · 25min · 이론</div>
-        <h3>왜 Claude Code이고, Skill이란 무엇인가</h3>
+        <h3>PRD란? 그리고 PRD → Skill 빌드 원리</h3>
         <ul>
-          <li>AI의 종류와 코딩 AI의 위치</li>
-          <li>웹 챗봇 vs CLI/IDE AI — 파일·실행·연속 작업</li>
-          <li>Claude Code 핵심 구조: 입력 → 작업 → 출력</li>
-          <li><strong>Skill = AI 업무 매뉴얼</strong> — 한 패턴이 어디까지 확장될 수 있는가</li>
-          <li>오늘 시연 5종의 공통점 미리보기 — "다 같은 Skill 패턴"</li>
+          <li><strong>Skill = AI 업무 매뉴얼</strong> · <strong>PRD = 그 매뉴얼의 설계도</strong></li>
+          <li>"바로 만들어줘" vs "PRD 보고 만들어줘" — 재현성의 차이</li>
+          <li>PRD §17 부트스트랩: <strong>한 줄 요청으로 Claude가 전체 빌드</strong>하는 구조</li>
+          <li>Skill 폴더 구조 미리보기: <code>SKILL.md</code> + <code>scripts/</code></li>
         </ul>
       </div>
 
       <div class="session">
-        <div class="session-num">2ND · 25min · 라이브 데모 ①</div>
-        <h3>강사 자체 도구 + 외부 서비스 연동</h3>
+        <div class="session-num">2ND · 25min · 라이브 빌드</div>
+        <h3>PRD 던지고 explorer 빌드 → 첫 검색</h3>
         <ul>
-          <li><strong>📝 블로그 분석</strong> — AI Blog Writer
-            <br>&nbsp;&nbsp;&nbsp;<code>/search</code> → <code>/review</code> → <code>/report</code> → <code>/persona</code></li>
-          <li><strong>🎬 유튜브 채널 분석</strong> — 강사 도구
-            <br>&nbsp;&nbsp;&nbsp;채널 등록·즐겨찾기·영상 요약</li>
-          <li><strong>📅 Google Calendar (MCP)</strong>
-            <br>&nbsp;&nbsp;&nbsp;"내일 2시 회의 잡아줘" / "이번 주 일정 정리"</li>
-          <li><strong>📊 Google Sheets (MCP)</strong>
-            <br>&nbsp;&nbsp;&nbsp;분석 결과를 시트에 자동 정리</li>
+          <li>PRD 파일을 프로젝트에 두고 <strong>"이 PRD대로 youtube-explorer 빌드해줘"</strong></li>
+          <li>Claude가 폴더·스크립트 생성 → 의존성 설치 → 스모크 테스트</li>
+          <li><code>.env</code>에 YouTube API 키 넣기 (발급 안내 포함)</li>
+          <li>첫 검색 실행 → Chrome에 카드 그리드 페이지 등장</li>
         </ul>
       </div>
 
       <div class="session">
-        <div class="session-num">3RD · 25min · 라이브 데모 ②</div>
-        <h3>풀스택 한 방에 — 설문조사 페이지 + DB + 배포</h3>
+        <div class="session-num">3RD · 25min · 고도화·실습</div>
+        <h3>analyze 추가 + 본인 키워드로 실습</h3>
         <ul>
-          <li><strong>🌐 설문조사 웹사이트 라이브 빌드</strong>
-            <br>&nbsp;&nbsp;&nbsp;Claude에게 "설문 페이지 만들어 — 응답은 DB에 저장, Vercel 배포까지" 한 줄 요청</li>
-          <li>HTML 폼 자동 생성 (질문 5~7개)</li>
-          <li><strong>데이터 저장 옵션 비교 시연</strong>
-            <br>&nbsp;&nbsp;&nbsp;옵션 A: <strong>Google Sheets</strong> (간단·무료)
-            <br>&nbsp;&nbsp;&nbsp;옵션 B: <strong>Supabase</strong> (실서비스용·무료 한도)</li>
-          <li><strong>🚀 Vercel 배포 라이브</strong> — `vercel` 명령 한 번으로 실제 도메인 발급</li>
-          <li>강의 시작 25분 만에 <strong>실제 동작하는 웹사이트 + DB</strong> 완성</li>
-          <li><strong>마무리</strong>: "오늘 본 5가지 중 1개를 다음 주 본인이 직접 만든다" — 선택 안내</li>
+          <li>같은 PRD로 <code>youtube-analyze</code> 빌드</li>
+          <li>큐에 담은 영상 → <code>--next</code>로 자막 요약 생성</li>
+          <li>본인 관심 키워드/채널로 직접 탐색·분석</li>
+          <li>Skill 내부(<code>SKILL.md</code>)를 열어 "왜 이렇게 동작하나" 확인</li>
         </ul>
       </div>
     </div>
@@ -111,62 +183,13 @@
 
 <section class="detail-section">
   <div class="container">
-    <h2>5가지 시연 한눈에 보기</h2>
-    <p class="sub">다음 주에는 이 중 <strong>1개를 골라 직접 만듭니다</strong>. 오늘은 일단 다 보세요.</p>
-    <div class="session-list">
-      <div class="session">
-        <div class="session-num">①  📝 블로그 분석</div>
-        <h3>AI Blog Writer (강사 자체 제작)</h3>
-        <ul>
-          <li>강사가 실제로 매일 쓰는 도구 — 가짜 예제 아님</li>
-          <li>네이버 블로거는 한국 일반 사용자에 즉시 공감</li>
-          <li>결과: 분석 HTML 리포트 1개</li>
-        </ul>
-      </div>
-      <div class="session">
-        <div class="session-num">②  🎬 유튜브 분석</div>
-        <h3>채널·영상 자동 정리</h3>
-        <ul>
-          <li>채널 등록·즐겨찾기·주제별 필터링</li>
-          <li>영상 자막 → 핵심 요약</li>
-          <li>본인 콘텐츠 인풋 관리에 즉시 활용</li>
-        </ul>
-      </div>
-      <div class="session">
-        <div class="session-num">③  📅 Google Calendar (MCP)</div>
-        <h3>일정을 자연어로 다루기</h3>
-        <ul>
-          <li>"내일 2시 OO 미팅" → 자동 등록</li>
-          <li>"이번 주 일정 정리" → 깔끔한 요약</li>
-          <li>정기 분석을 알림으로 자동화</li>
-        </ul>
-      </div>
-      <div class="session">
-        <div class="session-num">④  📊 Google Sheets (MCP)</div>
-        <h3>외부 시스템과 협업</h3>
-        <ul>
-          <li>분석 결과를 시트에 자동 정리</li>
-          <li>지저분한 데이터를 정렬·요약</li>
-          <li>다른 사람과 손쉬운 공유</li>
-        </ul>
-      </div>
-      <div class="session" style="border-color: var(--accent); background: linear-gradient(180deg, var(--bg-card), rgba(217, 119, 87, 0.06));">
-        <div class="session-num">⑤  🌐 설문조사 페이지 + DB + 배포 ⭐</div>
-        <h3>풀스택 한 방에 — 25분 만에 실서비스</h3>
-        <ul>
-          <li><strong>프론트엔드</strong>: Claude가 HTML 폼 자동 생성</li>
-          <li><strong>백엔드 옵션 비교</strong>:
-            <br>· <strong>Google Sheets</strong> — 가장 간단, 무료, 설문 결과 보기 직관적
-            <br>· <strong>Supabase</strong> — 실서비스용 PostgreSQL, 무료 한도, 확장성 ↑</li>
-          <li><strong>배포</strong>: Vercel — <code>vercel</code> 한 줄 → 진짜 도메인</li>
-          <li>이 강의 사이트도 같은 방식으로 만들어졌습니다</li>
-          <li>"AI가 코드를 쓰면 일반인도 풀스택 빌드 가능"의 살아있는 증거</li>
-        </ul>
-      </div>
-    </div>
-    <div style="margin-top: 24px; padding: 20px 24px; background: var(--bg-card); border-left: 4px solid var(--accent); border-radius: 8px; font-size: 15px; color: var(--text-soft);">
-      <strong>이번 주는 시연만</strong> — 직접 안 따라 해도 됩니다. 5개 중에 "이거 만들어 보고 싶다" 1개만 정해 오세요. 다음 주 그걸 함께 만듭니다.
-    </div>
+    <h2>PRD 기반 빌드 흐름 (한눈에)</h2>
+    <p class="sub">이번 주 라이브에서 따라갈 단계입니다. 사용자가 PRD를 직접 읽을 필요는 없습니다 — Claude가 참고합니다.</p>
+    <pre class="flow-block"><code><span class="key">①</span> PRD 보고 skill 만들기      <span class="cmt">(초기 설치, 코드 생성)</span>
+<span class="key">②</span> 유튜브 검색 페이지 만들기   <span class="cmt">(첫 사용 — explorer)</span>
+<span class="key">③</span> skill 고도화                <span class="cmt">(시청 기록 + 분석 큐)</span>
+<span class="key">④</span> 유튜브 분석 skill 만들기    <span class="cmt">(자막 분석 — analyze)</span>
+<span class="key">⑤</span> 댓글까지 분석하기           <span class="cmt">(반응 패턴)</span></code></pre>
   </div>
 </section>
 
@@ -198,12 +221,11 @@
   <div class="container">
     <h2>이번 주 과제</h2>
     <div class="homework">
-      <h3>📋 다음 주 만들 1개 선택</h3>
+      <h3>🛠️ 내 키워드로 YouTube 도구 굴려보기</h3>
       <ul>
-        <li>오늘 본 5가지 시연 중 <strong>다음 주에 본인이 만들어 보고 싶은 1개</strong> 선택</li>
-        <li>왜 그것을 골랐는지 + 본인 상황에 어떻게 응용할지 1~2줄 메모 (Week 3 재료)
-          <br>예: "설문 페이지 — 우리 동호회 출석체크용으로 쓰고 싶음"</li>
-        <li>(선택) 인상 깊었던 시연을 본인 자료로 한 번 따라해 보기 — 강요 아님</li>
+        <li>오늘 빌드한 explorer/analyze를 본인 관심 주제로 <strong>3회 이상</strong> 실제 사용</li>
+        <li>"이 도구에 이런 기능이 더 있으면 좋겠다" 1~2개 메모 (3주차 PRD 재료)</li>
+        <li>(선택) SKILL.md를 열어 한 줄이라도 직접 고쳐 보기 — 동작이 어떻게 바뀌는지 관찰</li>
       </ul>
     </div>
   </div>
@@ -214,7 +236,7 @@
     <a href="./week-3.html" class="next-week">
       <div>
         <div class="next-week-label">NEXT · WEEK 03</div>
-        <div class="next-week-title">Skill 직접 만들기 — 블로그·SNS·업무</div>
+        <div class="next-week-title">스킬 제작을 위한 PRD 만들기</div>
       </div>
       <div class="next-week-arrow">→</div>
     </a>

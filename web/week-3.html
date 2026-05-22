@@ -3,12 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Week 3 — Skill 직접 만들기 · Hello Claude Code</title>
+<title>Week 3 — 스킬 제작을 위한 PRD 만들기 · Hello Claude Code</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="./favicon.svg">
 <link rel="stylesheet" href="./styles.css">
+<style>
+  pre.flow-block {
+    background: var(--bg); border: 1px solid var(--border); border-radius: 12px;
+    padding: 20px 22px; overflow-x: auto; margin: 0; -webkit-overflow-scrolling: touch;
+  }
+  pre.flow-block code {
+    font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.7;
+    color: var(--text-soft); white-space: pre;
+  }
+  pre.flow-block .cmt { color: var(--text-mute); }
+  pre.flow-block .key { color: var(--accent-strong); }
+  .design-steps { display: grid; gap: 14px; margin-top: 8px; }
+  .design-step {
+    display: flex; gap: 16px; align-items: flex-start;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 22px 24px;
+  }
+  .design-step .num {
+    flex-shrink: 0; width: 38px; height: 38px; border-radius: 50%;
+    background: var(--accent-glow); color: var(--accent-strong);
+    font-weight: 800; font-size: 16px; display: flex; align-items: center; justify-content: center;
+  }
+  .design-step h3 { margin: 4px 0 6px; font-size: 18px; }
+  .design-step p { margin: 0; color: var(--text-mute); font-size: 14.5px; line-height: 1.7; }
+  .design-step code { font-family: 'JetBrains Mono', monospace; color: var(--accent-strong); font-size: 13px; }
+  @media (max-width: 640px) { pre.flow-block { padding: 16px; font-size: 12px; } pre.flow-block code { font-size: 11.5px; } }
+</style>
 </head>
 <body>
 
@@ -31,14 +57,14 @@
   <div class="container">
     <a href="./index.html" class="detail-back">← 전체 커리큘럼</a>
     <div class="detail-eyebrow">WEEK 03</div>
-    <h1 class="detail-title">2주차 시연 1개를 직접 만들기 🚀</h1>
-    <p class="detail-sub">2주차에 본 5가지 시연 중 본인이 선택한 1개를 직접 만듭니다. 강사가 처음부터 함께 만들어 주는 구조 — 블로그 분석·유튜브 정리·Calendar/Sheets 연동·풀스택 설문 페이지 중 본인 선택.</p>
+    <h1 class="detail-title">스킬 제작을 위한 PRD 만들기 ✍️</h1>
+    <p class="detail-sub">2주차엔 PRD를 보고 Skill을 빌드했습니다. 이번 주는 <strong>거꾸로</strong> — 본인이 만들고 싶은 도구의 <strong>PRD(설계 문서)를 직접 씁니다</strong>. 잘 쓴 PRD 한 장이면 Claude가 알아서 빌드합니다.</p>
     <div class="detail-meta">
       <div class="detail-meta-item">날짜<strong>2026-06-03 (수)</strong></div>
       <div class="detail-meta-item">시간<strong>21:00~ (기본 2h)</strong></div>
       <div class="detail-meta-item">난이도<strong>초급</strong></div>
       <div class="detail-meta-item">선수 학습<strong>Week 2</strong></div>
-      <div class="detail-meta-item">제공 자료<strong>Automation_pipeline_design</strong></div>
+      <div class="detail-meta-item">제공 자료<strong>PRD 템플릿 · AI Blog Writer</strong></div>
     </div>
   </div>
 </section>
@@ -48,10 +74,10 @@
     <h2>학습 목표</h2>
     <div class="session">
       <ul>
-        <li>Skill의 내부 구조(폴더, frontmatter, 본문) 이해</li>
-        <li>첫 번째 Skill 1개 라이브로 작성·호출 성공</li>
-        <li>본인 시나리오로 Skill 1~2개 완성 시작</li>
-        <li>4주차 Agent 변환 재료 확보</li>
+        <li>좋은 PRD의 <strong>구성요소</strong>(개요·기능 요구사항·연동 계약·부트스트랩)를 안다</li>
+        <li>본인 아이디어를 <strong>기능 요구사항(F1, F2…)으로 쪼개</strong> 표로 정리한다</li>
+        <li><strong>입력 → 처리 → 출력</strong>과 파일 경로 계약을 명시할 수 있다</li>
+        <li>PRD 1장 초안을 완성해 <strong>Claude로 빌드 테스트</strong>까지 돌린다</li>
       </ul>
     </div>
   </div>
@@ -59,69 +85,75 @@
 
 <section class="detail-section">
   <div class="container">
-    <h2>시나리오 카탈로그</h2>
-    <p class="sub">메인 5종은 <strong>2주차 시연을 그대로 만들어 보는 코스</strong>, 확장 응용은 본인 상황에 맞춘 변형 코스입니다.</p>
-
-    <h3 style="margin-top: 32px; font-size: 18px; color: var(--accent-strong);">🎯 메인 — 2주차 시연 그대로 만들기</h3>
-    <div class="for-grid" style="margin-top: 16px;">
-      <div class="for-card">
-        <div class="for-icon">📝</div>
-        <h3>블로그 분석 도구</h3>
-        <p>본인이 좋아하는 블로거의 글 수집 + 분석 Skill 미니 버전 직접 작성</p>
-      </div>
-      <div class="for-card">
-        <div class="for-icon">🎬</div>
-        <h3>유튜브 채널 분석</h3>
-        <p>관심 채널 등록 + 자막 요약 + 핵심 인사이트 추출</p>
-      </div>
-      <div class="for-card">
-        <div class="for-icon">📅</div>
-        <h3>Calendar 자동화</h3>
-        <p>정기 알림 / 일정 일괄 등록 / 주간 일정 자동 요약 (MCP)</p>
-      </div>
-      <div class="for-card">
-        <div class="for-icon">📊</div>
-        <h3>Sheets 자동화</h3>
-        <p>분석 결과 자동 정리 / 데이터 동기화 / 협업 워크플로우 (MCP)</p>
+    <h2>왜 "PRD부터"인가</h2>
+    <p class="sub">같은 요청, 다른 결과 — 설계서가 있으면 빌드가 재현 가능해집니다.</p>
+    <div class="for-grid">
+      <div class="for-card" style="border-color: rgba(248, 113, 113, 0.3);">
+        <div class="for-icon">💬</div>
+        <h3>"바로 만들어줘"</h3>
+        <p style="text-align:left;">매번 결과가 다름 · 빠진 요구사항 뒤늦게 발견 · 다른 PC/프로젝트에서 재현 불가 · 대화가 길어질수록 산으로</p>
       </div>
       <div class="for-card" style="border-color: var(--accent);">
-        <div class="for-icon">🌐</div>
-        <h3>설문 페이지 + DB + 배포 ⭐</h3>
-        <p>HTML 폼 + Supabase or Sheets 저장 + Vercel 배포 — 풀스택 1사이클</p>
+        <div class="for-icon">📄</div>
+        <h3>"PRD 보고 만들어줘"</h3>
+        <p style="text-align:left;">요구사항이 표로 고정 · 누락 사전 점검 · <strong>PRD 한 장만 옮기면 어디서든 동일 빌드</strong> · 기능 추가도 표에 한 줄</p>
       </div>
     </div>
+    <div style="margin-top: 20px; padding: 16px 20px; background: var(--bg-card); border-left: 4px solid var(--accent); border-radius: 8px; font-size: 15px; color: var(--text-soft);">
+      2주차 YouTube PRD가 그 증거입니다 — 2,500줄짜리 문서 한 장으로 두 스킬을 처음부터 빌드할 수 있었죠. 오늘은 <strong>그 PRD를 어떻게 쓰는지</strong>를 배웁니다.
+    </div>
+  </div>
+</section>
 
-    <h3 style="margin-top: 40px; font-size: 18px; color: var(--accent-strong);">✨ 확장 응용 — 본인 상황 맞춤</h3>
-    <div class="for-grid" style="margin-top: 16px;">
-      <div class="for-card">
-        <div class="for-icon">✍️</div>
-        <h3>네이버 블로그 자동 작성</h3>
-        <p>2주차 <code>/persona</code> 결과 활용 → 본인 톤으로 글 초안 생성</p>
+<section class="detail-section">
+  <div class="container">
+    <h2>PRD 구조 해부 (케이스 스터디)</h2>
+    <p class="sub">YouTube PRD와 강사 도구 <code>AI Blog Writer</code>를 펼쳐, 잘 쓴 PRD에 꼭 들어가는 뼈대를 봅니다.</p>
+    <pre class="flow-block"><code><span class="key">1. 개요</span>        목적 · 사용 시나리오(S1, S2…) · 성공 기준(숫자로)
+<span class="key">2. 기능 요구사항</span> F1, F2… 표 — "무엇을" 하는지 ID로 쪼갬
+<span class="key">3. 연동 계약</span>     자원 · 경로 · 쓰는 쪽 · 읽는 쪽 (도구 간 느슨한 결합)
+<span class="key">4. 비기능</span>       속도 · 보안(.env) · 호환성 · 로깅
+<span class="key">5. 폴더/파일 배치</span> 입력 → 작업 → 출력 트리
+<span class="key">6. 부트스트랩</span>    "이 PRD대로 빌드해줘" 한 줄 + Claude 빌드 절차
+<span class="key">7. 레퍼런스 소스</span>  (선택) 전체 코드 임베드 → 복사 없이 재현</code></pre>
+    <div style="margin-top: 20px; padding: 16px 20px; background: var(--bg-card); border-left: 4px solid var(--accent); border-radius: 8px; font-size: 14.5px; color: var(--text-soft);">
+      <strong>AI Blog Writer 케이스</strong> — 강사가 매일 쓰는 블로그 작성 도구를 "이미 만든 도구를 거꾸로 PRD로 옮겨 보기" 예제로 분해합니다. 본인 도구 설계의 출발점이 됩니다.
+    </div>
+  </div>
+</section>
+
+<section class="detail-section">
+  <div class="container">
+    <h2>PRD 설계 4단계 사고</h2>
+    <p class="sub">머릿속 아이디어를 빌드 가능한 문서로 옮기는 순서.</p>
+    <div class="design-steps">
+      <div class="design-step">
+        <div class="num">1</div>
+        <div>
+          <h3>관찰 — 반복되는 일을 찾는다</h3>
+          <p>"매주 똑같이 하는 손작업"이 후보. 무엇이 입력으로 들어오고 무엇이 결과로 나오는지부터 적는다.</p>
+        </div>
       </div>
-      <div class="for-card">
-        <div class="for-icon">🎞️</div>
-        <h3>쇼츠/릴스 스크립트</h3>
-        <p>30초 후킹 + 본문 + CTA. 유튜브 분석 결과를 재료로</p>
+      <div class="design-step">
+        <div class="num">2</div>
+        <div>
+          <h3>쪼개기 — 기능 요구사항(F1, F2…)으로</h3>
+          <p>큰 작업을 작은 기능 단위로 분해해 표로. 각 기능에 <code>ID · 기능 · 설명</code>을 붙인다.</p>
+        </div>
       </div>
-      <div class="for-card">
-        <div class="for-icon">📋</div>
-        <h3>회의록 → 액션 아이템</h3>
-        <p>결정사항·TODO·담당자·마감 자동 분리 후 표로</p>
+      <div class="design-step">
+        <div class="num">3</div>
+        <div>
+          <h3>입출력 · 계약 정의</h3>
+          <p>입력 파일/경로, 출력 형식(.md·.html·.xlsx), 도구 간 주고받는 파일 경로(계약)를 명시한다.</p>
+        </div>
       </div>
-      <div class="for-card">
-        <div class="for-icon">✉️</div>
-        <h3>메일 회신 초안</h3>
-        <p>받은 메일 + 의도 → 비즈니스 톤 초안 2종</p>
-      </div>
-      <div class="for-card">
-        <div class="for-icon">📈</div>
-        <h3>일일/주간 업무 보고서</h3>
-        <p>작업 파일·메모 → 양식 맞춤 보고서 자동 생성</p>
-      </div>
-      <div class="for-card">
-        <div class="for-icon">📑</div>
-        <h3>엑셀 데이터 정리</h3>
-        <p>지저분한 엑셀 → 정렬·중복 제거·요약 표 (Sheets 응용)</p>
+      <div class="design-step">
+        <div class="num">4</div>
+        <div>
+          <h3>부트스트랩 절차 작성</h3>
+          <p>"이 PRD대로 빌드해줘"에 Claude가 따를 단계(폴더 생성 → 파일 작성 → 의존성 → 스모크 테스트)를 적는다.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -130,38 +162,39 @@
 <section class="detail-section">
   <div class="container">
     <h2>커리큘럼 구성</h2>
+    <p class="sub">3교시 × 25분 — "PRD 해부 → 라이브 작성 → 본인 PRD 작성"</p>
 
     <div class="session-list">
       <div class="session">
-        <div class="session-num">1ST · 25min · 사고 과정</div>
-        <h3>이런 Skill은 어떻게 만들까? (설계 사고)</h3>
+        <div class="session-num">1ST · 25min · 해부</div>
+        <h3>PRD 구조 + 설계 4단계 사고</h3>
         <ul>
-          <li><strong>케이스 스터디</strong>: 2주차에 쓴 <code>/search</code>·<code>/review</code>·<code>/report</code> 도구를 강사가 어떻게 설계했는가</li>
-          <li>4단계 설계 사고: <strong>관찰 → 쪼개기 → 입출력 정의 → 매뉴얼 작성</strong></li>
-          <li>command vs Skill 차이 — 같은 도구를 Skill로 만들면 어떻게 달라지나</li>
-          <li>좋은 Skill 5원칙</li>
+          <li>YouTube PRD / AI Blog Writer를 펼쳐 뼈대 분석</li>
+          <li>좋은 PRD 5원칙 — 재현성·계약·숫자 성공기준</li>
+          <li>"바로 만들어줘" vs "PRD 보고" 비교</li>
+          <li>관찰 → 쪼개기 → 계약 → 부트스트랩</li>
         </ul>
       </div>
 
       <div class="session">
-        <div class="session-num">2ND · 25min · 첫 Skill</div>
-        <h3>나만의 첫 Skill 라이브 작성</h3>
+        <div class="session-num">2ND · 25min · 라이브</div>
+        <h3>작은 도구 PRD 한 장 라이브 작성</h3>
         <ul>
-          <li>.claude/skills/ 폴더 구조 / frontmatter / 본문 마크다운</li>
-          <li>강사 라이브: "주간 업무 일지" Skill 작성 → 즉시 호출 → 디버깅</li>
-          <li>시나리오 카탈로그 투표 → 2~3개 깊게 다루기</li>
-          <li>본인 말투 학습 시연 (블로그·페르소나 케이스, 2주차 <code>/persona</code> 와 연결)</li>
+          <li>강사 라이브: "주간 업무 일지" 같은 작은 도구의 PRD를 즉석 작성</li>
+          <li>기능 요구사항 표 → 입출력 → 부트스트랩까지</li>
+          <li>완성한 PRD를 Claude에게 던져 <strong>그 자리에서 빌드</strong></li>
+          <li>빌드 실패 → PRD의 어디를 고쳐야 하나 디버깅</li>
         </ul>
       </div>
 
       <div class="session">
         <div class="session-num">3RD · 25min · 본인 작업</div>
-        <h3>본인 시나리오 적용 + 시연</h3>
+        <h3>본인 PRD 작성 + 코칭 + 시연</h3>
         <ul>
-          <li>2주차 과제로 정해 온 "내가 만들고 싶은 Skill" 작성 시작</li>
-          <li>강사 1:1 코칭 (15분)</li>
-          <li>자원자 시연 발표 2~3명 (1인 2분)</li>
-          <li>우수 사례 → 4주차 Agent 데모 재료</li>
+          <li>2주차 과제로 메모해 온 "있으면 좋겠다" 기능을 PRD로</li>
+          <li>강사 1:1 코칭 (15분) — 기능 쪼개기·계약 점검</li>
+          <li>자원자 시연 2~3명 — PRD → 빌드 결과</li>
+          <li>우수 PRD → 4주차 Agent 연동 재료</li>
         </ul>
       </div>
     </div>
@@ -170,13 +203,30 @@
 
 <section class="detail-section">
   <div class="container">
+    <h2>PRD 작성 체크리스트</h2>
+    <div class="session">
+      <ul>
+        <li>목적이 한 문장으로 적혔는가</li>
+        <li>사용 시나리오(S1, S2…)가 구체적인가</li>
+        <li>기능이 ID(F1, F2…)로 쪼개져 표로 정리됐는가</li>
+        <li>입력 → 처리 → 출력 경로가 명시됐는가</li>
+        <li>성공 기준이 숫자(시간·건수)로 적혔는가</li>
+        <li>"이 PRD대로 빌드해줘" 부트스트랩 절차가 있는가</li>
+        <li>민감 정보(API 키 등)는 <code>.env</code>로 분리했는가</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="detail-section">
+  <div class="container">
     <h2>이번 주 과제</h2>
     <div class="homework">
-      <h3>🛠️ 본인 Skill 1주일 운영</h3>
+      <h3>📝 내 도구 PRD 1장 완성</h3>
       <ul>
-        <li>Skill 1~2개 완성해서 1주일 동안 실제로 사용</li>
-        <li>사용 로그·개선 포인트 메모 (4주차 Agent 재료)</li>
-        <li>본인 Skill 묶기 좋은 짝 찾기 (예: 회의록 + 메일 회신)</li>
+        <li>본인이 만들고 싶은 도구의 PRD 1장 작성 (기능 표 + 입출력 + 부트스트랩)</li>
+        <li>Claude에게 던져 <strong>한 번이라도 빌드 시도</strong> → 막힌 부분 메모</li>
+        <li>(선택) 빌드된 Skill을 1주일 굴려 보고 개선점 기록 — 4주차 Agent 재료</li>
       </ul>
     </div>
   </div>
@@ -187,7 +237,7 @@
     <a href="./week-4.html" class="next-week">
       <div>
         <div class="next-week-label">NEXT · WEEK 04</div>
-        <div class="next-week-title">Skill ↔ Agent 연동 — 비서에게 일 맡기기</div>
+        <div class="next-week-title">코워크 + Agent 연동 — 비서에게 일 맡기기</div>
       </div>
       <div class="next-week-arrow">→</div>
     </a>

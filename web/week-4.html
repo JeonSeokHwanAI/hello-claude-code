@@ -32,13 +32,13 @@
     <a href="./index.html" class="detail-back">← 전체 커리큘럼</a>
     <div class="detail-eyebrow">WEEK 04</div>
     <h1 class="detail-title">코워크 + Agent 연동 🤖</h1>
-    <p class="detail-sub">Agent에 들어가기 전에 <strong>코워크</strong>(Claude와 함께 일하는 법)를 먼저 다집니다. 그 위에 <strong>3주차에 만든 Skill</strong>을 Agent와 연결해 한 단계 위 자동화로 넘어갑니다. 블로그·유튜브·Calendar·Sheets·설문 페이지 — 무엇을 만들었든 Agent로 묶을 수 있습니다.</p>
+    <p class="detail-sub">Agent에 들어가기 전에 <strong>코워크</strong>(Claude와 함께 일하는 법)를 먼저 다집니다. 이어서 <strong>설문 페이지 + Supabase + Vercel</strong>을 빠르게 빌드하고, 그것을 <strong>Agent로 운영</strong>하는 데까지 갑니다. 2~3주차에 만든 본인 Skill도 Agent로 묶습니다.</p>
     <div class="detail-meta">
       <div class="detail-meta-item">날짜<strong>2026-06-10 (수)</strong></div>
       <div class="detail-meta-item">시간<strong>21:00~ (기본 2h)</strong></div>
       <div class="detail-meta-item">난이도<strong>초급~중급</strong></div>
       <div class="detail-meta-item">선수 학습<strong>Week 3</strong></div>
-      <div class="detail-meta-item">제공 자료<strong>없음 (실습 중심)</strong></div>
+      <div class="detail-meta-item">제공 자료<strong>Supabase 셋업 가이드</strong></div>
     </div>
   </div>
 </section>
@@ -73,6 +73,33 @@
 
 <section class="detail-section">
   <div class="container">
+    <h2>🌐 설문 페이지 풀스택 — 만들고, Agent로 운영하기</h2>
+    <p class="sub">먼저 풀스택 한 사이클을 빠르게 빌드한 뒤, 그 운영을 Agent에게 맡깁니다. (빌드 비중은 작게 — 핵심은 "Agent로 운영")</p>
+    <div class="session-list">
+      <div class="session">
+        <div class="session-num">STEP 1 · 빠른 빌드</div>
+        <h3>HTML 폼 + Supabase + Vercel</h3>
+        <ul>
+          <li>Claude에게 "설문 페이지 만들어 — 응답은 DB 저장, Vercel 배포까지" 한 줄</li>
+          <li>HTML 폼 자동 생성 → <strong>Supabase</strong>에 응답 저장 (무료 한도)</li>
+          <li><code>vercel</code> 한 번으로 실제 도메인 발급 — 이 강의 사이트도 같은 방식</li>
+        </ul>
+      </div>
+      <div class="session" style="border-color: var(--accent); background: linear-gradient(180deg, var(--bg-card), rgba(217, 119, 87, 0.06));">
+        <div class="session-num">STEP 2 · Agent로 운영 ⭐</div>
+        <h3>설문-운영-에이전트</h3>
+        <ul>
+          <li>응답 모니터링 → 통계 자동 정리 → 시트 갱신</li>
+          <li>답변자에게 메일 회신까지 한 번에</li>
+          <li>"만든 것"을 "굴러가게" 만드는 게 Agent의 역할</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="detail-section">
+  <div class="container">
     <h2>커리큘럼 구성</h2>
 
     <div class="session-list">
@@ -96,9 +123,9 @@
           <li>Skill vs Agent 한 장 정리</li>
           <li>Subagent 종류: Explore / Plan / general-purpose</li>
           <li>라이브 비교: (a) Skill만 호출 vs (b) Agent + Skill</li>
-          <li>강사 라이브: <strong>위클리-에이전트</strong> 작성 — Calendar + Sheets + 분석 결과 통합</li>
+          <li>강사 라이브: <strong>설문-운영-에이전트</strong> — 방금 빌드한 설문을 Agent로 운영</li>
           <li>좋은 Agent 체크리스트 5개</li>
-          <li>본인 3주차 Skill을 묶는 Agent 작성</li>
+          <li>본인이 2~3주차에 만든 Skill을 묶는 Agent 작성</li>
         </ul>
       </div>
 
@@ -118,25 +145,25 @@
 
 <section class="detail-section">
   <div class="container">
-    <h2>Agent 샘플 3종 — 3주차 결과물별 묶음</h2>
-    <p class="sub">본인이 3주차에 무엇을 만들었느냐에 따라 어울리는 Agent 패턴이 달라집니다.</p>
+    <h2>Agent 샘플 3종 — 본인 결과물별 묶음</h2>
+    <p class="sub">2~3주차에 무엇을 만들었느냐에 따라 어울리는 Agent 패턴이 달라집니다.</p>
     <div class="for-grid" style="margin-top: 24px;">
       <div class="for-card">
         <div class="for-icon">📚</div>
         <h3>콘텐츠-에이전트</h3>
-        <p style="text-align: left;">3주차에 <strong>블로그·유튜브 분석</strong> 만든 분 추천. 채널/블로거 던지면 알아서 수집·분석·요약 시트 정리까지.</p>
+        <p style="text-align: left;"><strong>블로그·유튜브 분석</strong> Skill을 만든 분 추천. 채널/블로거 던지면 알아서 수집·분석·요약 시트 정리까지.</p>
         <p style="text-align: left; color: var(--text-mute); font-size: 13px; margin-top: 8px;"><code>/blog-search</code> + <code>/yt-channel-summary</code> + <code>/sheet-sync</code> 묶음</p>
       </div>
       <div class="for-card">
         <div class="for-icon">📆</div>
         <h3>위클리-에이전트</h3>
-        <p style="text-align: left;">3주차에 <strong>Calendar·Sheets</strong> 자동화 만든 분 추천. 매주 일요일 저녁 자동 실행되는 한 주 정리 비서.</p>
+        <p style="text-align: left;"><strong>Calendar·Sheets</strong> 자동화 Skill을 만든 분 추천. 매주 일요일 저녁 자동 실행되는 한 주 정리 비서.</p>
         <p style="text-align: left; color: var(--text-mute); font-size: 13px; margin-top: 8px;"><code>/weekly-digest</code> + <code>/sheet-sync</code> + 메일 발송</p>
       </div>
       <div class="for-card" style="border-color: var(--accent);">
         <div class="for-icon">🌐</div>
         <h3>설문-운영-에이전트 ⭐</h3>
-        <p style="text-align: left;">3주차에 <strong>설문 페이지</strong> 만든 분 추천. 응답 모니터링·통계 자동 정리·답변자 메일 회신까지 한 번에.</p>
+        <p style="text-align: left;">오늘 만든 <strong>설문 페이지</strong>를 운영. 응답 모니터링·통계 자동 정리·답변자 메일 회신까지 한 번에.</p>
         <p style="text-align: left; color: var(--text-mute); font-size: 13px; margin-top: 8px;">Supabase 조회 + 통계 + 시트 갱신 + 메일 회신</p>
       </div>
     </div>
@@ -148,10 +175,10 @@
     <h2>4주 동안 한 일</h2>
     <div class="session">
       <ul>
-        <li>✅ 환경 구축 (VS Code + Claude 확장)</li>
-        <li>✅ 첫 응용 프로그램 (자기소개 페이지)</li>
-        <li>✅ Skill 사용 (품의서 자동화)</li>
-        <li>✅ Skill 직접 작성 (블로그·SNS·업무 시나리오)</li>
+        <li>✅ 환경 구축 + 첫 응용 프로그램 (자기소개 페이지)</li>
+        <li>✅ PRD로 Skill 빌드 (YouTube 탐색·분석)</li>
+        <li>✅ 스킬 제작을 위한 PRD 직접 작성</li>
+        <li>✅ 설문 풀스택 빌드 (Supabase + Vercel)</li>
         <li>✅ Agent 연동 (워크플로우 자동화)</li>
       </ul>
     </div>
