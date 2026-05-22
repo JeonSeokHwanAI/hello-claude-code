@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agent 샘플 모음 · Week 4 · Hello Claude Code</title>
+<meta name="description" content="콘텐츠·위클리·설문운영 Agent 샘플 3종과 미니 Agent 만들기 실습 가이드 — 4주차 참고자료">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
+<link rel="stylesheet" href="./styles.css">
+<link rel="stylesheet" href="./study.css">
+<style>
+  .guide-prose p { color: var(--text-soft); font-size: 15.5px; line-height: 1.8; margin: 0 0 16px; }
+  .guide-prose strong { color: var(--text); }
+  .guide-prose code { font-family: 'JetBrains Mono', monospace; background: rgba(217,119,87,0.1); color: var(--accent-strong); padding: 2px 7px; border-radius: 6px; font-size: 13px; }
+  .guide-prose ul { color: var(--text-soft); font-size: 15px; line-height: 1.9; padding-left: 22px; margin: 0 0 16px; }
+  pre.code-block { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; overflow-x: auto; margin: 0 0 24px; -webkit-overflow-scrolling: touch; }
+  pre.code-block code { font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.6; color: var(--text-soft); background: none; padding: 0; white-space: pre; }
+  pre.code-block .cmt { color: var(--text-mute); }
+  pre.code-block .key { color: var(--accent-strong); }
+  .note { background: var(--bg-card); border-left: 4px solid var(--accent); border-radius: 8px; padding: 16px 20px; margin: 0 0 24px; color: var(--text-soft); font-size: 14.5px; line-height: 1.75; }
+  .note strong { color: var(--text); }
+  .sample-tag { display:inline-block; font-family:'JetBrains Mono', monospace; font-size:12px; font-weight:700; letter-spacing:0.06em; color:var(--accent); background:var(--accent-glow); padding:4px 12px; border-radius:999px; margin-bottom:12px; }
+  .guide-toc a .toc-num { min-width: 22px; }
+  .checklist { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+  .checklist li { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px 12px 44px; position: relative; font-size: 14.5px; color: var(--text-soft); line-height: 1.6; }
+  .checklist li::before { content: "☐"; position: absolute; left: 16px; top: 11px; color: var(--accent); font-size: 16px; font-weight: 700; }
+  .checklist code { font-family: 'JetBrains Mono', monospace; background: rgba(217,119,87,0.1); color: var(--accent-strong); padding: 1px 6px; border-radius: 5px; font-size: 12.5px; }
+  @media (max-width: 640px) { pre.code-block { padding: 16px 12px; margin-left: -16px; margin-right: -16px; border-radius: 0; font-size: 11.5px; } pre.code-block code { font-size: 11px; } }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="./index.html" class="brand">
+      <span class="brand-mark">●</span>
+      <span class="brand-text">Hello Claude Code</span>
+    </a>
+    <nav class="nav">
+      <a href="./index.html#schedule">일정</a>
+      <a href="./index.html#curriculum">커리큘럼</a>
+      <a href="./index.html#prep">사전 준비</a>
+      <a href="./index.html#faq">FAQ</a>
+    </nav>
+  </div>
+</header>
+
+<section class="detail-hero">
+  <div class="container">
+    <a href="./week-4.html" class="detail-back">← Week 4 로</a>
+    <div class="detail-eyebrow">WEEK 04 · 참고자료</div>
+    <h1 class="detail-title">Agent 샘플 모음</h1>
+    <p class="detail-sub">2~3주차에 만든 Skill을 묶어 Agent로 확장합니다. 라이브 데모용 <strong>샘플 3종</strong>(콘텐츠·위클리·설문운영)과 <strong>미니 Agent 만들기</strong> 실습 가이드.</p>
+    <div class="detail-meta">
+      <div class="detail-meta-item">분류<strong>실습 가이드</strong></div>
+      <div class="detail-meta-item">대상<strong>본인 Skill 보유자</strong></div>
+      <div class="detail-meta-item">연관 주제<strong>Agent · Skill 연동</strong></div>
+    </div>
+
+    <nav class="study-toc guide-toc">
+      <a href="#s1"><span class="toc-num">01</span> Agent vs Skill</a>
+      <a href="#s2"><span class="toc-num">02</span> 샘플 3종</a>
+      <a href="#s3"><span class="toc-num">03</span> 미니 Agent 실습</a>
+      <a href="#s4"><span class="toc-num">04</span> 운영 팁 · 마무리</a>
+    </nav>
+  </div>
+</section>
+
+<!-- 1 -->
+<section class="detail-section" id="s1">
+  <div class="container">
+    <h2>Agent vs Skill — 한 줄 정리</h2>
+    <div class="compare-wrap">
+      <table class="study-table">
+        <thead><tr><th></th><th>Skill</th><th>Agent</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">정체성</td><td>정해진 절차 (매뉴얼)</td><td>목표를 받고 절차를 <strong>선택</strong>하는 일꾼</td></tr>
+          <tr><td class="row-label">호출 방식</td><td><code>/명령어</code>로 직접 호출</td><td>대화에서 위임하거나 다른 Agent가 호출</td></tr>
+          <tr><td class="row-label">권한</td><td>도구 사용은 호출자 권한</td><td>자체 도구 목록 + 컨텍스트 분리</td></tr>
+          <tr><td class="row-label">비유</td><td>"엑셀 매크로"</td><td>"비서한테 일 맡기기"</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note"><strong>핵심 가치</strong>: Agent를 쓰면 (1) 메인 컨텍스트를 깨끗하게 유지하고, (2) 여러 Skill을 알아서 골라 연결하며, (3) 병렬로 작업할 수 있습니다.</div>
+
+    <h3 class="study-h3" style="margin-top:32px;">폴더 구조</h3>
+    <pre class="code-block"><code>.claude/
+├── skills/                    <span class="cmt"># 2~3주차에 만든 Skill들</span>
+│   ├── naver-blog/
+│   ├── meeting-actions/
+│   └── ...
+└── agents/                    <span class="cmt"># 4주차에 만들 Agent들</span>
+    ├── content-agent.md
+    ├── weekly-agent.md
+    └── survey-ops-agent.md</code></pre>
+    <div class="guide-prose"><p>각 Agent는 마크다운 파일 1개. <strong>frontmatter + 시스템 프롬프트</strong>로 구성됩니다.</p></div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="detail-section" id="s2">
+  <div class="container">
+    <h2>Agent 샘플 3종</h2>
+
+    <div class="sample-tag">샘플 1 · content-agent</div>
+    <h3 class="study-h3" style="margin-top:0;">콘텐츠-에이전트</h3>
+    <p class="guide-subnote" style="color:var(--text-mute);font-size:14px;margin:0 0 12px;"><strong style="color:var(--text);">대상</strong>: 블로그·유튜브 분석 Skill 보유자 · <strong style="color:var(--text);">시나리오</strong>: 블로거 별명/유튜브 채널을 던지면 수집·분석·시트 정리까지 자동.</p>
+    <pre class="code-block"><code>---
+name: content-agent
+description: 블로거 또는 유튜브 채널 입력을 받아 자동으로 수집·분석·요약 시트 정리까지 수행하는 콘텐츠 분석 비서.
+tools: Read, Write, Glob, Bash, mcp__claude_ai_Google_Sheets__*
+---
+
+너는 콘텐츠 분석 비서 에이전트다.
+
+<span class="cmt">## 입력 분류</span>
+- "@" 시작 또는 "youtube.com" 포함 → 유튜브 채널 → /yt-channel-summary
+- 한국어 별명 또는 네이버 블로그 ID → 블로그 → /blog-search + /blog-review
+- 모호하면 사용자에게 한 번 묻기
+
+<span class="cmt">## 작업 흐름</span>
+1. 종류 판별 → 해당 Skill 실행
+2. 결과 마크다운 검토 → 핵심 인사이트 3가지 추출
+3. /sheet-sync 호출하여 콘텐츠 분석 시트에 행 추가
+4. 시트 URL + 인사이트 3가지 보고
+
+<span class="cmt">## 거절 규칙</span>
+- 시트 미지정 시 진행 전 시트 URL 묻기
+- 비공개 채널·블로그는 처리 거절</code></pre>
+
+    <div class="sample-tag">샘플 2 · weekly-agent</div>
+    <h3 class="study-h3" style="margin-top:0;">위클리-에이전트</h3>
+    <p class="guide-subnote" style="color:var(--text-mute);font-size:14px;margin:0 0 12px;"><strong style="color:var(--text);">대상</strong>: Calendar·Sheets 자동화 Skill 보유자 · <strong style="color:var(--text);">시나리오</strong>: 매주 일요일 저녁 한 주 회고를 자동으로.</p>
+    <pre class="code-block"><code>---
+name: weekly-agent
+description: 한 주 회고와 다음 주 준비를 자동으로 — 캘린더 요약, 시트 정리, 다음 주 미리보기를 한 번에.
+tools: Read, Write, mcp__claude_ai_Google_Calendar__*, mcp__claude_ai_Google_Sheets__*
+---
+
+너는 주간 비서 에이전트다.
+
+<span class="cmt">## 작업 흐름</span>
+1. /weekly-digest 호출 → 이번 주 일정 요약
+2. 시트(주간 트래커)에서 이번 주 행 비교 → 계획 vs 실제
+3. 회고 작성 — 잘된 일 / 미완료 / 다음 주 이월
+4. 다음 주 캘린더 조회 → "주의할 일정" 표시
+5. reports/weekly_{YYYY-MM-DD}.md 저장 + 시트 행 추가
+
+<span class="cmt">## 출력 규칙</span>
+- "이번 주 ✓✗" / "다음 주 미리보기" / "회고 한 줄" 3섹션
+- 캘린더 이벤트 임의 수정·삭제 금지 (조회만)
+
+<span class="cmt">## 자동 실행 옵션</span>
+- 원하면 매주 일요일 21:00 자동 호출</code></pre>
+
+    <div class="sample-tag">샘플 3 · survey-ops-agent ⭐</div>
+    <h3 class="study-h3" style="margin-top:0;">설문-운영-에이전트</h3>
+    <p class="guide-subnote" style="color:var(--text-mute);font-size:14px;margin:0 0 12px;"><strong style="color:var(--text);">대상</strong>: 설문 페이지(Supabase+Vercel) 보유자 · <strong style="color:var(--text);">시나리오</strong>: 응답 모니터링·통계·답변자 회신까지.</p>
+    <pre class="code-block"><code>---
+name: survey-ops-agent
+description: 배포된 설문의 응답을 주기적으로 확인하고 통계 정리·시트 갱신·답변자 자동 회신까지 처리한다.
+tools: Read, Write, Bash, mcp__claude_ai_Google_Sheets__*, WebFetch
+---
+
+너는 설문 운영 비서 에이전트다.
+
+<span class="cmt">## 입력</span>
+- 설문 식별자 (Supabase 테이블명 또는 Google Sheet ID)
+- (선택) 분석 기간 (기본: 최근 7일)
+
+<span class="cmt">## 작업 흐름</span>
+1. 데이터 소스에서 응답 행 조회
+2. 새 응답 / 누적 / 응답률(목표 대비) 계산
+3. 객관식 → 분포 그래프(텍스트 막대)
+4. 주관식 → 키워드 5개 + 대표 응답 3개 인용
+5. reports/survey_{YYYY-MM-DD}.md 저장
+6. /sheet-sync 호출해 통계 시트 갱신
+7. (옵션) 감사 메일 초안 — 사용자 확인 후 발송
+
+<span class="cmt">## 거절 규칙</span>
+- 응답자 개인정보(이메일·이름)는 본문 출력 금지 — 마스킹
+- 사용자 확인 없이 메일 자동 발송 금지</code></pre>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="detail-section" id="s3">
+  <div class="container">
+    <h2>수강생 실습 — 미니 Agent 만들기 (50분)</h2>
+    <div class="guide-prose">
+      <ul>
+        <li><strong>본인 Skill 1~2개 고르기</strong> (3주차 과제물 활용)</li>
+        <li><strong>Agent의 책임 한 줄로 적기</strong> — 예: "주제만 받으면 자료조사 + 초안까지 만들어 주는 작가"</li>
+        <li><code>.claude/agents/my-agent.md</code> 생성 — 위 샘플의 frontmatter 복사</li>
+        <li><strong>시스템 프롬프트 작성</strong> — 역할 / 입력 종류 / 호출할 Skill / 출력 규칙 / 거절 규칙</li>
+        <li><strong>테스트 호출</strong> — 메인 대화에서 Agent에게 작업 위임</li>
+        <li><strong>개선 루프</strong> — 결과가 어색하면 시스템 프롬프트 수정</li>
+      </ul>
+    </div>
+
+    <h3 class="study-h3" style="margin-top:32px;">좋은 Agent 시스템 프롬프트 체크리스트</h3>
+    <ul class="checklist">
+      <li>한 가지 책임에 집중 (Agent를 만능으로 만들지 말 것)</li>
+      <li>어떤 Skill을 언제 부르는지 명시</li>
+      <li>모호한 입력에 대한 기본 동작 정의 (다시 묻기 / 기본값)</li>
+      <li>"사용자 확인 없이 하면 안 되는 일" 명시 (메일 발송, 외부 API 호출 등)</li>
+      <li>출력 양식 (요약 → 본문 / 표 / 단계별 리포트 등) 고정</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="detail-section" id="s4">
+  <div class="container">
+    <h2>운영 팁 · 마무리</h2>
+    <div class="guide-prose">
+      <ul>
+        <li><strong>권한</strong>: Agent에 <code>Bash</code>·<code>Write</code> 같은 강력한 도구를 줄 때는 <code>/permissions</code>로 위험 명령 가드</li>
+        <li><strong>컨텍스트 절약</strong>: Agent는 자체 컨텍스트를 가지므로, 큰 자료 검색을 위임해 메인 대화를 깨끗하게 유지</li>
+        <li><strong>버전 관리</strong>: <code>.claude/agents/</code>와 <code>.claude/skills/</code> 둘 다 Git으로 관리 — 잘 굴러가던 프롬프트를 망쳤을 때 되돌릴 수 있어야 함</li>
+        <li><strong>디버깅</strong>: Agent가 헛다리 짚으면 → 시스템 프롬프트의 "역할" 또는 "입력 분류 규칙"을 더 구체적으로</li>
+      </ul>
+    </div>
+
+    <h3 class="study-h3" style="margin-top:32px;">강의 이후 — 더 깊이</h3>
+    <div class="for-grid">
+      <div class="for-card">
+        <div class="for-icon">📖</div>
+        <h3>공식 문서</h3>
+        <p>Claude Code 문서의 Subagent 섹션</p>
+      </div>
+      <div class="for-card">
+        <div class="for-icon">🔌</div>
+        <h3>MCP</h3>
+        <p>Gmail·Notion·Slack 등 외부 시스템을 Agent의 도구로 추가</p>
+      </div>
+      <div class="for-card">
+        <div class="for-icon">🧩</div>
+        <h3>Claude Agent SDK</h3>
+        <p>코드로 Agent를 더 정밀하게 제어하고 싶을 때</p>
+      </div>
+      <div class="for-card">
+        <div class="for-icon">🤝</div>
+        <h3>커뮤니티</h3>
+        <p>본인 Agent를 동기들과 공유 — 가장 빠른 학습 경로</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="detail-section">
+  <div class="container">
+    <a href="./week-4.html" class="next-week">
+      <div>
+        <div class="next-week-label">← BACK · WEEK 04</div>
+        <div class="next-week-title">코워크 + Agent 연동</div>
+      </div>
+      <div class="next-week-arrow">→</div>
+    </a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="brand">
+      <span class="brand-mark">●</span>
+      <span class="brand-text">Hello Claude Code</span>
+    </div>
+    <div class="footer-meta">
+      <span>© 2026 Jeonseokhwan · Hello Claude Code</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
