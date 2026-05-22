@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 오케스트레이터 패턴 6가지 · Week 3 · Hello Claude Code</title>
+<meta name="description" content="ReAct·CodeAct·Tool Use·Self-Reflection·Multi-Agent·Agentic RAG — AI를 더 잘 일하게 만드는 6가지 운영 패턴을 비개발자 관점에서 정리한 3주차 참고자료">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
+<link rel="stylesheet" href="./styles.css">
+<link rel="stylesheet" href="./study.css">
+<style>
+  .guide-prose p { color: var(--text-soft); font-size: 15.5px; line-height: 1.8; margin: 0 0 16px; }
+  .guide-prose strong { color: var(--text); }
+  .guide-prose em { color: var(--accent-strong); font-style: normal; font-weight: 600; }
+  .guide-prose code { font-family: 'JetBrains Mono', monospace; background: rgba(217,119,87,0.1); color: var(--accent-strong); padding: 2px 7px; border-radius: 6px; font-size: 13px; }
+  .guide-prose ul { color: var(--text-soft); font-size: 15px; line-height: 1.9; padding-left: 22px; margin: 0 0 16px; }
+  .note { background: var(--bg-card); border-left: 4px solid var(--accent); border-radius: 8px; padding: 16px 20px; margin: 0 0 24px; color: var(--text-soft); font-size: 14.5px; line-height: 1.75; }
+  .note strong { color: var(--text); }
+  .pat-tag { display:inline-block; font-family:'JetBrains Mono', monospace; font-size:12px; font-weight:700; letter-spacing:0.06em; color:var(--accent); background:var(--accent-glow); padding:4px 12px; border-radius:999px; margin-bottom:12px; }
+  .guide-subhead { font-size: 16px; font-weight: 700; margin: 22px 0 4px; color: var(--text); }
+  .guide-toc a .toc-num { min-width: 22px; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="./index.html" class="brand">
+      <span class="brand-mark">●</span>
+      <span class="brand-text">Hello Claude Code</span>
+    </a>
+    <nav class="nav">
+      <a href="./index.html#schedule">일정</a>
+      <a href="./index.html#curriculum">커리큘럼</a>
+      <a href="./index.html#prep">사전 준비</a>
+      <a href="./index.html#faq">FAQ</a>
+    </nav>
+  </div>
+</header>
+
+<section class="detail-hero">
+  <div class="container">
+    <a href="./week-3.html" class="detail-back">← Week 3 로</a>
+    <div class="detail-eyebrow">WEEK 03 · 참고자료</div>
+    <h1 class="detail-title">AI 오케스트레이터 패턴 6가지</h1>
+    <p class="detail-sub">AI를 어떻게 일시키면 더 정확하고 실용적으로 움직이는가 — LLM을 단계적으로 문제 해결하고 도구를 쓰고 결과를 개선하게 만드는 <strong>6가지 운영 패턴</strong>을 비개발자 관점에서 정리했습니다.</p>
+    <div class="detail-meta">
+      <div class="detail-meta-item">분류<strong>학습 자료</strong></div>
+      <div class="detail-meta-item">대상<strong>비개발자 · 입문</strong></div>
+      <div class="detail-meta-item">연관 주제<strong>Agent · 워크플로우 설계</strong></div>
+    </div>
+
+    <nav class="study-toc guide-toc">
+      <a href="#s1"><span class="toc-num">00</span> 핵심 개념</a>
+      <a href="#s2"><span class="toc-num">06</span> 6가지 패턴</a>
+      <a href="#s3"><span class="toc-num">∑</span> 한눈에 비교</a>
+      <a href="#s4"><span class="toc-num">＋</span> 실무 조합</a>
+      <a href="#s5"><span class="toc-num">→</span> 학습 순서·정리</a>
+    </nav>
+  </div>
+</section>
+
+<!-- 핵심 개념 -->
+<section class="detail-section" id="s1">
+  <div class="container">
+    <h2>먼저 이해하면 좋은 핵심 개념</h2>
+    <div class="for-grid">
+      <div class="for-card">
+        <div class="for-icon">🧠</div>
+        <h3>LLM</h3>
+        <p>사람의 말을 이해하고 문장을 생성하는 AI 모델. ChatGPT·Claude·Gemini.</p>
+      </div>
+      <div class="for-card">
+        <div class="for-icon">🤖</div>
+        <h3>에이전트(Agent)</h3>
+        <p>답변만 하지 않고 목표를 받아 중간 판단과 도구 사용까지 수행하는 AI.</p>
+      </div>
+      <div class="for-card">
+        <div class="for-icon">🎯</div>
+        <h3>오케스트레이터</h3>
+        <p>여러 단계의 판단·도구 호출·검토·협업 흐름을 조율하는 "팀장" 역할.</p>
+      </div>
+    </div>
+    <div class="note">그냥 "잘해봐"라고 시키면 결과가 들쭉날쭉합니다. <strong>패턴을 적용하면 AI의 행동 방식이 구조화되어 정확도와 재현성이 높아집니다.</strong></div>
+  </div>
+</section>
+
+<!-- 6 patterns -->
+<section class="detail-section" id="s2">
+  <div class="container">
+    <h2>6가지 패턴</h2>
+
+    <div class="session-list">
+      <div class="session">
+        <div class="pat-tag">PATTERN 1</div>
+        <h3>ReAct (Reason + Act)</h3>
+        <div class="guide-prose">
+          <p>모델이 추론하고(Reason), 행동하고(Act), 결과를 관찰(Observation)하며 문제를 해결하는 가장 기초적인 패턴. <em>"생각하고, 해보고, 결과를 보고, 다시 생각하는 방식"</em>.</p>
+          <p><strong>예시</strong> — "내일 서울 날씨 알려줘": 생각(내 지식만으론 불확실) → 행동(날씨 API/검색 호출) → 관찰(결과 확인) → 답변. 환각(hallucination)을 줄이고 도구 사용과 잘 결합됩니다.</p>
+          <p><strong>언제</strong>: 한 번에 풀기 어렵거나, 중간 단계 확인이 중요하거나, 검색·계산·조회가 필요할 때.</p>
+        </div>
+      </div>
+
+      <div class="session">
+        <div class="pat-tag">PATTERN 2</div>
+        <h3>CodeAct</h3>
+        <div class="guide-prose">
+          <p>자연어 설명만 하지 않고 <strong>직접 코드를 생성·실행하여 문제를 해결</strong>. <em>"손으로 계산하는 대신 계산기를 꺼내 쓰는 방식"</em>.</p>
+          <p><strong>예시</strong>: CSV에서 매출 상위 10개 뽑기 · PDF 여러 개에서 특정 문구 페이지 찾기 · 로그 집계로 에러 빈도 계산. 말로 추론하는 것보다 실행 결과가 더 정확합니다.</p>
+          <p><strong>언제</strong>: 수치 계산·파일 처리·반복 검증이 중요할 때. <strong>주의</strong>: 실행 환경 필요, 잘못된 코드 검증 필수.</p>
+        </div>
+      </div>
+
+      <div class="session">
+        <div class="pat-tag">PATTERN 3</div>
+        <h3>Tool Use (Function Calling)</h3>
+        <div class="guide-prose">
+          <p>모델이 외부 API·DB·웹 검색·사내 시스템 같은 <strong>도구를 호출</strong>하게 연결. <em>"AI에게 손과 발을 붙여주는 것"</em>.</p>
+          <p><strong>예시</strong>: 구글 캘린더 일정 조회 · 웹 검색으로 최신 뉴스 · CRM 고객 조회 · 텔레그램 요약 전송.</p>
+          <p><strong>핵심</strong>: 많은 에이전트 시스템은 사실상 <strong>ReAct + Tool Use</strong> 조합으로 시작합니다.</p>
+        </div>
+      </div>
+
+      <div class="session">
+        <div class="pat-tag">PATTERN 4</div>
+        <h3>Self-Reflection (자기 성찰)</h3>
+        <div class="guide-prose">
+          <p>자신이 만든 결과물을 <strong>스스로 검토·수정한 뒤 최종안</strong>을 내놓는 방식. <em>"초안을 쓴 뒤 스스로 검토자 역할도 한 번 더"</em>.</p>
+          <p><strong>예시</strong>: 보고서 초안 후 "논리 점검·중복 제거·누락 확인" · 이메일 후 "오해 표현 검토" · 코드 후 "버그·예외 케이스 점검".</p>
+          <p><strong>언제</strong>: 완성도가 중요할 때. <strong>주의</strong>: AI가 자기 답을 완벽히 비판하진 못함 → 중요 업무는 사람 검토 병행.</p>
+        </div>
+      </div>
+
+      <div class="session">
+        <div class="pat-tag">PATTERN 5</div>
+        <h3>Multi-Agent Flow</h3>
+        <div class="guide-prose">
+          <p>하나의 모델이 다 하지 않고 <strong>역할이 다른 여러 에이전트가 협력</strong>. <em>"AI 한 명보다 팀을 꾸리는 방식"</em>. 기획·조사·작성·리뷰 에이전트로 분업.</p>
+          <p><strong>예시</strong> — 강의 자료 만들기: 조사(사례·통계) → 요약(핵심 압축) → 슬라이드(구조화) → 리뷰(초보자 관점 검토).</p>
+          <p><strong>언제</strong>: 규모가 크고 단계가 많거나, 서로 다른 전문성·독립 검토가 필요할 때. <strong>주의</strong>: 작은 작업엔 과한 구조.</p>
+        </div>
+      </div>
+
+      <div class="session">
+        <div class="pat-tag">PATTERN 6</div>
+        <h3>Agentic RAG</h3>
+        <div class="guide-prose">
+          <p>기존 RAG(문서 검색→답변)에서 한 발 더 — <strong>어떤 문서가 필요한지 스스로 판단하고, 부족하면 다시 찾거나 검색 전략을 바꾸는 능동형</strong>. <em>"도서관 사서처럼 자료를 다시 찾아보는 방식"</em>.</p>
+          <p><strong>예시</strong>: 사내 휴가 규정 찾기 · 과거 의사결정 근거 추적 · 매뉴얼+FAQ 종합 답변.</p>
+          <p><strong>주의</strong>: 검색 품질·문서 정리·메타데이터에 좌우됨. 저장 체계가 엉망이면 성능 저하.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 한눈에 비교 -->
+<section class="detail-section" id="s3">
+  <div class="container">
+    <h2>한눈에 비교</h2>
+    <div class="compare-wrap">
+      <table class="study-table">
+        <thead><tr><th>패턴</th><th>한 줄 요약</th><th>초보자 비유</th><th>대표 용도</th></tr></thead>
+        <tbody>
+          <tr><td><strong>ReAct</strong></td><td>생각하고 행동하며 반복 해결</td><td>문제 풀면서 중간 점검</td><td>검색형 문제 해결</td></tr>
+          <tr><td><strong>CodeAct</strong></td><td>코드를 실행해 해결</td><td>계산기 대신 직접 프로그램</td><td>데이터 분석·파일 처리</td></tr>
+          <tr><td><strong>Tool Use</strong></td><td>외부 도구 연결</td><td>AI에 손과 발 붙이기</td><td>API 호출·시스템 연동</td></tr>
+          <tr><td><strong>Self-Reflection</strong></td><td>스스로 검토 후 개선</td><td>초안 쓰고 다시 검토</td><td>보고서·이메일·코드 점검</td></tr>
+          <tr><td><strong>Multi-Agent</strong></td><td>여러 AI가 역할 분담</td><td>팀을 꾸려 일하기</td><td>복잡한 프로젝트</td></tr>
+          <tr><td><strong>Agentic RAG</strong></td><td>능동적으로 문서 재검색</td><td>사서가 자료를 다시 찾기</td><td>사내 문서·지식 응답</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 실무 조합 -->
+<section class="detail-section" id="s4">
+  <div class="container">
+    <h2>실무에서 자주 쓰는 패턴 조합</h2>
+    <p class="sub">현업에선 한 패턴 단독보다 여러 패턴을 조합해 업무 흐름을 만듭니다.</p>
+    <div class="session-list">
+      <div class="session">
+        <div class="session-num">조합 ① · 문서·규정 검색</div>
+        <h3>Agentic RAG + Self-Reflection</h3>
+        <ul>
+          <li>질문을 분석해 어떤 문서를 함께 봐야 하는지 스스로 판단</li>
+          <li>답하기 전 점검: 최신 버전인가 · 예외 조항 누락 없나 · 근거 문서가 여럿일 가능성</li>
+          <li><strong>"자료를 똑똑하게 찾고, 답하기 전 다시 검토"</strong> — 규정 확인·감사 대응·내부 Q&amp;A</li>
+        </ul>
+      </div>
+      <div class="session">
+        <div class="session-num">조합 ② · 실시간 리서치</div>
+        <h3>Tool Use + ReAct</h3>
+        <ul>
+          <li>웹 검색·API·데이터 조회 도구를 호출하며 단계적으로 진행</li>
+          <li>가격 확인 → 리뷰 수집 → 중복 제거 → 핵심 요약</li>
+          <li><strong>Tool Use가 손과 발, ReAct가 순서를 정하는 머리</strong> — 시장조사·벤치마킹·뉴스 모니터링</li>
+        </ul>
+      </div>
+      <div class="session">
+        <div class="session-num">조합 ③ · 기획·콘텐츠</div>
+        <h3>Multi-Agent Flow</h3>
+        <ul>
+          <li>전략가(타깃·소구점) → 카피라이터(문구 초안) → 비평가(톤·설득력 피드백)</li>
+          <li>혼자보다 다양한 관점 + 초안 완성도·수정 속도 동시 향상</li>
+          <li><strong>"작은 팀을 꾸려 일시키기"</strong> — 캠페인 기획·콘텐츠·보고서 초안</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 학습 순서 -->
+<section class="detail-section" id="s5">
+  <div class="container">
+    <h2>학습 순서 · 정리</h2>
+    <p class="sub">6가지를 한꺼번에 구현하려 하지 말고, 아래 순서로.</p>
+    <pre style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:20px 22px;overflow-x:auto;margin:0 0 24px;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.8;color:var(--text-soft);"><code>1. ReAct          단계적 사고·행동의 기본 구조
+2. Tool Use       외부 정보·액션 수행
+3. Self-Reflection 결과물 재검토로 품질 향상
+4. CodeAct        계산·분석·파일 작업으로 확장
+5. Agentic RAG    문서 검색·지식 응답 강화
+6. Multi-Agent    규모가 커지면 팀 구조로</code></pre>
+    <div class="note">
+      실무에서는 <strong>ReAct + Tool Use + Self-Reflection</strong> 조합만으로도 상당히 강력한 자동화를 만들 수 있습니다.<br><br>
+      <strong>한 문장 요약</strong> — "AI를 잘 쓰는 핵심은, 생각하게 하고, 도구를 쓰게 하고, 다시 검토하게 만드는 것이다."
+    </div>
+    <div class="guide-prose">
+      <p>사무직 실무라면 이 세 조합부터:</p>
+      <ul>
+        <li>규정·매뉴얼·보고서 검색 → <strong>Agentic RAG + Self-Reflection</strong></li>
+        <li>시장조사·경쟁사·실시간 정보 → <strong>Tool Use + ReAct</strong></li>
+        <li>기획·초안·피드백 반복 → <strong>Multi-Agent Flow</strong></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="detail-section">
+  <div class="container">
+    <a href="./week-3.html" class="next-week">
+      <div>
+        <div class="next-week-label">← BACK · WEEK 03</div>
+        <div class="next-week-title">스킬 제작을 위한 PRD 만들기</div>
+      </div>
+      <div class="next-week-arrow">→</div>
+    </a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="brand">
+      <span class="brand-mark">●</span>
+      <span class="brand-text">Hello Claude Code</span>
+    </div>
+    <div class="footer-meta">
+      <span>© 2026 Jeonseokhwan · Hello Claude Code</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

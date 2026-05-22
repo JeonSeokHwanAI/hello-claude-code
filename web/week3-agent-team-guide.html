@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agent Team · Subagent 개념 가이드 · Week 3 · Hello Claude Code</title>
+<meta name="description" content="Main Agent / Subagent / Agent Team의 개념·차이·비용을 비교한 3주차 참고자료">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
+<link rel="stylesheet" href="./styles.css">
+<link rel="stylesheet" href="./study.css">
+<style>
+  .guide-prose p { color: var(--text-soft); font-size: 15.5px; line-height: 1.8; margin: 0 0 16px; }
+  .guide-prose strong { color: var(--text); }
+  .guide-prose code { font-family: 'JetBrains Mono', monospace; background: rgba(217,119,87,0.1); color: var(--accent-strong); padding: 2px 7px; border-radius: 6px; font-size: 13px; }
+  .guide-prose ul { color: var(--text-soft); font-size: 15px; line-height: 1.9; padding-left: 22px; margin: 0 0 16px; }
+  pre.code-block { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; overflow-x: auto; margin: 0 0 24px; -webkit-overflow-scrolling: touch; }
+  pre.code-block code { font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.6; color: var(--text-soft); background: none; padding: 0; white-space: pre; }
+  pre.code-block .cmt { color: var(--text-mute); }
+  pre.code-block .key { color: var(--accent-strong); }
+  .note { background: var(--bg-card); border-left: 4px solid var(--accent); border-radius: 8px; padding: 16px 20px; margin: 0 0 24px; color: var(--text-soft); font-size: 14.5px; line-height: 1.75; }
+  .note strong { color: var(--text); }
+  .guide-subhead { font-size: 17px; font-weight: 700; margin: 36px 0 6px; color: var(--text); }
+  .guide-subhead:first-child { margin-top: 0; }
+  .guide-subnote { font-size: 13.5px; color: var(--text-mute); margin: 0 0 16px; line-height: 1.6; }
+  .guide-toc a .toc-num { min-width: 22px; }
+  @media (max-width: 640px) { pre.code-block { padding: 16px 12px; margin-left: -16px; margin-right: -16px; border-radius: 0; font-size: 11.5px; } pre.code-block code { font-size: 11px; } }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="./index.html" class="brand">
+      <span class="brand-mark">●</span>
+      <span class="brand-text">Hello Claude Code</span>
+    </a>
+    <nav class="nav">
+      <a href="./index.html#schedule">일정</a>
+      <a href="./index.html#curriculum">커리큘럼</a>
+      <a href="./index.html#prep">사전 준비</a>
+      <a href="./index.html#faq">FAQ</a>
+    </nav>
+  </div>
+</header>
+
+<section class="detail-hero">
+  <div class="container">
+    <a href="./week-3.html" class="detail-back">← Week 3 로</a>
+    <div class="detail-eyebrow">WEEK 03 · 참고자료</div>
+    <h1 class="detail-title">Agent Team · Subagent 개념 가이드</h1>
+    <p class="detail-sub">Main Agent(메인 세션), Subagent(독립 작업자), Agent Team(팀 협업) — 세 가지가 무엇이 다르고, 언제·어떤 비용으로 쓰는지 정리했습니다.</p>
+    <div class="detail-meta">
+      <div class="detail-meta-item">분류<strong>학습 자료</strong></div>
+      <div class="detail-meta-item">조사일<strong>2026-04-07</strong></div>
+      <div class="detail-meta-item">연관 주제<strong>Agent · Subagent · 비용</strong></div>
+    </div>
+
+    <nav class="study-toc guide-toc">
+      <a href="#s1"><span class="toc-num">01</span> Main Agent</a>
+      <a href="#s2"><span class="toc-num">02</span> Subagent</a>
+      <a href="#s3"><span class="toc-num">03</span> Main vs Subagent</a>
+      <a href="#s4"><span class="toc-num">04</span> Agent Team</a>
+      <a href="#s5"><span class="toc-num">05</span> 비용 비교</a>
+      <a href="#s6"><span class="toc-num">06</span> 실전 시나리오</a>
+    </nav>
+  </div>
+</section>
+
+<!-- 1 -->
+<section class="detail-section" id="s1">
+  <div class="container">
+    <h2>1. Main Agent (메인 세션)</h2>
+    <div class="guide-prose">
+      <p>사용자와 직접 대화하는 <strong>주 세션</strong>. Claude Code를 실행(<code>claude</code>)하는 순간 자동으로 시작되며, 별도 설정이나 정의 파일 없이 생성됩니다. 즉, <strong>사용자가 Claude Code와 대화하고 있는 그 세션 자체가 Main Agent</strong>입니다.</p>
+      <ul>
+        <li>전체 대화 이력, CLAUDE.md, 메모리를 보유</li>
+        <li>작업을 판단하고 필요 시 subagent를 spawn하는 <strong>오케스트레이터</strong> 역할</li>
+        <li>세션 종료까지 컨텍스트 유지 (누적됨)</li>
+        <li>Subagent를 생성할 수 있는 유일한 주체</li>
+        <li><code>.claude/agents/</code>에 정의하는 것은 subagent이며, Main Agent의 정의 파일은 없음</li>
+      </ul>
+    </div>
+    <pre class="code-block"><code>PM (사용자) ↔ 지금 이 대화 (Main Agent)
+                    │
+                    ├→ doc-manager (subagent) spawn 가능
+                    ├→ researcher (subagent) spawn 가능
+                    ├→ community (subagent) spawn 가능
+                    └→ ...</code></pre>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="detail-section" id="s2">
+  <div class="container">
+    <h2>2. Subagent</h2>
+    <div class="guide-prose"><p>메인 Agent가 <code>Agent</code> tool로 spawn하는 <strong>독립 작업자</strong>.</p></div>
+
+    <div class="guide-subhead">핵심 특성</div>
+    <div class="guide-prose">
+      <ul>
+        <li><strong>자체 컨텍스트 윈도우</strong> — 메인 대화 이력을 상속받지 않음, spawn prompt만 수신</li>
+        <li><strong>프로젝트 컨텍스트 로드</strong> — CLAUDE.md, MCP 서버, Skills는 자동 로드</li>
+        <li><strong>완료 시 컨텍스트 폐기</strong> — 요약만 메인에 반환, 탐색 과정은 사라짐</li>
+        <li><strong>파일 변경은 유지</strong> — 디스크에 쓴 파일은 남음</li>
+        <li><strong>다른 subagent 생성 불가</strong> — 위임 체인 방지</li>
+      </ul>
+    </div>
+
+    <div class="guide-subhead">완료 후 남는 것 vs 사라지는 것</div>
+    <div class="compare-wrap">
+      <table class="study-table">
+        <thead><tr><th></th><th>남는다</th><th>사라진다</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">요약 결과</td><td class="good">Main 컨텍스트에 반환</td><td>-</td></tr>
+          <tr><td class="row-label">생성/수정 파일</td><td class="good">디스크에 유지</td><td>-</td></tr>
+          <tr><td class="row-label">작업 과정</td><td>-</td><td class="bad">검색·파일 읽기·시행착오 전부</td></tr>
+          <tr><td class="row-label">대화 이력</td><td>-</td><td class="bad">전부 폐기</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note">같은 subagent를 다시 spawn하면 <strong>이전에 뭘 했는지 전혀 모릅니다.</strong> 매번 새 직원이 오는 것과 같습니다. → 쓰는 이유는 <strong>컨텍스트 효율성</strong>: 긴 탐색을 위임하면 메인 컨텍스트가 비대해지지 않고 요약만 돌아옵니다.</div>
+
+    <div class="guide-subhead">설정 옵션 — <code>.claude/agents/{name}.md</code></div>
+    <pre class="code-block"><code>---
+name: "Research Agent"
+description: "Researches topics and finds external resources"
+model: "haiku"
+tools:
+  allow: [WebFetch, WebSearch, Glob, Grep]
+  deny: [Bash, Write]
+disabled: false
+scope: project
+---</code></pre>
+    <div class="compare-wrap">
+      <table class="study-table">
+        <thead><tr><th>옵션</th><th>용도</th></tr></thead>
+        <tbody>
+          <tr><td><code>model</code></td><td>subagent 모델 override (sonnet, haiku 등)</td></tr>
+          <tr><td><code>tools.allow / deny</code></td><td>도구 허용/차단</td></tr>
+          <tr><td><code>mcpServers</code></td><td>MCP 서버 범위 지정</td></tr>
+          <tr><td><code>run_in_background</code></td><td>true = 비동기, false = 완료 대기</td></tr>
+          <tr><td><code>disabled</code></td><td>삭제 없이 비활성화</td></tr>
+          <tr><td><code>scope</code></td><td>project / user / plugin</td></tr>
+          <tr><td><code>isolation: "worktree"</code></td><td>독립 git worktree에서 실행 (파일 충돌 방지)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="detail-section" id="s3">
+  <div class="container">
+    <h2>3. Main Agent vs Subagent</h2>
+    <div class="compare-wrap">
+      <table class="study-table">
+        <thead><tr><th></th><th>Main Agent</th><th>Subagent</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">컨텍스트</td><td>대화 전체 누적</td><td>매번 새로 시작 (spawn prompt만)</td></tr>
+          <tr><td class="row-label">가시성</td><td>사용자가 실시간 확인</td><td>최종 요약만 반환</td></tr>
+          <tr><td class="row-label">도구</td><td>전체 접근</td><td>정의 파일에서 제한 가능</td></tr>
+          <tr><td class="row-label">모델</td><td>세션 설정 따름</td><td>개별 override 가능</td></tr>
+          <tr><td class="row-label">수명</td><td>세션 종료까지</td><td>작업 완료 시 폐기</td></tr>
+          <tr><td class="row-label">spawn 능력</td><td>subagent 생성 가능</td><td>불가</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="detail-section" id="s4">
+  <div class="container">
+    <h2>4. Agent Team</h2>
+    <div class="guide-prose">
+      <p>Claude Code의 <strong>실험적 기능</strong>(기본 비활성)으로, <strong>여러 독립적인 Claude Code 세션이 팀으로 협업</strong>하는 구조입니다.</p>
+      <ul>
+        <li><strong>Team Lead</strong>: 팀을 생성하고 조율하는 메인 세션</li>
+        <li><strong>Teammates</strong>: 각자 독립된 컨텍스트를 가진 별도 Claude Code 인스턴스</li>
+        <li><strong>공유 태스크 리스트</strong>: 팀원들이 자율적으로 claim하고 수행</li>
+        <li><strong>메시징 시스템</strong>: 팀원 간 직접 소통 가능</li>
+      </ul>
+    </div>
+
+    <div class="guide-subhead">활성화 방법 (v2.1.32 이상)</div>
+    <pre class="code-block"><code><span class="cmt">// .claude/settings.json</span>
+{
+  "env": { "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1" }
+}</code></pre>
+    <div class="guide-prose"><p>또는 CLI: <code>claude --env CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1</code></p></div>
+
+    <div class="guide-subhead">제약 사항</div>
+    <div class="compare-wrap">
+      <table class="study-table">
+        <thead><tr><th>제약</th><th>대응</th></tr></thead>
+        <tbody>
+          <tr><td>세션 resume 시 teammate 복원 안 됨</td><td>새로 spawn</td></tr>
+          <tr><td>태스크 상태 지연 가능</td><td>수동 확인</td></tr>
+          <tr><td>세션당 1팀, 중첩 불가</td><td>기존 팀 정리 후 새 팀</td></tr>
+          <tr><td>Split pane은 tmux/iTerm2 필요</td><td>Windows는 in-process 모드</td></tr>
+          <tr><td>토큰 비용 N배 (teammate 수)</td><td>3명 시작 권장</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="guide-subhead">Subagent vs Agent Team</div>
+    <div class="compare-wrap">
+      <table class="study-table">
+        <thead><tr><th></th><th>Subagent</th><th>Agent Team Teammate</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">통신</td><td>메인에게만 반환</td><td>팀원 간 직접 메시징</td></tr>
+          <tr><td class="row-label">컨텍스트</td><td>완료 시 폐기</td><td>독립 세션으로 유지</td></tr>
+          <tr><td class="row-label">조율</td><td>메인이 순차 관리</td><td>공유 태스크 + 자율 claim</td></tr>
+          <tr><td class="row-label">비용</td><td>낮음 (요약만 반환)</td><td>높음 (독립 세션)</td></tr>
+          <tr><td class="row-label">상호 통신</td><td>불가 (메인 중개)</td><td>직접 가능</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="detail-section" id="s5">
+  <div class="container">
+    <h2>5. 비용 비교: Subagent vs Agent Team</h2>
+    <pre class="code-block"><code>Subagent  = 직원 1명을 불러서 일 시키고 보고서 받기
+Agent Team = 사무실 하나를 새로 차려서 팀 운영하기</code></pre>
+
+    <div class="guide-subhead">시나리오별 토큰 사용량</div>
+    <div class="compare-wrap">
+      <table class="study-table">
+        <thead><tr><th>리서치 1건</th><th>토큰</th><th>비유</th></tr></thead>
+        <tbody>
+          <tr><td>Main이 직접</td><td>~11,500</td><td>사장님이 직접 조사</td></tr>
+          <tr><td>Subagent 위임</td><td>~13,300 (+15%)</td><td>직원 한 명 시켜 보고서</td></tr>
+          <tr><td>Agent Team</td><td>~15,100 (+31%)</td><td>팀 세팅 + 팀원이 조사</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note">Subagent 1회 spawn 시 작업 시작 전 고정 비용 ≈ <strong>1,800~3,500 토큰</strong> (CLAUDE.md 로드 ~1,000 + MCP/도구 ~500 + spawn prompt ~300-500). Agent Team은 이 고정 비용이 <strong>teammate 수만큼 반복</strong>됩니다. ⚠️ Agent Team이 <strong>plan 모드</strong>로 돌면 단일 세션 대비 약 <strong>7배</strong> 토큰 소비.</div>
+
+    <div class="guide-subhead">비용 절감 전략 · 모델 배치</div>
+    <pre class="code-block"><code>Main Agent (Lead)  → Opus    <span class="cmt">(판단·조율 품질 중요)</span>
+Subagent 일반      → Sonnet  <span class="cmt">(균형)</span>
+단순 작업          → Haiku   <span class="cmt">(저렴)</span></code></pre>
+    <div class="compare-wrap">
+      <table class="study-table">
+        <thead><tr><th></th><th>Subagent</th><th>Agent Team</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">비용</td><td class="good">+15~30%</td><td class="bad">+30~700%</td></tr>
+          <tr><td class="row-label">장점</td><td>메인 컨텍스트 보호, 저렴</td><td>팀원 간 소통, 병렬 속도</td></tr>
+          <tr><td class="row-label">쓸 때</td><td>독립 작업 위임</td><td>협업·토론이 필요할 때</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note"><strong>돈 아끼려면 Subagent, 속도와 협업이 중요하면 Agent Team.</strong></div>
+  </div>
+</section>
+
+<!-- 6 -->
+<section class="detail-section" id="s6">
+  <div class="container">
+    <h2>6. 실전 시나리오 — 정부과제 신청서 자료 준비</h2>
+    <div class="guide-prose"><p>6개 Agent(community·researcher·doc-manager·simulator·reviewer·orchestrator)로 같은 일을 두 방식으로 처리한 비교.</p></div>
+
+    <div class="guide-subhead">Subagent 방식 (순차 중개)</div>
+    <pre class="code-block"><code>PM → Main: "카톡 파일 분석해줘"
+Main → community → 요약 반환 → Main
+Main → researcher → 요약 반환 → Main
+Main → doc-manager → 요약 반환 → Main
+Main → reviewer → 요약 반환 → Main
+Main → PM 최종 보고
+<span class="cmt">문제: 모든 단계가 Main을 거쳐 순차. community가 끝나야 researcher 시작.</span></code></pre>
+
+    <div class="guide-subhead">Agent Team 방식 (병렬 + 직접 소통)</div>
+    <pre class="code-block"><code>community → doc-manager:  "필수서류 5종, 마감 2026-04-25"
+community → researcher:   "주관기관 KEIT, 예산 확인 필요"
+researcher → doc-manager: "유사과제 3건, 차별화 전략 반영 권고"
+doc-manager → simulator:  "기술개발계획서에 시뮬레이션 스펙 필요"
+simulator → doc-manager:  "ROS2 Humble + Gazebo 스펙 정리 완료"
+<span class="cmt">Subagent였다면 위 5건 모두 Main을 거쳐 5번의 spawn-반환 사이클.</span></code></pre>
+
+    <div class="compare-wrap">
+      <table class="study-table">
+        <thead><tr><th></th><th>Subagent (현재)</th><th>Agent Team</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">소요 시간</td><td>순차 5단계</td><td class="good">병렬 → 빠름</td></tr>
+          <tr><td class="row-label">Main 컨텍스트</td><td>5개 요약 누적</td><td class="good">Lead는 최종 보고만</td></tr>
+          <tr><td class="row-label">중간 소통</td><td>Main 거쳐 5회 중개</td><td>teammate 간 직접 5회</td></tr>
+          <tr><td class="row-label">비용</td><td class="good">기본</td><td class="bad">~3-4배</td></tr>
+          <tr><td class="row-label">PM 개입</td><td>매 단계 확인 가능</td><td>[확인 필요]만 보고</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note">2026-04-07 시뮬레이션(각 역할을 subagent로 재현): teammate 간 소통 5건을 처리할 때 Subagent는 Main 개입 5회·요약 4개 누적, Agent Team(이론)은 Main 개입 0회·최종 보고만. 원문에는 settings.json/CLAUDE.md 전환 내역과 전체 프롬프트가 추가로 정리되어 있습니다.</div>
+  </div>
+</section>
+
+<section class="detail-section">
+  <div class="container">
+    <a href="./week-3.html" class="next-week">
+      <div>
+        <div class="next-week-label">← BACK · WEEK 03</div>
+        <div class="next-week-title">스킬 제작을 위한 PRD 만들기</div>
+      </div>
+      <div class="next-week-arrow">→</div>
+    </a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="brand">
+      <span class="brand-mark">●</span>
+      <span class="brand-text">Hello Claude Code</span>
+    </div>
+    <div class="footer-meta">
+      <span>© 2026 Jeonseokhwan · Hello Claude Code</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
