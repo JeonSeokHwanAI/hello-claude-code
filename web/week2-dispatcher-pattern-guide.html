@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>디스패처 패턴 가이드 · Week 2 · Hello Claude Code</title>
+<meta name="description" content="Root CLAUDE.md가 하위 Agent의 CLAUDE.md를 불러와 스킬을 실행하는 디스패처 패턴 구조 가이드 — 2주차 참고자료">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
+<link rel="stylesheet" href="./styles.css">
+<link rel="stylesheet" href="./study.css">
+<style>
+  .guide-prose p { color: var(--text-soft); font-size: 15.5px; line-height: 1.8; margin: 0 0 16px; }
+  .guide-prose strong { color: var(--text); }
+  .guide-prose code {
+    font-family: 'JetBrains Mono', monospace;
+    background: rgba(217, 119, 87, 0.1);
+    color: var(--accent-strong);
+    padding: 2px 7px; border-radius: 6px; font-size: 13px;
+  }
+  .guide-prose ul { color: var(--text-soft); font-size: 15px; line-height: 1.9; padding-left: 22px; margin: 0 0 16px; }
+  pre.code-block {
+    background: var(--bg); border: 1px solid var(--border); border-radius: 12px;
+    padding: 20px 22px; overflow-x: auto; margin: 0 0 24px; -webkit-overflow-scrolling: touch;
+  }
+  pre.code-block code {
+    font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.6;
+    color: var(--text-soft); background: none; padding: 0; white-space: pre;
+  }
+  pre.code-block .cmt { color: var(--text-mute); }
+  pre.code-block .key { color: var(--accent-strong); }
+  .note {
+    background: var(--bg-card); border-left: 4px solid var(--accent); border-radius: 8px;
+    padding: 16px 20px; margin: 0 0 24px; color: var(--text-soft); font-size: 14.5px; line-height: 1.75;
+  }
+  .note strong { color: var(--text); }
+  .guide-subhead { font-size: 17px; font-weight: 700; margin: 36px 0 6px; color: var(--text); }
+  .guide-subhead:first-child { margin-top: 0; }
+  .guide-subnote { font-size: 13.5px; color: var(--text-mute); margin: 0 0 16px; line-height: 1.6; }
+  .guide-toc a .toc-num { min-width: 22px; }
+  .rules-list { counter-reset: r; list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+  .rules-list li {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 16px 14px 52px; position: relative; font-size: 15px; color: var(--text-soft); line-height: 1.6;
+  }
+  .rules-list li::before {
+    counter-increment: r; content: counter(r);
+    position: absolute; left: 14px; top: 12px;
+    width: 26px; height: 26px; border-radius: 50%;
+    background: var(--accent-glow); color: var(--accent-strong);
+    font-weight: 800; font-size: 13px; display: flex; align-items: center; justify-content: center;
+  }
+  .rules-list code {
+    font-family: 'JetBrains Mono', monospace; background: rgba(217, 119, 87, 0.1);
+    color: var(--accent-strong); padding: 1px 6px; border-radius: 5px; font-size: 13px;
+  }
+  @media (max-width: 640px) {
+    pre.code-block { padding: 16px 12px; margin-left: -16px; margin-right: -16px; border-radius: 0; font-size: 12px; }
+    pre.code-block code { font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="./index.html" class="brand">
+      <span class="brand-mark">●</span>
+      <span class="brand-text">Hello Claude Code</span>
+    </a>
+    <nav class="nav">
+      <a href="./index.html#schedule">일정</a>
+      <a href="./index.html#curriculum">커리큘럼</a>
+      <a href="./index.html#prep">사전 준비</a>
+      <a href="./index.html#faq">FAQ</a>
+    </nav>
+  </div>
+</header>
+
+<section class="detail-hero">
+  <div class="container">
+    <a href="./week-2.html" class="detail-back">← Week 2 로</a>
+    <div class="detail-eyebrow">WEEK 02 · 참고자료</div>
+    <h1 class="detail-title">Claude Code 디스패처 패턴 가이드</h1>
+    <p class="detail-sub">Root CLAUDE.md가 하위 Agent의 CLAUDE.md를 불러와 스킬을 실행하는 구조입니다. 이 패턴을 적용하면 <strong>Agent별 독립적인 스킬 관리</strong>가 가능합니다.</p>
+    <div class="detail-meta">
+      <div class="detail-meta-item">작성자<strong>Jeonseokhwan</strong></div>
+      <div class="detail-meta-item">분류<strong>guide</strong></div>
+      <div class="detail-meta-item">연관 주제<strong>CLAUDE.md · Skill · Agent</strong></div>
+    </div>
+
+    <nav class="study-toc guide-toc">
+      <a href="#s1"><span class="toc-num">01</span> 개요 · 용어</a>
+      <a href="#s2"><span class="toc-num">02</span> Claude Code와 Skill</a>
+      <a href="#s3"><span class="toc-num">03</span> 구조도</a>
+      <a href="#s4"><span class="toc-num">04</span> 동작 흐름</a>
+      <a href="#s5"><span class="toc-num">05</span> CLAUDE.md 작성법</a>
+      <a href="#s6"><span class="toc-num">06</span> 핵심 규칙</a>
+    </nav>
+  </div>
+</section>
+
+<!-- ===== 1. 개요 · 용어 ===== -->
+<section class="detail-section" id="s1">
+  <div class="container">
+    <h2>개요</h2>
+    <div class="guide-prose">
+      <p>Root CLAUDE.md가 하위 Agent의 CLAUDE.md를 불러와 스킬을 실행하는 구조입니다. 이 패턴을 적용하면 Agent별 독립적인 스킬 관리가 가능합니다.</p>
+    </div>
+
+    <h3 class="study-h3" style="margin-top:32px;">용어 정의</h3>
+    <div class="compare-wrap">
+      <table class="study-table">
+        <thead><tr><th>용어</th><th>정의</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Claude Code</strong></td><td>사용자의 자연어 지시를 해석하고 실행하는 AI 도구 (행위자)</td></tr>
+          <tr><td><strong>CLAUDE.md</strong></td><td>Claude Code가 참조하는 설정 파일. 명령과 Skill을 연결하는 매핑 테이블을 담고 있음</td></tr>
+          <tr><td><strong>Skill</strong></td><td>특정 작업의 실행 절차가 적힌 .md 파일 (예: <code>노트생성.md</code>)</td></tr>
+          <tr><td><strong>Agent</strong></td><td>독립된 CLAUDE.md + Skill 세트를 가진 하위 작업 단위</td></tr>
+          <tr><td><strong>디스패처</strong></td><td>사용자의 지시를 적절한 Agent로 라우팅하는 Root CLAUDE.md의 역할</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 2. Claude Code와 Skill ===== -->
+<section class="detail-section" id="s2">
+  <div class="container">
+    <h2>Claude Code와 Skill의 관계</h2>
+    <div class="guide-prose">
+      <p>Claude Code 자체는 어떤 절차도 내장하지 않습니다. <strong>.md 파일이 Claude Code의 행동을 정의</strong>하고, Claude Code는 그것을 읽고 실행합니다.</p>
+    </div>
+
+    <pre class="code-block"><code>┌─────────────────────────────────────────────┐
+│                  사용자                       │
+│              "노트 만들어줘"                   │
+└────────────────────┬────────────────────────┘
+                     ▼
+┌─────────────────────────────────────────────┐
+│           Claude Code  (행위자)               │
+│      지시를 해석하고 실행하는 두뇌 + 손발       │
+└────────────────────┬────────────────────────┘
+                     │ ① 참조
+                     ▼
+┌─────────────────────────────────────────────┐
+│           Root CLAUDE.md  (디스패처)          │
+│       등록된 Agent 목록에서 대상을 선택/매칭    │
+│                                             │
+│      Agent명      │ CLAUDE.md 경로           │
+│      ─────────────┼──────────────────       │
+│      Research     │ research/CLAUDE.md       │
+│      Document     │ document/CLAUDE.md       │
+└────────────────────┬────────────────────────┘
+                     │ ② 디스패치
+                     ▼
+┌─────────────────────────────────────────────┐
+│           Agent CLAUDE.md  (라우터)           │
+│   "무엇을 할 수 있는지" — 명령 ↔ 스킬 매핑      │
+│                                             │
+│      사용자 입력   │ 스킬 파일                 │
+│      ─────────────┼──────────────────       │
+│      노트 만들어줘 │ 노트생성.md               │
+│      문서 index정리│ 문서index정리.md          │
+└────────────────────┬────────────────────────┘
+                     │ ③ 로드
+                     ▼
+┌─────────────────────────────────────────────┐
+│              Skill 파일  (레시피)             │
+│      "어떻게 해야 하는지" — 단계별 실행 절차    │
+│                                             │
+│      예: 노트생성.md                          │
+│        1. 템플릿 확인                         │
+│        2. 파일 생성                           │
+│        3. 내용 작성                           │
+└────────────────────┬────────────────────────┘
+                     │ ④ 실행
+                     ▼
+┌─────────────────────────────────────────────┐
+│        Claude Code가 절차대로 작업 수행        │
+│          (파일 생성, 편집, 명령 실행 등)        │
+└─────────────────────────────────────────────┘</code></pre>
+
+    <div class="compare-wrap">
+      <table class="study-table">
+        <thead><tr><th>구성요소</th><th>역할</th><th>핵심 질문</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Claude Code</strong></td><td>읽고, 판단하고, 실행하는 행위자</td><td>—</td></tr>
+          <tr><td><strong>CLAUDE.md</strong></td><td>명령 → 스킬 매핑 (라우터)</td><td><em>"무엇을 할 수 있는가?"</em></td></tr>
+          <tr><td><strong>Skill 파일</strong></td><td>단계별 실행 절차 (레시피)</td><td><em>"어떻게 해야 하는가?"</em></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note">스킬 추가 = Skill 파일 작성 + CLAUDE.md 매핑 테이블에 한 줄 추가. 코드 수정 불필요.</div>
+  </div>
+</section>
+
+<!-- ===== 3. 구조도 ===== -->
+<section class="detail-section" id="s3">
+  <div class="container">
+    <h2>구조도</h2>
+    <pre class="code-block"><code>Root CLAUDE.md  (항상 로드됨, cwd 기준)
+ ├── 공통 스킬 테이블 ─→ 직접 스킬 파일 실행
+ ├── 디스패처 명령 테이블 ─→ Agent 선택 유도
+ └── 등록된 Agent 목록 ─→ 하위 CLAUDE.md 경로
+
+하위 CLAUDE.md  (디스패처를 통해 명시적으로 읽힘)
+ └── 스킬 매핑 섹션 ─→ 스킬 파일 경로 + 주요 동작
+      └── 스킬 파일  ─→ 실제 실행 절차</code></pre>
+  </div>
+</section>
+
+<!-- ===== 4. 동작 흐름 ===== -->
+<section class="detail-section" id="s4">
+  <div class="container">
+    <h2>동작 흐름</h2>
+    <pre class="code-block"><code>사용자: "노트 만들어줘"
+  → Root CLAUDE.md: 등록된 Agent 목록 표시
+    → 사용자: Agent 선택
+      → 해당 Agent CLAUDE.md 로드
+        → 스킬 매핑 섹션에서 매칭되는 스킬 파일 확인
+          → 스킬 파일 읽기 → 절차대로 실행
+
+사용자: "Research 노트 만들어줘"  <span class="cmt">(Agent명 포함)</span>
+  → 선택 단계 스킵 → 바로 Research CLAUDE.md 로드 → 스킬 실행</code></pre>
+  </div>
+</section>
+
+<!-- ===== 5. CLAUDE.md 작성법 ===== -->
+<section class="detail-section" id="s5">
+  <div class="container">
+    <h2>CLAUDE.md 작성법</h2>
+
+    <h3 class="study-h3" style="margin-top:32px;">Root CLAUDE.md에 추가할 내용</h3>
+
+    <div class="guide-subhead">1. 디스패처 명령 테이블</div>
+    <pre class="code-block"><code><span class="cmt">### Agent 스킬 (디스패처)</span>
+
+아래 명령은 <span class="key">Agent 목록을 보여주고 사용자가 선택</span>한 뒤,
+해당 Agent의 CLAUDE.md → 스킬 매핑 섹션을 읽어 실행한다.
+
+| 명령어            | 동작                                          |
+|------------------|-----------------------------------------------|
+| "노트 만들어줘"   | Agent 선택 → 해당 CLAUDE.md의 노트생성 스킬 실행 |
+| "문서 index정리"  | Agent 선택 → 해당 CLAUDE.md의 문서index정리 실행 |
+
+> Agent명을 앞에 붙이면 선택 단계를 건너뛴다.
+> 예: "Research 노트 만들어줘" → 바로 Research CLAUDE.md 스킬 실행</code></pre>
+
+    <div class="guide-subhead">2. 등록된 Agent 목록</div>
+    <pre class="code-block"><code><span class="cmt">### 등록된 Agent 목록</span>
+
+| # | Agent명  | CLAUDE.md 경로       |
+|---|----------|---------------------|
+| 1 | Agent명  | CLAUDE.md 상대경로   |</code></pre>
+
+    <h3 class="study-h3" style="margin-top:48px;">하위 CLAUDE.md에 추가할 내용</h3>
+
+    <div class="guide-subhead">스킬 매핑 섹션</div>
+    <pre class="code-block"><code><span class="cmt">## 스킬 매핑</span>
+
+이 Agent의 작업은 모두 스킬 파일을 통해 처리한다.
+스킬 파일 위치: 스킬 파일 폴더 경로
+
+| 사용자 입력              | 스킬 파일     | 주요 동작   |
+|------------------------|--------------|------------|
+| "Agent명 노트 만들어줘"  | 스킬파일경로  | 동작 설명   |
+
+> 명령 시 스킬 파일을 먼저 읽고 그 안의 절차대로 실행한다.</code></pre>
+
+    <div class="guide-subhead">상단 관계 명시</div>
+    <pre class="code-block"><code>> 상위 Root CLAUDE.md에서 Agent 선택 시 이 파일이 로드됩니다.
+> Root의 공통 규칙도 함께 적용됩니다.</code></pre>
+  </div>
+</section>
+
+<!-- ===== 6. 핵심 규칙 ===== -->
+<section class="detail-section" id="s6">
+  <div class="container">
+    <h2>핵심 규칙 요약</h2>
+    <ol class="rules-list">
+      <li>Root CLAUDE.md는 cwd 기준 항상 로드됨</li>
+      <li>하위 CLAUDE.md는 자동 로드되지 않음 — 디스패처를 통해 명시적으로 읽음</li>
+      <li>공통 규칙은 Root에, Agent 전용 규칙은 하위에 분리</li>
+      <li>스킬 매핑은 하위 CLAUDE.md에만 존재 (Root와 중복 금지)</li>
+      <li>스킬 실체는 별도 .md 파일 — CLAUDE.md는 매핑만 담당</li>
+    </ol>
+  </div>
+</section>
+
+<section class="detail-section">
+  <div class="container">
+    <a href="./week-2.html" class="next-week">
+      <div>
+        <div class="next-week-label">← BACK · WEEK 02</div>
+        <div class="next-week-title">Skill로 어디까지 가능한가</div>
+      </div>
+      <div class="next-week-arrow">→</div>
+    </a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="brand">
+      <span class="brand-mark">●</span>
+      <span class="brand-text">Hello Claude Code</span>
+    </div>
+    <div class="footer-meta">
+      <span>참고자료 작성: Jeonseokhwan</span>
+      <span>© 2026 Jeonseokhwan · Hello Claude Code</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

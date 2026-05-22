@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>내장 도구 · 완전자동화 가이드 · Week 2 · Hello Claude Code</title>
+<meta name="description" content="Claude Code 내장 13개 도구와 자동화 기능(병렬실행, 백그라운드, /loop, 권한모드, Hooks)의 역할·차이·조합 패턴을 비개발자 관점에서 정리한 2주차 참고자료">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
+<link rel="stylesheet" href="./styles.css">
+<link rel="stylesheet" href="./study.css">
+<style>
+  .guide-prose p { color: var(--text-soft); font-size: 15.5px; line-height: 1.8; margin: 0 0 16px; }
+  .guide-prose strong { color: var(--text); }
+  .guide-prose code {
+    font-family: 'JetBrains Mono', monospace;
+    background: rgba(217, 119, 87, 0.1);
+    color: var(--accent-strong);
+    padding: 2px 7px; border-radius: 6px; font-size: 13px;
+  }
+  .guide-prose ul { color: var(--text-soft); font-size: 15px; line-height: 1.9; padding-left: 22px; margin: 0 0 16px; }
+  pre.code-block {
+    background: var(--bg); border: 1px solid var(--border); border-radius: 12px;
+    padding: 20px 22px; overflow-x: auto; margin: 0 0 24px; -webkit-overflow-scrolling: touch;
+  }
+  pre.code-block code {
+    font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.7;
+    color: var(--text-soft); background: none; padding: 0; white-space: pre;
+  }
+  pre.code-block .cmt { color: var(--text-mute); }
+  pre.code-block .key { color: var(--accent-strong); }
+  .note {
+    background: var(--bg-card); border-left: 4px solid var(--accent); border-radius: 8px;
+    padding: 16px 20px; margin: 0 0 24px; color: var(--text-soft); font-size: 14.5px; line-height: 1.75;
+  }
+  .note strong { color: var(--text); }
+  .guide-subhead { font-size: 17px; font-weight: 700; margin: 36px 0 6px; color: var(--text); }
+  .guide-subhead:first-child { margin-top: 0; }
+  .guide-subnote { font-size: 13.5px; color: var(--text-mute); margin: 0 0 16px; line-height: 1.6; }
+  .guide-toc a .toc-num { min-width: 22px; }
+  @media (max-width: 640px) {
+    pre.code-block { padding: 16px 16px; margin-left: -16px; margin-right: -16px; border-radius: 0; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="./index.html" class="brand">
+      <span class="brand-mark">●</span>
+      <span class="brand-text">Hello Claude Code</span>
+    </a>
+    <nav class="nav">
+      <a href="./index.html#schedule">일정</a>
+      <a href="./index.html#curriculum">커리큘럼</a>
+      <a href="./index.html#prep">사전 준비</a>
+      <a href="./index.html#faq">FAQ</a>
+    </nav>
+  </div>
+</header>
+
+<section class="detail-hero">
+  <div class="container">
+    <a href="./week-2.html" class="detail-back">← Week 2 로</a>
+    <div class="detail-eyebrow">WEEK 02 · 참고자료</div>
+    <h1 class="detail-title">Claude Code 내장 도구 — 완전자동화 가이드</h1>
+    <p class="detail-sub">Claude Code에 처음부터 내장된 13개 도구와 자동화 기능이 무엇이고, 어떻게 조합하면 완전자동화에 가까워지는지 — <strong>코드를 작성하지 않는 사무업무자</strong> 관점에서 정리했습니다.</p>
+    <div class="detail-meta">
+      <div class="detail-meta-item">작성자<strong>jeonseokhwan</strong></div>
+      <div class="detail-meta-item">분류<strong>환경설정 · 기초지식</strong></div>
+      <div class="detail-meta-item">연관 주제<strong>Skill / Command / MCP</strong></div>
+    </div>
+
+    <div class="note" style="margin-top:28px;">
+      <strong>핵심 메시지</strong> — 자연어로 원하는 결과만 말하면, Claude Code가 이 도구들을 알아서 조합하여 실행합니다. 도구 이름을 외울 필요 없이 "해줘"라고 말하면 됩니다.
+    </div>
+
+    <nav class="study-toc guide-toc">
+      <a href="#s1"><span class="toc-num">01</span> 핵심 개념</a>
+      <a href="#s2"><span class="toc-num">02</span> 요약</a>
+      <a href="#s3"><span class="toc-num">03</span> 핵심 vs 보조 도구</a>
+      <a href="#s4"><span class="toc-num">04</span> 완전자동화 기능</a>
+      <a href="#s5"><span class="toc-num">05</span> 조합 패턴</a>
+      <a href="#s6"><span class="toc-num">06</span> 단축키 · 명령어</a>
+    </nav>
+  </div>
+</section>
+
+<!-- ===== 1. 핵심 개념 ===== -->
+<section class="detail-section" id="s1">
+  <div class="container">
+    <h2>먼저 이해하면 좋은 핵심 개념</h2>
+    <div class="guide-prose">
+      <p>Claude Code에는 프로젝트 스킬, 에이전트, 명령어와 별개로 <strong>처음부터 내장된 도구</strong>가 있습니다. 이 도구들만으로도 상당 수준의 업무 자동화가 가능합니다.</p>
+    </div>
+
+    <div class="guide-subhead">"내장 도구"란?</div>
+    <div class="guide-prose">
+      <ul>
+        <li>Claude Code를 설치하면 <strong>별도 설정 없이 바로 사용할 수 있는 기능</strong>입니다.</li>
+        <li>프로젝트 스킬(<code>.claude/skills/</code>)이나 커스텀 명령어(<code>.claude/commands/</code>)는 사용자가 추가한 것이고, 내장 도구는 Claude Code 자체에 포함된 것입니다.</li>
+      </ul>
+    </div>
+
+    <div class="guide-subhead">"완전자동화"란?</div>
+    <div class="guide-prose">
+      <ul>
+        <li>사람이 <strong>"이렇게 해줘"라고 한 번만 말하면</strong>, AI가 알아서 검색 → 분석 → 판단 → 실행 → 저장까지 수행하는 것을 의미합니다.</li>
+        <li>내장 도구는 이 흐름의 각 단계를 담당하는 <strong>기본 부품</strong>입니다.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 2. 요약 ===== -->
+<section class="detail-section" id="s2">
+  <div class="container">
+    <h2>요약</h2>
+
+    <h3 class="study-h3" style="margin-top:32px;">핵심 — 자동화를 가능하게 하는 것</h3>
+    <div class="compare-wrap">
+      <table class="study-table">
+        <thead><tr><th>구분</th><th>핵심</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Agent / Bash</strong></td><td>작업 실행의 엔진 — AI 판단 + 스크립트 실행</td></tr>
+          <tr><td><strong>WebSearch / WebFetch / Chrome</strong></td><td>외부 정보 수집·웹 조작</td></tr>
+          <tr><td><strong>MCP</strong></td><td>외부 서비스(Notion, Slack 등) 연결</td></tr>
+          <tr><td><strong>권한 모드 (auto-accept)</strong></td><td>중단 없는 연속 실행</td></tr>
+          <tr><td><strong>Hooks</strong></td><td>이벤트 발생 시 자동 추가 작업</td></tr>
+          <tr><td><strong>/loop</strong></td><td>주기적 반복 실행</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="study-h3" style="margin-top:48px;">보조 — 핵심을 돕는 것</h3>
+    <div class="compare-wrap">
+      <table class="study-table">
+        <thead><tr><th>구분</th><th>핵심</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Read / Write / Edit / Glob / Grep</strong></td><td>파일 읽기·쓰기·검색 — 핵심 도구의 입출력</td></tr>
+          <tr><td><strong>병렬 실행 / 백그라운드</strong></td><td>효율 향상 — 동시 처리, 대기 없는 진행</td></tr>
+          <tr><td><strong>/batch / /compact / /resume</strong></td><td>일괄 변경, 컨텍스트 관리, 세션 재개</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 3. 핵심 vs 보조 도구 ===== -->
+<section class="detail-section" id="s3">
+  <div class="container">
+    <h2>1부: 자동화 핵심 도구 vs 보조 도구</h2>
+    <div class="guide-prose">
+      <p>내장 도구 13개를 <strong>자동화에 필수적인 핵심 도구</strong>와 <strong>핵심 도구를 보조하는 도구</strong>로 나눕니다.</p>
+    </div>
+
+    <h3 class="study-h3" style="margin-top:32px;">핵심 도구 — 자동화의 엔진 (6개)</h3>
+    <p class="guide-subnote">이것들이 없으면 자동화 자체가 불가능합니다.</p>
+    <div class="compare-wrap">
+      <table class="study-table">
+        <thead><tr><th>도구</th><th>비유</th><th>자동화에서의 역할</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Agent</strong></td><td>AI 담당자 파견</td><td>복잡한 작업을 별도 AI에게 위임. 병렬 실행으로 동시 처리. <strong>자동화의 핵심 엔진</strong></td></tr>
+          <tr><td><strong>Bash</strong></td><td>명령 실행기</td><td>스크립트/스킬 실행, 시스템 제어, 백그라운드 실행. <strong>모든 실행의 기반</strong></td></tr>
+          <tr><td><strong>WebSearch</strong></td><td>구글 검색</td><td>외부 정보 실시간 수집. <strong>정보 수집 자동화의 시작점</strong></td></tr>
+          <tr><td><strong>WebFetch</strong></td><td>웹페이지 읽기</td><td>특정 URL의 내용 수집·분석. <strong>웹 데이터 자동 수집</strong> (토큰절약 위해 파이썬 스크래핑 권장)</td></tr>
+          <tr><td><strong>Chrome</strong></td><td>브라우저 자동 조작</td><td>로그인, 폼 입력, 클릭, 스크린샷. <strong>사람 조작이 필요한 웹 작업 대체</strong></td></tr>
+          <tr><td><strong>MCP</strong></td><td>외부 서비스 연결</td><td>Notion, Slack 등 외부 서비스와 직접 통신. <strong>외부 시스템 연동 자동화</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note" style="margin-top:24px;">
+      <strong>Agent vs Bash 핵심 차이</strong><br>
+      · <strong>Bash</strong>: "이 명령어 실행해" → 시킨 것만 정확히 수행<br>
+      · <strong>Agent</strong>: "이 주제 조사해서 정리해줘" → 스스로 검색하고, 판단하고, 결과를 만들어냄<br><br>
+      단, Bash로 AI 판단이 포함된 스크립트(스킬)를 실행하면 Bash도 AI 판단 영역으로 확장됩니다. 즉, <strong>도구 자체의 차이보다 "무엇을 실행하느냐"가 더 중요</strong>합니다.
+    </div>
+
+    <h3 class="study-h3" style="margin-top:48px;">보조 도구 — 핵심 도구를 돕는 부품 (7개)</h3>
+    <p class="guide-subnote">핵심 도구가 작업을 수행할 때 읽고, 쓰고, 찾는 역할을 합니다. 자연어 요청 시 AI가 알아서 선택하므로 사용자가 직접 지정할 필요 없습니다.</p>
+    <div class="compare-wrap">
+      <table class="study-table">
+        <thead><tr><th>도구</th><th>역할</th><th>핵심 도구와의 관계</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Read</strong></td><td>파일/PDF/이미지 읽기</td><td>Agent가 분석할 자료를 읽어옴</td></tr>
+          <tr><td><strong>Write</strong></td><td>파일 생성/저장</td><td>Agent/Bash 실행 결과를 파일로 저장</td></tr>
+          <tr><td><strong>Edit</strong></td><td>파일 부분 수정</td><td>기존 문서의 특정 부분만 변경</td></tr>
+          <tr><td><strong>MultiEdit</strong></td><td>여러 파일 동시 수정</td><td>/batch 등 일괄 작업의 실행 수단</td></tr>
+          <tr><td><strong>Glob</strong></td><td>패턴으로 파일 찾기</td><td>처리 대상 파일 목록 확보</td></tr>
+          <tr><td><strong>Grep</strong></td><td>내용으로 파일 검색</td><td>특정 키워드가 포함된 파일 탐색</td></tr>
+          <tr><td><strong>TaskOutput</strong></td><td>백그라운드 결과 수신</td><td>Bash/Agent 백그라운드 작업의 결과 확인</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note"><strong>NotebookEdit</strong> (Jupyter 노트북 편집)은 데이터 분석 전용이므로 일반 사무 자동화와는 무관합니다.</div>
+  </div>
+</section>
+
+<!-- ===== 4. 완전자동화 기능 ===== -->
+<section class="detail-section" id="s4">
+  <div class="container">
+    <h2>2부: 완전자동화를 위한 내장 기능</h2>
+    <div class="guide-prose">
+      <p>핵심 도구를 <strong>언제, 어떻게, 얼마나 자율적으로</strong> 실행할지를 결정하는 기능들입니다.</p>
+    </div>
+
+    <div class="guide-subhead">권한 모드 (자동 승인)</div>
+    <div class="compare-wrap">
+      <table class="study-table">
+        <thead><tr><th>모드</th><th>설명</th><th>전환 방법</th></tr></thead>
+        <tbody>
+          <tr><td><strong>기본 모드</strong></td><td>매번 사용자에게 허락을 받음</td><td>기본값</td></tr>
+          <tr><td><strong>자동 수락 모드</strong></td><td>도구 실행을 자동으로 허용</td><td><code>Shift+Tab</code> 또는 <code>--permission-mode</code></td></tr>
+          <tr><td><strong>계획 모드</strong></td><td>계획만 세우고 실행 전 확인</td><td><code>/plan</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note">완전자동화를 위해서는 <strong>자동 수락 모드</strong>가 필요하지만, 안전을 위해 신중하게 사용해야 합니다. 안전이 중요하면 자동화가 부족해지고, 자동화를 강조하면 안전성이 부족해지니 각자 하는 작업·환경에 맞게 적절한 모드 및 권한관리를 해야 합니다.</div>
+
+    <div class="guide-subhead">Hooks (이벤트 기반 자동화)</div>
+    <p class="guide-subnote">특정 이벤트가 발생하면 자동으로 추가 작업을 실행합니다. 사람이 지시하지 않아도 조건이 맞으면 알아서 실행됩니다.</p>
+    <div class="compare-wrap">
+      <table class="study-table">
+        <thead><tr><th>이벤트</th><th>발동 시점</th><th>활용 예시</th></tr></thead>
+        <tbody>
+          <tr><td><strong>SessionStart</strong></td><td>세션이 시작될 때</td><td>환경 점검, 서버 상태 확인</td></tr>
+          <tr><td><strong>UserPromptSubmit</strong></td><td>사용자가 입력하기 직전</td><td>입력 내용 검증, 보완</td></tr>
+          <tr><td><strong>PreToolUse</strong></td><td>도구 실행 직전</td><td>위험한 작업 차단</td></tr>
+          <tr><td><strong>PostToolUse</strong></td><td>도구 실행 완료 후</td><td>테스트 실행, 알림 발송</td></tr>
+          <tr><td><strong>TaskCompleted</strong></td><td>작업 완료 시</td><td>다음 단계 자동 진행</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="guide-subhead">/loop (반복 실행)</div>
+    <div class="compare-wrap">
+      <table class="study-table">
+        <thead><tr><th>기능</th><th>설명</th><th>예시</th></tr></thead>
+        <tbody>
+          <tr><td><code>/loop</code></td><td>지정 간격으로 명령을 반복 실행</td><td><code>/loop 10m /daily-review</code> → 10분마다 반복</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note">단, 대화 세션이 열려있는 동안만 작동합니다.</div>
+
+    <h3 class="study-h3" style="margin-top:48px;">보조 자동화 기능 — 효율을 높여주는 기능</h3>
+    <div class="compare-wrap">
+      <table class="study-table">
+        <thead><tr><th>기능</th><th>설명</th><th>예시</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Agent 병렬</strong></td><td>서브에이전트 여러 개 동시 실행</td><td>"경쟁사 A, B, C 동시에 조사해줘"</td></tr>
+          <tr><td><strong>Bash 병렬</strong></td><td>명령어 여러 개 동시 실행</td><td>"PDF 5개 한번에 변환해줘"</td></tr>
+          <tr><td><strong>에이전트 팀</strong></td><td>역할별 에이전트가 협업</td><td>"조사팀 + 분석팀 + 보고서팀 동시 가동"</td></tr>
+          <tr><td><strong>백그라운드 실행</strong></td><td>오래 걸리는 작업을 뒤로 보내고 다른 작업 진행</td><td>Ctrl+B로 전환, TaskOutput으로 결과 확인</td></tr>
+          <tr><td><code>/batch</code></td><td>여러 파일에 같은 패턴의 변경 일괄 적용</td><td>"모든 문서에 날짜 태그 추가해줘"</td></tr>
+          <tr><td><code>/compact</code></td><td>대화 내용 압축하여 컨텍스트 확보</td><td>긴 작업 중 컨텍스트 부족 시</td></tr>
+          <tr><td><code>/resume</code></td><td>이전 세션 이어서 작업</td><td>끊긴 작업 재개</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 5. 조합 패턴 ===== -->
+<section class="detail-section" id="s5">
+  <div class="container">
+    <h2>3부: 자동화 조합 패턴 (실전 시나리오)</h2>
+
+    <h3 class="study-h3" style="margin-top:32px;">패턴 1 · 정보 수집 → 분석 → 보고서</h3>
+    <pre class="code-block"><code><span class="key">[요청]</span> "AI 업계 최신 트렌드 3가지를 조사해서 보고서로 만들어줘"
+
+<span class="cmt">[자동 실행 흐름]</span>
+WebSearch → 키워드로 검색
+WebFetch → 주요 기사 3~5개 내용 수집
+Read     → 기존에 저장된 관련 자료 확인
+(AI 판단) → 트렌드 분류, 중요도 평가
+Write    → 보고서 파일 저장</code></pre>
+
+    <h3 class="study-h3" style="margin-top:40px;">패턴 2 · 대량 파일 일괄 처리</h3>
+    <pre class="code-block"><code><span class="key">[요청]</span> "이 폴더의 마크다운 파일 전부에 날짜 태그 추가해줘"
+
+<span class="cmt">[자동 실행 흐름]</span>
+Glob      → 폴더 안의 *.md 파일 목록 확인
+Read      → 각 파일 내용 확인
+(AI 판단) → 이미 태그가 있는지 판단
+MultiEdit → 없는 파일에만 일괄 추가</code></pre>
+
+    <h3 class="study-h3" style="margin-top:40px;">패턴 3 · 웹 자동화</h3>
+    <pre class="code-block"><code><span class="key">[요청]</span> "이 웹사이트에서 가격표를 가져와서 표로 정리해줘"
+
+<span class="cmt">[자동 실행 흐름]</span>
+Chrome    → 웹사이트 접속, 가격표 페이지 이동
+(AI 판단) → 테이블 구조 파악
+Write     → 마크다운 표로 정리하여 저장</code></pre>
+
+    <h3 class="study-h3" style="margin-top:40px;">패턴 4 · 병렬 조사 + 종합</h3>
+    <pre class="code-block"><code><span class="key">[요청]</span> "경쟁사 3곳을 동시에 분석해서 비교표 만들어줘"
+
+<span class="cmt">[자동 실행 흐름]</span>
+Agent 1 → A사 웹사이트 조사 (WebFetch + WebSearch)
+Agent 2 → B사 웹사이트 조사 (WebFetch + WebSearch)
+Agent 3 → C사 웹사이트 조사 (WebFetch + WebSearch)
+(3개 동시 실행, 결과 수집)
+(AI 판단) → 비교 항목 정리
+Write    → 비교표 문서 저장</code></pre>
+
+    <h3 class="study-h3" style="margin-top:40px;">패턴 5 · 모니터링 + 자동 대응</h3>
+    <pre class="code-block"><code><span class="key">[요청]</span> "/loop 30m 이 사이트 상태 확인하고 변경 있으면 알려줘"
+
+<span class="cmt">[30분마다 자동 실행]</span>
+WebFetch  → 대상 URL 내용 수집
+Read      → 이전에 저장된 내용과 비교
+(AI 판단) → 변경 여부 판단
+변경 감지 시 → Bash로 알림 스크립트 실행</code></pre>
+
+    <h3 class="study-h3" style="margin-top:40px;">패턴 6 · 문서 검색 → 업데이트 → 동기화</h3>
+    <pre class="code-block"><code><span class="key">[요청]</span> "모든 프로젝트 문서에서 '2025'를 '2026'으로 바꿔줘"
+
+<span class="cmt">[자동 실행 흐름]</span>
+Grep      → '2025' 포함 파일 전체 검색
+Read      → 각 파일에서 맥락 확인 (날짜인지, 버전인지 등)
+(AI 판단) → 바꿔야 할 것과 유지해야 할 것 구분
+MultiEdit → 판단된 파일만 일괄 수정</code></pre>
+
+    <h3 class="study-h3" style="margin-top:48px;">내장 도구와 스킬의 관계</h3>
+    <pre class="code-block"><code>내장 도구 = 범용 엔진 (어떤 차에도 들어가는 기본 엔진)
+스킬     = 전문 부품 (특정 작업에 최적화된 장비)</code></pre>
+    <div class="guide-prose">
+      <ul>
+        <li>내장 도구만으로 <strong>70~80%의 일반 업무 자동화</strong> 가능</li>
+        <li>스킬을 추가하면 <strong>전문 영역까지 확장</strong> 가능</li>
+        <li>별도 (바이브)코딩 및 외부 서비스를 이용 시 <strong>완벽에 가까운 고도화된 자동화</strong> 가능</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 6. 단축키 · 명령어 ===== -->
+<section class="detail-section" id="s6">
+  <div class="container">
+    <h2>4부: 단축키 및 내장 슬래시 명령어</h2>
+
+    <h3 class="study-h3" style="margin-top:32px;">자동화에 유용한 단축키</h3>
+    <div class="compare-wrap">
+      <table class="study-table">
+        <thead><tr><th>단축키</th><th>기능</th></tr></thead>
+        <tbody>
+          <tr><td><code>Ctrl+B</code></td><td>실행 중인 작업을 백그라운드로 전환</td></tr>
+          <tr><td><code>Ctrl+C</code></td><td>현재 작업 취소</td></tr>
+          <tr><td><code>Ctrl+F</code></td><td>모든 백그라운드 에이전트 중지</td></tr>
+          <tr><td><code>Ctrl+O</code></td><td>상세 실행 과정 보기/숨기기</td></tr>
+          <tr><td><code>Ctrl+T</code></td><td>작업 목록 보기</td></tr>
+          <tr><td><code>Shift+Tab</code></td><td>권한 모드 전환 (기본 ↔ 자동수락 ↔ 계획)</td></tr>
+          <tr><td><code>Esc + Esc</code></td><td>이전 시점으로 되돌리기</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="study-h3" style="margin-top:48px;">자동화 관련 내장 슬래시 명령어</h3>
+    <div class="compare-wrap">
+      <table class="study-table">
+        <thead><tr><th>명령어</th><th>기능</th></tr></thead>
+        <tbody>
+          <tr><td><code>/batch</code></td><td>여러 파일에 같은 패턴의 변경을 일괄 적용</td></tr>
+          <tr><td><code>/loop</code></td><td>지정 간격으로 명령을 반복 실행</td></tr>
+          <tr><td><code>/plan</code></td><td>실행 전 계획 모드로 전환</td></tr>
+          <tr><td><code>/context</code></td><td>현재 컨텍스트 사용량 확인</td></tr>
+          <tr><td><code>/compact</code></td><td>대화 내용을 압축하여 컨텍스트 확보</td></tr>
+          <tr><td><code>/resume</code></td><td>이전 세션 이어서 작업</td></tr>
+          <tr><td><code>/diff</code></td><td>변경사항 확인</td></tr>
+          <tr><td><code>/tasks</code></td><td>백그라운드 작업 목록 확인</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="detail-section">
+  <div class="container">
+    <a href="./week-2.html" class="next-week">
+      <div>
+        <div class="next-week-label">← BACK · WEEK 02</div>
+        <div class="next-week-title">Skill로 어디까지 가능한가</div>
+      </div>
+      <div class="next-week-arrow">→</div>
+    </a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="brand">
+      <span class="brand-mark">●</span>
+      <span class="brand-text">Hello Claude Code</span>
+    </div>
+    <div class="footer-meta">
+      <span>참고자료 작성: jeonseokhwan</span>
+      <span>© 2026 Jeonseokhwan · Hello Claude Code</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
