@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Agent 샘플 모음 · Week 4 · Hello Claude Code</title>
-<meta name="description" content="콘텐츠·위클리·설문운영 Agent 샘플 3종과 미니 Agent 만들기 실습 가이드 — 4주차 참고자료">
+<meta name="description" content="콘텐츠·위클리·네이버블로그 Agent 샘플 3종과 미니 Agent 만들기 실습 가이드 — 4주차 참고자료">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
@@ -53,7 +53,7 @@
     <a href="./week-4.html" class="detail-back">← Week 4 로</a>
     <div class="detail-eyebrow">WEEK 04 · 참고자료</div>
     <h1 class="detail-title">Agent 샘플 모음</h1>
-    <p class="detail-sub">2~3주차에 만든 Skill을 묶어 Agent로 확장합니다. 라이브 데모용 <strong>샘플 3종</strong>(콘텐츠·위클리·설문운영)과 <strong>미니 Agent 만들기</strong> 실습 가이드.</p>
+    <p class="detail-sub">2~3주차에 만든 Skill을 묶어 Agent로 확장합니다. 라이브 데모용 <strong>샘플 3종</strong>(콘텐츠·위클리·네이버블로그)과 <strong>미니 Agent 만들기</strong> 실습 가이드.</p>
     <div class="detail-meta">
       <div class="detail-meta-item">분류<strong>실습 가이드</strong></div>
       <div class="detail-meta-item">대상<strong>본인 Skill 보유자</strong></div>
@@ -156,33 +156,31 @@ tools: Read, Write, mcp__claude_ai_Google_Calendar__*, mcp__claude_ai_Google_She
 <span class="cmt">## 자동 실행 옵션</span>
 - 원하면 매주 일요일 21:00 자동 호출</code></pre>
 
-    <div class="sample-tag">샘플 3 · survey-ops-agent ⭐</div>
-    <h3 class="study-h3" style="margin-top:0;">설문-운영-에이전트</h3>
-    <p class="guide-subnote" style="color:var(--text-mute);font-size:14px;margin:0 0 12px;"><strong style="color:var(--text);">대상</strong>: 설문 페이지(Supabase+Vercel) 보유자 · <strong style="color:var(--text);">시나리오</strong>: 응답 모니터링·통계·답변자 회신까지.</p>
+    <div class="sample-tag">샘플 3 · naver-blog-writer-agent ⭐</div>
+    <h3 class="study-h3" style="margin-top:0;">네이버블로그-작가-에이전트</h3>
+    <p class="guide-subnote" style="color:var(--text-mute);font-size:14px;margin:0 0 12px;"><strong style="color:var(--text);">대상</strong>: NaverBlogWriter Skill 보유자 · <strong style="color:var(--text);">시나리오</strong>: 주제만 던지면 자료조사·초안 작성·발행 직전까지.</p>
     <pre class="code-block"><code>---
-name: survey-ops-agent
-description: 배포된 설문의 응답을 주기적으로 확인하고 통계 정리·시트 갱신·답변자 자동 회신까지 처리한다.
-tools: Read, Write, Bash, mcp__claude_ai_Google_Sheets__*, WebFetch
+name: naver-blog-writer-agent
+description: 주제를 받으면 자료를 조사하고 네이버 블로그 글 초안을 작성해 발행 직전 상태까지 만든다.
+tools: Read, Write, WebSearch, WebFetch
 ---
 
-너는 설문 운영 비서 에이전트다.
+너는 네이버 블로그 작가 에이전트다.
 
 <span class="cmt">## 입력</span>
-- 설문 식별자 (Supabase 테이블명 또는 Google Sheet ID)
-- (선택) 분석 기간 (기본: 최근 7일)
+- 글 주제 (필수)
+- (선택) 톤·길이·타깃 독자
 
 <span class="cmt">## 작업 흐름</span>
-1. 데이터 소스에서 응답 행 조회
-2. 새 응답 / 누적 / 응답률(목표 대비) 계산
-3. 객관식 → 분포 그래프(텍스트 막대)
-4. 주관식 → 키워드 5개 + 대표 응답 3개 인용
-5. reports/survey_{YYYY-MM-DD}.md 저장
-6. /sheet-sync 호출해 통계 시트 갱신
-7. (옵션) 감사 메일 초안 — 사용자 확인 후 발송
+1. 주제 관련 최신 자료 검색·수집 (WebSearch/WebFetch)
+2. 핵심 포인트 5개 + 목차 설계
+3. NaverBlogWriter Skill 호출해 본문 초안 작성
+4. 제목 후보 3개 + 태그 10개 제안
+5. drafts/blog_{주제}.md 저장
 
 <span class="cmt">## 거절 규칙</span>
-- 응답자 개인정보(이메일·이름)는 본문 출력 금지 — 마스킹
-- 사용자 확인 없이 메일 자동 발송 금지</code></pre>
+- 출처 불명 통계·인용은 본문에 넣지 않음
+- 사용자 확인 없이 실제 발행(게시) 금지</code></pre>
   </div>
 </section>
 

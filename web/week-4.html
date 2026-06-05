@@ -31,14 +31,14 @@
   <div class="container">
     <a href="./index.html" class="detail-back">← 전체 커리큘럼</a>
     <div class="detail-eyebrow">WEEK 04</div>
-    <h1 class="detail-title">코워크 + Agent 연동 🤖</h1>
-    <p class="detail-sub">Agent에 들어가기 전에 <strong>코워크</strong>(Claude와 함께 일하는 법)를 먼저 다집니다. 이어서 <strong>설문 페이지 + Supabase + Vercel</strong>을 빠르게 빌드하고, 그것을 <strong>Agent로 운영</strong>하는 데까지 갑니다. 2~3주차에 만든 본인 Skill도 Agent로 묶습니다.</p>
+    <h1 class="detail-title">Agent · API 활용 · Claude 앱 🤖</h1>
+    <p class="detail-sub">세 가지를 다룹니다. ① <strong>Agent 개념 익히기</strong> — NaverBlogWriter로 Agent 활용법을 확인하고, ② <strong>API 활용하기</strong> — NaverAPI를 활용한 크롬 익스텐션을 만들어 보고, ③ <strong>Claude 앱 사용하기</strong> — Chat과 Claude Code를 상황에 맞게 쓰는 법을 정리합니다.</p>
     <div class="detail-meta">
       <div class="detail-meta-item">날짜<strong>2026-06-10 (수)</strong></div>
       <div class="detail-meta-item">시간<strong>21:00~ (기본 2h)</strong></div>
       <div class="detail-meta-item">난이도<strong>초급~중급</strong></div>
       <div class="detail-meta-item">선수 학습<strong>Week 3</strong></div>
-      <div class="detail-meta-item">제공 자료<strong>Supabase 셋업 가이드</strong></div>
+      <div class="detail-meta-item">제공 자료<strong>NaverAPI 크롬 확장 + 소스</strong></div>
     </div>
   </div>
 </section>
@@ -48,10 +48,10 @@
     <h2>학습 목표</h2>
     <div class="session">
       <ul>
-        <li><strong>코워크</strong> — Claude와 효율적으로 협업하는 패턴 체화</li>
+        <li><strong>Agent</strong> 개념을 이해하고 NaverBlogWriter로 활용법을 직접 확인</li>
         <li>Skill과 Agent의 차이를 한 문장으로 설명</li>
-        <li>.claude/agents/ 폴더에 본인 Agent 1개 작성·호출</li>
-        <li>Skill 1~2개를 묶은 미니 워크플로우 동작 확인</li>
+        <li><strong>NaverAPI</strong>를 활용해 크롬 익스텐션을 만들어 API 연동을 경험</li>
+        <li><strong>Claude 앱</strong>(Chat · Claude Code)을 상황에 맞게 골라 쓰기</li>
         <li>강의 이후 학습 경로 인지 (MCP, SDK, 커뮤니티)</li>
       </ul>
     </div>
@@ -73,98 +73,43 @@
 
 <section class="detail-section">
   <div class="container">
-    <h2>🌐 설문 페이지 풀스택 — 만들고, Agent로 운영하기</h2>
-    <p class="sub">먼저 풀스택 한 사이클을 빠르게 빌드한 뒤, 그 운영을 Agent에게 맡깁니다. (빌드 비중은 작게 — 핵심은 "Agent로 운영")</p>
-    <div class="session-list">
-      <div class="session">
-        <div class="session-num">STEP 1 · 빠른 빌드</div>
-        <h3>HTML 폼 + Supabase + Vercel</h3>
-        <ul>
-          <li>Claude에게 "설문 페이지 만들어 — 응답은 DB 저장, Vercel 배포까지" 한 줄</li>
-          <li>HTML 폼 자동 생성 → <strong>Supabase</strong>에 응답 저장 (무료 한도)</li>
-          <li><code>vercel</code> 한 번으로 실제 도메인 발급 — 이 강의 사이트도 같은 방식</li>
-        </ul>
-      </div>
-      <div class="session" style="border-color: var(--accent); background: linear-gradient(180deg, var(--bg-card), rgba(217, 119, 87, 0.06));">
-        <div class="session-num">STEP 2 · Agent로 운영 ⭐</div>
-        <h3>설문-운영-에이전트</h3>
-        <ul>
-          <li>응답 모니터링 → 통계 자동 정리 → 시트 갱신</li>
-          <li>답변자에게 메일 회신까지 한 번에</li>
-          <li>"만든 것"을 "굴러가게" 만드는 게 Agent의 역할</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="detail-section">
-  <div class="container">
-    <h2>커리큘럼 구성</h2>
+    <h2>커리큘럼 구성 — 3가지 주제</h2>
 
     <div class="session-list">
       <div class="session">
-        <div class="session-num">1ST · 25min · 코워크</div>
-        <h3>Claude와 함께 일하는 법 (Co-work)</h3>
+        <div class="session-num">1ST · Agent</div>
+        <h3>Agent 개념 익히기 — NaverBlogWriter</h3>
         <ul>
-          <li><strong>코워크 마인드셋</strong> — Claude는 "도구"가 아니라 "동료"</li>
-          <li>역할 분담 패턴: 내가 결정 / Claude가 실행 / 함께 검토</li>
-          <li>컨텍스트 공유: CLAUDE.md, 슬래시 커맨드, 파일 첨부</li>
-          <li>리뷰 루프: 결과 → 피드백 → 재실행 사이클을 짧게</li>
-          <li>Git으로 함께 일하기 — 커밋 메시지, PR, 코드 리뷰 협업</li>
-          <li>막혔을 때 빠져나오기: /clear, 새 세션, 더 작은 단위로 쪼개기</li>
-        </ul>
-      </div>
-
-      <div class="session">
-        <div class="session-num">2ND · 25min · Agent</div>
-        <h3>Agent 개념 + Skill 연동 ⭐</h3>
-        <ul>
-          <li>Skill vs Agent 한 장 정리</li>
+          <li>Skill vs Agent 한 장 정리 — "절차" vs "스스로 판단"</li>
           <li>Subagent 종류: Explore / Plan / general-purpose</li>
+          <li><strong>NaverBlogWriter</strong>로 Agent 활용법 라이브 확인 — 주제만 던지면 수집·작성까지</li>
           <li>라이브 비교: (a) Skill만 호출 vs (b) Agent + Skill</li>
-          <li>강사 라이브: <strong>설문-운영-에이전트</strong> — 방금 빌드한 설문을 Agent로 운영</li>
           <li>좋은 Agent 체크리스트 5개</li>
-          <li>본인이 2~3주차에 만든 Skill을 묶는 Agent 작성</li>
+        </ul>
+      </div>
+
+      <div class="session" style="border-color: var(--accent); background: linear-gradient(180deg, var(--bg-card), rgba(217, 119, 87, 0.06));">
+        <div class="session-num">2ND · API ⭐</div>
+        <h3>API 활용하기 — NaverAPI 크롬 익스텐션</h3>
+        <ul>
+          <li>외부 <strong>NaverAPI</strong>를 코드에서 호출하는 흐름 이해</li>
+          <li>크롬 확장 구조: manifest · background · content/search · options</li>
+          <li>API 키 관리와 호출, 결과를 화면에 렌더링</li>
+          <li><code>chrome://extensions</code> 개발자 모드로 로드·디버깅</li>
+          <li>오늘 자료(extension + 소스 원본)로 PRD ↔ 결과물 비교</li>
         </ul>
       </div>
 
       <div class="session">
-        <div class="session-num">3RD · 25min</div>
-        <h3>운영 팁 + 시연 발표 + 수료</h3>
+        <div class="session-num">3RD · Claude 앱</div>
+        <h3>Claude 앱 사용하기 — Chat · Claude Code</h3>
         <ul>
-          <li>권한 관리 (/permissions) — 위험 명령 가드</li>
-          <li>자원자 시연 발표 (Agent 자랑 타임)</li>
-          <li>더 깊이: 공식 문서, MCP, Claude Agent SDK</li>
-          <li>4주 회고 + 수료</li>
+          <li><strong>Chat</strong>(claude.ai) — 대화·기획·문서 작업에 강함</li>
+          <li><strong>Claude Code</strong> — 코드·파일·터미널 실작업에 강함</li>
+          <li>언제 무엇을 쓸지: 상황별 선택 기준</li>
+          <li>두 앱을 오가며 일하는 실전 흐름</li>
+          <li>4주 회고 + 수료, 이후 학습 경로(MCP · SDK)</li>
         </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="detail-section">
-  <div class="container">
-    <h2>Agent 샘플 3종 — 본인 결과물별 묶음</h2>
-    <p class="sub">2~3주차에 무엇을 만들었느냐에 따라 어울리는 Agent 패턴이 달라집니다.</p>
-    <div class="for-grid" style="margin-top: 24px;">
-      <div class="for-card">
-        <div class="for-icon">📚</div>
-        <h3>콘텐츠-에이전트</h3>
-        <p style="text-align: left;"><strong>블로그·유튜브 분석</strong> Skill을 만든 분 추천. 채널/블로거 던지면 알아서 수집·분석·요약 시트 정리까지.</p>
-        <p style="text-align: left; color: var(--text-mute); font-size: 13px; margin-top: 8px;"><code>/blog-search</code> + <code>/yt-channel-summary</code> + <code>/sheet-sync</code> 묶음</p>
-      </div>
-      <div class="for-card">
-        <div class="for-icon">📆</div>
-        <h3>위클리-에이전트</h3>
-        <p style="text-align: left;"><strong>Calendar·Sheets</strong> 자동화 Skill을 만든 분 추천. 매주 일요일 저녁 자동 실행되는 한 주 정리 비서.</p>
-        <p style="text-align: left; color: var(--text-mute); font-size: 13px; margin-top: 8px;"><code>/weekly-digest</code> + <code>/sheet-sync</code> + 메일 발송</p>
-      </div>
-      <div class="for-card" style="border-color: var(--accent);">
-        <div class="for-icon">🌐</div>
-        <h3>설문-운영-에이전트 ⭐</h3>
-        <p style="text-align: left;">오늘 만든 <strong>설문 페이지</strong>를 운영. 응답 모니터링·통계 자동 정리·답변자 메일 회신까지 한 번에.</p>
-        <p style="text-align: left; color: var(--text-mute); font-size: 13px; margin-top: 8px;">Supabase 조회 + 통계 + 시트 갱신 + 메일 회신</p>
       </div>
     </div>
   </div>
@@ -200,7 +145,7 @@
         <div>
           <div class="next-week-label">실습 가이드</div>
           <div class="next-week-title">Agent 샘플 모음</div>
-          <p style="margin:8px 0 0; color:var(--text-mute); font-size:14px;">콘텐츠·위클리·설문운영 Agent 샘플 3종(전체 정의 포함)과 미니 Agent 만들기 50분 실습 절차·체크리스트.</p>
+          <p style="margin:8px 0 0; color:var(--text-mute); font-size:14px;">Agent 샘플 3종(전체 정의 포함)과 미니 Agent 만들기 실습 절차·체크리스트 — Agent 개념 익히기에 함께 보세요.</p>
         </div>
         <div class="next-week-arrow">→</div>
       </a>
@@ -216,8 +161,8 @@
         <li>✅ 환경 구축 + 첫 응용 프로그램 (자기소개 페이지)</li>
         <li>✅ PRD로 Skill 빌드 (YouTube 탐색·분석)</li>
         <li>✅ 스킬 제작을 위한 PRD 직접 작성</li>
-        <li>✅ 설문 풀스택 빌드 (Supabase + Vercel)</li>
-        <li>✅ Agent 연동 (워크플로우 자동화)</li>
+        <li>✅ Agent 활용 (NaverBlogWriter) + NaverAPI 크롬 확장</li>
+        <li>✅ Claude 앱 활용 (Chat · Claude Code)</li>
       </ul>
     </div>
   </div>
