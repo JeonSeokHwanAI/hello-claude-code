@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YouTube Data API 발급받기 · Week 4 · Hello Claude Code</title>
+<meta name="description" content="Google Cloud Console에서 YouTube Data API v3 키 발급받는 법 — 하나도 모르는 사람도 따라 하는 단계별 가이드. 4주차 참고자료">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
+<link rel="stylesheet" href="./styles.css">
+<link rel="stylesheet" href="./study.css">
+<style>
+  .guide-prose p { color: var(--text-soft); font-size: 15.5px; line-height: 1.8; margin: 0 0 16px; }
+  .guide-prose strong { color: var(--text); }
+  .guide-prose code { font-family: 'JetBrains Mono', monospace; background: rgba(217,119,87,0.1); color: var(--accent-strong); padding: 2px 7px; border-radius: 6px; font-size: 13px; }
+  .guide-prose ul { color: var(--text-soft); font-size: 15px; line-height: 1.9; padding-left: 22px; margin: 0 0 16px; }
+  pre.code-block { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; overflow-x: auto; margin: 0 0 24px; -webkit-overflow-scrolling: touch; }
+  pre.code-block code { font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.6; color: var(--text-soft); background: none; padding: 0; white-space: pre; }
+  pre.code-block .cmt { color: var(--text-mute); }
+  pre.code-block .key { color: var(--accent-strong); }
+  .note { background: var(--bg-card); border-left: 4px solid var(--accent); border-radius: 8px; padding: 16px 20px; margin: 0 0 24px; color: var(--text-soft); font-size: 14.5px; line-height: 1.75; }
+  .note strong { color: var(--text); }
+  .step { display:flex; gap:18px; margin:0 0 28px; }
+  .step-no { flex:0 0 auto; width:40px; height:40px; border-radius:50%; background:var(--accent); color:#fff; font-weight:800; font-size:18px; display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; }
+  .step-body { flex:1; min-width:0; }
+  .step-body h3 { margin:6px 0 10px; font-size:18px; color:var(--text); }
+  .step-body p { color:var(--text-soft); font-size:15px; line-height:1.8; margin:0 0 10px; }
+  .step-body ul { color:var(--text-soft); font-size:14.5px; line-height:1.85; padding-left:20px; margin:0 0 10px; }
+  .step-body code { font-family:'JetBrains Mono',monospace; background:rgba(217,119,87,0.1); color:var(--accent-strong); padding:2px 7px; border-radius:6px; font-size:13px; }
+  .glossary { display:grid; gap:10px; margin:0 0 8px; }
+  .glossary-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; }
+  .glossary-item b { color: var(--text); }
+  .glossary-item span { color: var(--text-soft); font-size:14.5px; line-height:1.7; }
+  .checklist { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+  .checklist li { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px 12px 44px; position: relative; font-size: 14.5px; color: var(--text-soft); line-height: 1.6; }
+  .checklist li::before { content: "\2610"; position: absolute; left: 16px; top: 11px; color: var(--accent); font-size: 16px; font-weight: 700; }
+  @media (max-width: 640px) { pre.code-block { padding: 16px 12px; margin-left: -16px; margin-right: -16px; border-radius: 0; font-size: 11.5px; } pre.code-block code { font-size: 11px; } }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="./index.html" class="brand">
+      <span class="brand-mark">●</span>
+      <span class="brand-text">Hello Claude Code</span>
+    </a>
+    <nav class="nav">
+      <a href="./index.html#schedule">일정</a>
+      <a href="./index.html#curriculum">커리큘럼</a>
+      <a href="./index.html#prep">사전 준비</a>
+      <a href="./index.html#faq">FAQ</a>
+    </nav>
+  </div>
+</header>
+
+<section class="detail-hero">
+  <div class="container">
+    <a href="./week-4.html" class="detail-back">← Week 4 로</a>
+    <div class="detail-eyebrow">WEEK 04 · 참고자료</div>
+    <h1 class="detail-title">YouTube Data API 발급받기 🔴</h1>
+    <p class="detail-sub">"구글 클라우드가 뭔지도 모른다"는 가정에서 출발합니다. <strong>Google Cloud Console</strong>에서 프로젝트를 만들고 <strong>YouTube Data API v3</strong>를 켠 뒤 <strong>API 키</strong> 한 줄을 발급받아, 영상·채널 데이터를 불러올 수 있게 만드는 데까지 한 단계씩 따라갑니다.</p>
+    <div class="detail-meta">
+      <div class="detail-meta-item">소요 시간<strong>약 10분</strong></div>
+      <div class="detail-meta-item">비용<strong>무료</strong></div>
+      <div class="detail-meta-item">준비물<strong>구글 계정</strong></div>
+    </div>
+
+    <nav class="study-toc guide-toc">
+      <a href="#s0"><span class="toc-num">00</span> 용어 먼저</a>
+      <a href="#s1"><span class="toc-num">01</span> 발급 단계</a>
+      <a href="#s2"><span class="toc-num">02</span> 키 사용·테스트</a>
+      <a href="#s3"><span class="toc-num">03</span> 할당량·주의</a>
+    </nav>
+  </div>
+</section>
+
+<!-- 0 -->
+<section class="detail-section" id="s0">
+  <div class="container">
+    <h2>먼저, 용어부터 (1분)</h2>
+    <div class="glossary">
+      <div class="glossary-item"><b>Google Cloud Console</b> — <span>구글의 각종 API를 켜고 끄고 키를 관리하는 관제실 같은 웹사이트입니다. 무료로 가입하며, 단순 API 키 발급에는 결제 등록도 필요 없습니다.</span></div>
+      <div class="glossary-item"><b>프로젝트(Project)</b> — <span>API·키·설정을 담는 "폴더". 먼저 프로젝트를 하나 만들고, 그 안에서 API를 켭니다.</span></div>
+      <div class="glossary-item"><b>YouTube Data API v3</b> — <span>유튜브의 영상·채널·검색·댓글 데이터를 받아오는 API. 우리가 켤 대상입니다.</span></div>
+      <div class="glossary-item"><b>API 키</b> — <span>"이 요청은 내 프로젝트다"를 증명하는 한 줄짜리 문자열. 네이버처럼 ID/Secret 쌍이 아니라 <strong>키 하나</strong>면 됩니다(공개 데이터 읽기용).</span></div>
+    </div>
+    <div class="note"><strong>핵심</strong>: 할 일은 세 가지 — ① 프로젝트 만들기 ② YouTube Data API v3 <strong>켜기</strong> ③ <strong>API 키</strong> 하나 발급. 끝나면 그 키로 유튜브 데이터를 불러옵니다.</div>
+  </div>
+</section>
+
+<!-- 1 -->
+<section class="detail-section" id="s1">
+  <div class="container">
+    <h2>발급 단계 (따라만 하세요)</h2>
+
+    <div class="step">
+      <div class="step-no">1</div>
+      <div class="step-body">
+        <h3>Google Cloud Console 접속 · 로그인</h3>
+        <p><a href="https://console.cloud.google.com" target="_blank" rel="noopener" style="color:var(--accent-strong)">console.cloud.google.com</a> 에 들어가 <strong>구글 계정</strong>으로 로그인합니다. 처음이면 약관 동의 창이 한 번 뜹니다 — 동의하고 진행.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-no">2</div>
+      <div class="step-body">
+        <h3>새 프로젝트 만들기</h3>
+        <ul>
+          <li>상단 바 왼쪽의 <strong>프로젝트 선택</strong> 드롭다운 클릭 → <strong>"새 프로젝트"</strong></li>
+          <li>프로젝트 이름 입력. 예) <code>youtube-explorer</code> → <strong>만들기</strong></li>
+          <li>생성 후, 같은 드롭다운에서 방금 만든 프로젝트가 선택됐는지 확인</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-no">3</div>
+      <div class="step-body">
+        <h3>YouTube Data API v3 켜기(사용 설정)</h3>
+        <ul>
+          <li>왼쪽 메뉴 <strong>≡ → API 및 서비스 → 라이브러리</strong></li>
+          <li>검색창에 <strong>"YouTube Data API v3"</strong> 입력 → 결과 클릭</li>
+          <li><strong>사용(Enable)</strong> 버튼 클릭 → 잠시 후 "사용 설정됨"으로 바뀜</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-no">4</div>
+      <div class="step-body">
+        <h3>API 키 발급</h3>
+        <ul>
+          <li><strong>API 및 서비스 → 사용자 인증 정보(Credentials)</strong> 이동</li>
+          <li>상단 <strong>+ 사용자 인증 정보 만들기 → API 키</strong> 선택</li>
+          <li>키가 즉시 생성되어 화면에 표시됩니다 — <strong>복사</strong>해 안전한 곳에 메모</li>
+        </ul>
+        <pre class="code-block"><code><span class="cmt"># 발급 결과 예시 (값은 사람마다 다릅니다)</span>
+API key : <span class="key">AIzaSyD-xxxxxxxxxxxxxxxxxxxxxxxxxxxx</span></code></pre>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-no">5</div>
+      <div class="step-body">
+        <h3>(권장) 키 제한 걸기</h3>
+        <p>방금 만든 키 이름을 클릭 → <strong>API 제한사항</strong>에서 "키 제한" → <strong>YouTube Data API v3</strong>만 체크 → 저장. 이렇게 하면 키가 새어 나가도 유튜브 외 다른 API로는 못 쓰게 막힙니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="detail-section" id="s2">
+  <div class="container">
+    <h2>발급한 키, 어떻게 쓰나</h2>
+    <div class="guide-prose">
+      <p>YouTube Data API는 주소 끝에 <code>key=발급키</code>를 붙여 호출합니다. 아래는 "claude code"로 영상을 검색하는 예시입니다. (터미널에 붙여 동작 확인 — 본인 키로 바꾸세요.)</p>
+    </div>
+    <pre class="code-block"><code>curl "https://www.googleapis.com/youtube/v3/search?part=snippet&q=claude+code&type=video&maxResults=5&key=<span class="key">발급받은_API_KEY</span>"</code></pre>
+    <div class="note"><strong>네이버와 다른 점</strong>: 네이버는 헤더에 ID·Secret 두 개, 유튜브는 주소에 <strong>키 하나</strong>. 공개 데이터(검색·영상정보·채널정보) 읽기는 API 키만으로 충분하고, 내 계정의 비공개 데이터를 다룰 때만 OAuth가 추가로 필요합니다.</div>
+    <div class="note" style="border-left-color:#d97757;"><strong>Claude에게 맡기는 법</strong>: "YouTube Data API 키 발급받았어. 이 키로 채널 검색·영상 목록 불러오는 도구 만들어줘" 라고 하면 호출 코드·결과 정리까지 만들어 줍니다.</div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="detail-section" id="s3">
+  <div class="container">
+    <h2>할당량(Quota)·주의</h2>
+    <ul class="checklist">
+      <li><strong>무료 할당량</strong> — 프로젝트당 <strong>하루 10,000 units</strong>. 호출마다 "단가"가 다른 게 핵심입니다.</li>
+      <li><strong>검색은 비쌈</strong> — <code>search.list</code> 1회 = <strong>100 units</strong>. 즉 하루 검색은 약 <strong>100회</strong>면 소진. 반면 <code>videos.list</code>·<code>channels.list</code> 같은 단순 조회는 1회 = 1 unit이라 수천 번 가능.</li>
+      <li><strong>실수 호출도 차감</strong> — 잘못된 요청도 최소 1 unit 부과됩니다. 검색을 남발하지 말고 ID를 받아 <code>videos.list</code>로 상세를 받는 식으로 아끼세요.</li>
+      <li><strong>키는 비밀</strong> — GitHub·스크린샷에 노출 금지. 새면 콘솔에서 키 삭제 후 재발급.</li>
+      <li><strong>할당량이 모자라면</strong> — 콘솔의 "할당량 증가 요청 양식"으로 추가 신청 가능(승인 필요).</li>
+    </ul>
+    <div class="note" style="margin-top:18px;"><strong>출처(2026년 6월 기준 확인)</strong>: <a href="https://developers.google.com/youtube/v3/getting-started" target="_blank" rel="noopener" style="color:var(--accent-strong)">YouTube Data API — Getting Started (공식)</a>. 공식 문서 표기: "10,000 units per day combined for all other endpoints", <code>search.list</code>는 100 units/회.</div>
+  </div>
+</section>
+
+<section class="detail-section">
+  <div class="container">
+    <a href="./week4-naver-api-guide.html" class="next-week">
+      <div>
+        <div class="next-week-label">← 이전 참고자료</div>
+        <div class="next-week-title">네이버 검색 API 발급받기</div>
+      </div>
+      <div class="next-week-arrow">→</div>
+    </a>
+    <a href="./week-4.html" class="next-week" style="margin-top:14px;">
+      <div>
+        <div class="next-week-label">← BACK · WEEK 04</div>
+        <div class="next-week-title">Agent · API 활용 · Claude 앱</div>
+      </div>
+      <div class="next-week-arrow">→</div>
+    </a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="brand">
+      <span class="brand-mark">●</span>
+      <span class="brand-text">Hello Claude Code</span>
+    </div>
+    <div class="footer-meta">
+      <span>© 2026 Jeonseokhwan · Hello Claude Code</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>네이버 검색 API 발급받기 · Week 4 · Hello Claude Code</title>
+<meta name="description" content="네이버 개발자센터에서 검색 API Client ID·Secret 발급받는 법 — 하나도 모르는 사람도 따라 하는 단계별 가이드. 4주차 참고자료">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
+<link rel="stylesheet" href="./styles.css">
+<link rel="stylesheet" href="./study.css">
+<style>
+  .guide-prose p { color: var(--text-soft); font-size: 15.5px; line-height: 1.8; margin: 0 0 16px; }
+  .guide-prose strong { color: var(--text); }
+  .guide-prose code { font-family: 'JetBrains Mono', monospace; background: rgba(217,119,87,0.1); color: var(--accent-strong); padding: 2px 7px; border-radius: 6px; font-size: 13px; }
+  .guide-prose ul { color: var(--text-soft); font-size: 15px; line-height: 1.9; padding-left: 22px; margin: 0 0 16px; }
+  pre.code-block { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; overflow-x: auto; margin: 0 0 24px; -webkit-overflow-scrolling: touch; }
+  pre.code-block code { font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.6; color: var(--text-soft); background: none; padding: 0; white-space: pre; }
+  pre.code-block .cmt { color: var(--text-mute); }
+  pre.code-block .key { color: var(--accent-strong); }
+  .note { background: var(--bg-card); border-left: 4px solid var(--accent); border-radius: 8px; padding: 16px 20px; margin: 0 0 24px; color: var(--text-soft); font-size: 14.5px; line-height: 1.75; }
+  .note strong { color: var(--text); }
+  .step { display:flex; gap:18px; margin:0 0 28px; }
+  .step-no { flex:0 0 auto; width:40px; height:40px; border-radius:50%; background:var(--accent); color:#fff; font-weight:800; font-size:18px; display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace; }
+  .step-body { flex:1; min-width:0; }
+  .step-body h3 { margin:6px 0 10px; font-size:18px; color:var(--text); }
+  .step-body p { color:var(--text-soft); font-size:15px; line-height:1.8; margin:0 0 10px; }
+  .step-body ul { color:var(--text-soft); font-size:14.5px; line-height:1.85; padding-left:20px; margin:0 0 10px; }
+  .step-body code { font-family:'JetBrains Mono',monospace; background:rgba(217,119,87,0.1); color:var(--accent-strong); padding:2px 7px; border-radius:6px; font-size:13px; }
+  .glossary { display:grid; gap:10px; margin:0 0 8px; }
+  .glossary-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; }
+  .glossary-item b { color: var(--text); }
+  .glossary-item span { color: var(--text-soft); font-size:14.5px; line-height:1.7; }
+  .checklist { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+  .checklist li { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px 12px 44px; position: relative; font-size: 14.5px; color: var(--text-soft); line-height: 1.6; }
+  .checklist li::before { content: "\2610"; position: absolute; left: 16px; top: 11px; color: var(--accent); font-size: 16px; font-weight: 700; }
+  @media (max-width: 640px) { pre.code-block { padding: 16px 12px; margin-left: -16px; margin-right: -16px; border-radius: 0; font-size: 11.5px; } pre.code-block code { font-size: 11px; } }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="./index.html" class="brand">
+      <span class="brand-mark">●</span>
+      <span class="brand-text">Hello Claude Code</span>
+    </a>
+    <nav class="nav">
+      <a href="./index.html#schedule">일정</a>
+      <a href="./index.html#curriculum">커리큘럼</a>
+      <a href="./index.html#prep">사전 준비</a>
+      <a href="./index.html#faq">FAQ</a>
+    </nav>
+  </div>
+</header>
+
+<section class="detail-hero">
+  <div class="container">
+    <a href="./week-4.html" class="detail-back">← Week 4 로</a>
+    <div class="detail-eyebrow">WEEK 04 · 참고자료</div>
+    <h1 class="detail-title">네이버 검색 API 발급받기 🟢</h1>
+    <p class="detail-sub">"API가 뭔지도 모른다"는 가정에서 출발합니다. 네이버 개발자센터에 가입해 <strong>검색 API</strong>를 신청하고 <strong>Client ID·Client Secret</strong>을 발급받아, 크롬 확장에서 쓸 수 있게 만드는 데까지 한 단계씩 따라갑니다.</p>
+    <div class="detail-meta">
+      <div class="detail-meta-item">소요 시간<strong>약 10분</strong></div>
+      <div class="detail-meta-item">비용<strong>무료</strong></div>
+      <div class="detail-meta-item">준비물<strong>네이버 계정</strong></div>
+    </div>
+
+    <nav class="study-toc guide-toc">
+      <a href="#s0"><span class="toc-num">00</span> 용어 먼저</a>
+      <a href="#s1"><span class="toc-num">01</span> 발급 단계</a>
+      <a href="#s2"><span class="toc-num">02</span> 키 사용·테스트</a>
+      <a href="#s3"><span class="toc-num">03</span> 주의·한도</a>
+    </nav>
+  </div>
+</section>
+
+<!-- 0 -->
+<section class="detail-section" id="s0">
+  <div class="container">
+    <h2>먼저, 용어부터 (1분)</h2>
+    <div class="glossary">
+      <div class="glossary-item"><b>API</b> — <span>다른 회사의 서비스(네이버 검색)를 내 프로그램에서 불러 쓰는 "콘센트"입니다. 정해진 주소로 요청하면 데이터(JSON)를 돌려줍니다.</span></div>
+      <div class="glossary-item"><b>Client ID / Client Secret</b> — <span>"이 요청은 나(내 앱)다"를 증명하는 <strong>아이디 / 비밀번호</strong> 한 쌍. 네이버가 발급해 줍니다. Secret은 비밀번호이므로 외부에 노출 금지.</span></div>
+      <div class="glossary-item"><b>검색 API</b> — <span>네이버의 블로그·뉴스·쇼핑·이미지 등 검색 결과를 데이터로 받아오는 API. 이번 크롬 확장이 쓰는 게 이것입니다.</span></div>
+    </div>
+    <div class="note"><strong>핵심</strong>: 우리가 할 일은 딱 하나 — 네이버에서 <strong>Client ID와 Secret 두 글자열을 받아오는 것</strong>. 그러면 코드(또는 Claude가 만든 확장)가 그걸 들고 네이버에 검색을 요청합니다.</div>
+  </div>
+</section>
+
+<!-- 1 -->
+<section class="detail-section" id="s1">
+  <div class="container">
+    <h2>발급 단계 (따라만 하세요)</h2>
+
+    <div class="step">
+      <div class="step-no">1</div>
+      <div class="step-body">
+        <h3>네이버 개발자센터 접속 · 로그인</h3>
+        <p><a href="https://developers.naver.com" target="_blank" rel="noopener" style="color:var(--accent-strong)">developers.naver.com</a> 에 들어가 평소 쓰는 <strong>네이버 계정</strong>으로 로그인합니다. (별도 개발자 가입 절차 없이 네이버 로그인이면 됩니다.)</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-no">2</div>
+      <div class="step-body">
+        <h3>"오픈 API 이용 신청" 열기</h3>
+        <p>상단 메뉴 <strong>Products → 서비스 API → 검색</strong>으로 들어가거나, 곧장 <a href="https://developers.naver.com/apps/#/register" target="_blank" rel="noopener" style="color:var(--accent-strong)">애플리케이션 등록 페이지</a>로 이동합니다. 검색 API 설명 페이지 아래의 <strong>"오픈 API 이용 신청"</strong> 버튼을 눌러도 같은 화면이 나옵니다.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-no">3</div>
+      <div class="step-body">
+        <h3>애플리케이션 정보 입력</h3>
+        <ul>
+          <li><strong>애플리케이션 이름</strong>: 아무거나. 예) <code>naver-search-extension</code> (나중에 화면에 표시될 이름)</li>
+          <li><strong>사용 API</strong>: 드롭다운에서 <strong>"검색"</strong> 선택</li>
+          <li><strong>비로그인 오픈 API 서비스 환경</strong>: <strong>"WEB 설정"</strong> 추가 → 웹 서비스 URL에 <code>http://localhost</code> 입력 (크롬 확장 실습용으로 충분)</li>
+        </ul>
+        <div class="note" style="margin-top:6px;">웹 서비스 URL은 "이 주소에서 호출할 거다"라는 표시일 뿐, 실습 단계에서는 <code>http://localhost</code> 로 두면 됩니다.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-no">4</div>
+      <div class="step-body">
+        <h3>등록 → Client ID·Secret 확인</h3>
+        <p><strong>등록하기</strong>를 누르면 바로 애플리케이션이 만들어지고, 화면에 <strong>Client ID</strong>와 <strong>Client Secret</strong>이 나옵니다. (Secret은 가려져 있으면 옆의 "보기" 버튼으로 펼칩니다.) 이 두 값을 복사해 안전한 곳에 메모해 두세요.</p>
+        <pre class="code-block"><code><span class="cmt"># 발급 결과 예시 (값은 사람마다 다릅니다)</span>
+Client ID     : <span class="key">aB12cD34eF56gH78iJ90</span>
+Client Secret : <span class="key">Kl1mNo2pQr</span></code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="detail-section" id="s2">
+  <div class="container">
+    <h2>발급한 키, 어떻게 쓰나</h2>
+    <div class="guide-prose">
+      <p>네이버 검색 API는 요청 헤더에 위 두 값을 실어 보냅니다. 아래는 "claude" 라는 단어를 블로그에서 검색하는 예시입니다. (터미널에 그대로 붙여 동작 확인 가능 — 본인 키로 바꾸세요.)</p>
+    </div>
+    <pre class="code-block"><code>curl "https://openapi.naver.com/v1/search/blog.json?query=claude" \
+  -H "X-Naver-Client-Id: <span class="key">발급받은_CLIENT_ID</span>" \
+  -H "X-Naver-Client-Secret: <span class="key">발급받은_CLIENT_SECRET</span>"</code></pre>
+    <div class="note"><strong>크롬 확장에서는</strong> 이 Client ID·Secret을 확장의 설정(options) 화면에 입력해 저장하고, 코드가 검색할 때마다 헤더에 넣어 호출합니다. 오늘 받은 <code>NaverAPI-extension.zip</code>이 정확히 이 구조입니다.</div>
+    <div class="note" style="border-left-color:#d97757;"><strong>Claude에게 맡기는 법</strong>: "네이버 검색 API Client ID/Secret 발급받았어. 이 키로 블로그 검색해서 결과 보여주는 크롬 확장 만들어줘" 라고 하면, 키 입력 화면·호출 코드·결과 렌더링까지 만들어 줍니다.</div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="detail-section" id="s3">
+  <div class="container">
+    <h2>꼭 알아둘 주의 · 한도</h2>
+    <ul class="checklist">
+      <li><strong>Client Secret은 비밀번호</strong> — GitHub·블로그·스크린샷에 그대로 올리지 마세요. 노출되면 애플리케이션 화면에서 재발급.</li>
+      <li><strong>무료 호출 한도</strong> — 검색 API는 애플리케이션당 <strong>하루 25,000회</strong>까지 무료. 실습·개인 도구로는 충분합니다.</li>
+      <li><strong>검색 종류별 주소가 다름</strong> — <code>/search/blog.json</code>, <code>/search/news.json</code>, <code>/search/shop.json</code> 등. 쓰려는 종류를 신청 시 "검색"으로 한 번에 묶어 쓸 수 있습니다.</li>
+      <li><strong>키가 안 먹힐 때</strong> — 401/403 오류면 ① ID/Secret 오타 ② "사용 API"에 검색이 빠짐 ③ 헤더 이름 오타(<code>X-Naver-Client-Id</code>) 순으로 점검.</li>
+    </ul>
+    <div class="note" style="margin-top:18px;"><strong>출처(2026년 6월 기준 확인)</strong>: <a href="https://developers.naver.com/products/service-api/search/search.md" target="_blank" rel="noopener" style="color:var(--accent-strong)">네이버 개발자센터 — 검색 API 공식 문서</a></div>
+  </div>
+</section>
+
+<section class="detail-section">
+  <div class="container">
+    <a href="./week4-youtube-api-guide.html" class="next-week">
+      <div>
+        <div class="next-week-label">다음 참고자료 →</div>
+        <div class="next-week-title">YouTube Data API 발급받기</div>
+      </div>
+      <div class="next-week-arrow">→</div>
+    </a>
+    <a href="./week-4.html" class="next-week" style="margin-top:14px;">
+      <div>
+        <div class="next-week-label">← BACK · WEEK 04</div>
+        <div class="next-week-title">Agent · API 활용 · Claude 앱</div>
+      </div>
+      <div class="next-week-arrow">→</div>
+    </a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="brand">
+      <span class="brand-mark">●</span>
+      <span class="brand-text">Hello Claude Code</span>
+    </div>
+    <div class="footer-meta">
+      <span>© 2026 Jeonseokhwan · Hello Claude Code</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
