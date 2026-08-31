@@ -46,10 +46,8 @@ const CONFIG = {
   START_DATE: '9월 14일(월) 밤 9시',
   LANDING_URL: '',   // 모집 페이지
 
-  // 카톡 오픈채팅방 — open.kakao.com 을 직접 걸면 Gmail이 '리디렉션 알림' 경고 페이지를
-  // 한 번 띄웁니다. 그래서 우리 도메인(/kakao)을 거쳐 카톡방으로 넘기고 있어요.
-  // 실제 오픈채팅 주소는 season2-site/vercel.json 의 redirects 에서 바꿉니다.
-  KAKAO_URL: 'https://monthly-claude-2.vercel.app/kakao',
+  // 카톡 오픈채팅방 (신청자 메일 버튼 · 사장님 메일 안내 문구에 그대로 들어갑니다)
+  KAKAO_URL: 'https://open.kakao.com/o/gChMMpLi',
   // ⚠️ 참여 코드는 '사장님 알림 메일'에만 나옵니다. 신청자 메일에는 절대 들어가지 않습니다.
   //    (신청만 하고 결제 안 한 사람이 들어오는 걸 막기 위함)
   KAKAO_CODE: 'CHANGE_ME',

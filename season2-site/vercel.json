@@ -1,13 +1,6 @@
 {
   "trailingSlash": false,
   "cleanUrls": true,
-  "redirects": [
-    {
-      "source": "/kakao",
-      "destination": "https://open.kakao.com/o/gChMMpLi",
-      "permanent": false
-    }
-  ],
   "headers": [
     {
       "source": "/(.*)",
