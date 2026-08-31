@@ -1,0 +1,823 @@
+/* ===========================================================
+   월간클로드 2기 — 모집 랜딩 전용 스타일
+   styles.css 를 먼저 로드한 뒤 이 파일을 로드합니다.
+   =========================================================== */
+
+/* ===== 모집 상태 배너 ===== */
+.recruit-bar {
+  background: linear-gradient(90deg, var(--accent) 0%, #c9633f 100%);
+  color: #fff;
+  text-align: center;
+  font-size: 14.5px;
+  font-weight: 600;
+  padding: 10px 24px;
+  letter-spacing: -0.01em;
+}
+.recruit-bar strong { font-weight: 800; }
+.recruit-bar a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ===== Hero 보강 ===== */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px 6px 8px;
+  background: var(--accent-glow);
+  border: 1px solid rgba(217, 119, 87, 0.35);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent-strong);
+  margin-bottom: 22px;
+}
+.hero-badge .badge-pill {
+  background: var(--accent);
+  color: #fff;
+  border-radius: 999px;
+  padding: 2px 9px;
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+}
+.hero-promise {
+  margin: 28px auto 0;
+  max-width: 720px;
+  padding: 20px 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-strong);
+  border-left: 3px solid var(--accent);
+  border-radius: 12px;
+  text-align: left;
+}
+.hero-promise p { margin: 0; color: var(--text-soft); font-size: 16px; }
+.hero-promise strong { color: var(--text); }
+
+/* ===== 대상 / 비대상 2열 ===== */
+.fit-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.fit-card {
+  padding: 28px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+}
+.fit-card.fit-yes { border-color: rgba(110, 231, 183, 0.28); }
+.fit-card.fit-no { border-color: var(--border-strong); }
+.fit-card h3 {
+  margin: 0 0 18px;
+  font-size: 19px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.fit-card ul { list-style: none; margin: 0; padding: 0; }
+.fit-card li {
+  position: relative;
+  padding-left: 26px;
+  margin-bottom: 12px;
+  color: var(--text-soft);
+  font-size: 15px;
+  line-height: 1.6;
+}
+.fit-card li::before {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-weight: 800;
+}
+.fit-yes li::before { content: '✓'; color: var(--good); }
+.fit-no li::before { content: '✕'; color: var(--text-mute); }
+
+/* ===== 수강료 ===== */
+.price-wrap { display: flex; justify-content: center; }
+.price-card {
+  width: 100%;
+  max-width: 480px;
+  padding: 38px 34px;
+  border-radius: 18px;
+  border: 1px solid var(--accent);
+  background: radial-gradient(120% 130% at 50% 0%, rgba(217, 119, 87, 0.14) 0%, transparent 60%), var(--bg-card);
+  text-align: center;
+}
+.price-name { font-size: 15px; font-weight: 700; color: var(--accent-strong); letter-spacing: 0.04em; }
+.price-amount {
+  font-size: 44px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin: 10px 0 4px;
+}
+.price-amount .price-unit { font-size: 20px; font-weight: 700; color: var(--text-mute); }
+.price-sub { color: var(--text-mute); font-size: 14.5px; margin: 0 0 24px; }
+.price-list { list-style: none; margin: 0 0 28px; padding: 0; text-align: left; }
+.price-list li {
+  position: relative;
+  padding-left: 26px;
+  margin-bottom: 11px;
+  font-size: 15px;
+  color: var(--text-soft);
+}
+.price-list li::before { content: '✓'; position: absolute; left: 0; color: var(--accent); font-weight: 800; }
+.price-meta {
+  display: flex;
+  justify-content: center;
+  gap: 22px;
+  flex-wrap: wrap;
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  font-size: 13.5px;
+  color: var(--text-mute);
+}
+.price-meta b { color: var(--text); font-weight: 700; }
+.price-note {
+  max-width: 480px;
+  margin: 20px auto 0;
+  font-size: 13.5px;
+  color: var(--text-mute);
+  text-align: center;
+  line-height: 1.7;
+}
+
+/* ===== 일정 경고 ===== */
+.notice-box {
+  max-width: 780px;
+  margin: 32px auto 0;
+  padding: 18px 22px;
+  border-radius: 12px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-card);
+  font-size: 14.5px;
+  color: var(--text-soft);
+  line-height: 1.7;
+}
+.notice-box strong { color: var(--accent-strong); }
+
+/* ===== 1기 실적 ===== */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 40px;
+}
+.stat-card {
+  padding: 26px 20px;
+  text-align: center;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+}
+.stat-num {
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--accent-strong);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.stat-label { font-size: 14px; color: var(--text-mute); margin-top: 6px; }
+
+/* ===== 반응형 ===== */
+@media (max-width: 900px) {
+  .fit-grid { grid-template-columns: 1fr; }
+  .stat-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .price-card { padding: 30px 22px; }
+  .price-amount { font-size: 36px; }
+}
+
+/* ===========================================================
+   신청 폼 보강 — survey.css 가 tel 타입을 다루지 않아 여기서 보완
+   =========================================================== */
+input[type="tel"] {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-family: inherit;
+  font-size: 15px;
+  color: var(--text);
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+input[type="tel"]:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: var(--bg-card-hover);
+}
+
+/* 개인정보 동의 체크박스 — 여러 줄 텍스트 정렬 */
+.check input[type="checkbox"] { flex-shrink: 0; margin-top: 3px; }
+.check span { line-height: 1.6; }
+
+@media (max-width: 640px) {
+  input[type="tel"] { padding: 11px 12px; font-size: 16px; /* iOS 줌 방지 */ }
+}
+
+/* ===========================================================
+   v0.2 추가 — 앱/스토어 커리큘럼 개편분
+   =========================================================== */
+
+/* ===== 주차 카드 변형 ===== */
+.week-card-zero {
+  border-style: dashed;
+  background: transparent;
+}
+.week-card-zero .week-num { opacity: 0.55; }
+.week-card-star {
+  border-color: var(--accent);
+  background: radial-gradient(120% 130% at 50% 0%, rgba(217, 119, 87, 0.13) 0%, transparent 60%), var(--bg-card);
+}
+
+/* ===== 유형 분기 박스 ===== */
+.type-box {
+  margin-top: 40px;
+  padding: 32px;
+  border-radius: 16px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-card);
+}
+.type-box h3 { margin: 0 0 6px; font-size: 20px; }
+.type-box > p { margin: 0 0 24px; color: var(--text-mute); font-size: 15px; }
+.type-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.type-card {
+  padding: 22px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+}
+.type-icon { font-size: 28px; line-height: 1; margin-bottom: 10px; }
+.type-card h4 { margin: 0 0 10px; font-size: 16px; }
+.type-card p { margin: 0; font-size: 14px; color: var(--text-mute); line-height: 1.75; }
+.type-card strong { color: var(--accent-strong); font-weight: 700; }
+
+/* ===== 범위 표 (정직한 약속) ===== */
+.scope-table {
+  max-width: 760px;
+  margin: 0 auto;
+  border: 1px solid var(--border-strong);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.scope-row {
+  display: grid;
+  grid-template-columns: 1fr 160px;
+  gap: 12px;
+  padding: 16px 22px;
+  border-bottom: 1px solid var(--border);
+  font-size: 15px;
+  color: var(--text-soft);
+  align-items: center;
+}
+.scope-row:last-child { border-bottom: none; }
+.scope-head {
+  background: var(--bg-alt);
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+}
+.scope-hi { background: rgba(217, 119, 87, 0.09); }
+.scope-yes { color: var(--good); font-weight: 700; }
+.scope-partial { color: var(--accent-strong); font-weight: 700; }
+.scope-note { color: var(--text-mute); font-size: 13px; }
+
+/* ===== 범위 설명 ===== */
+.scope-explain {
+  max-width: 900px;
+  margin: 40px auto 0;
+}
+.scope-explain h3 { font-size: 20px; margin: 0 0 10px; text-align: center; }
+.scope-explain > p {
+  color: var(--text-mute);
+  font-size: 15px;
+  text-align: center;
+  max-width: 660px;
+  margin: 0 auto 26px;
+  line-height: 1.75;
+}
+.scope-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.scope-card {
+  padding: 26px;
+  border-radius: 14px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-card);
+}
+.scope-card-accent {
+  border-color: var(--accent);
+  background: radial-gradient(120% 130% at 50% 0%, rgba(217, 119, 87, 0.12) 0%, transparent 60%), var(--bg-card);
+}
+.scope-card-tag {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--accent-strong);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.scope-card h4 { margin: 0 0 10px; font-size: 18px; }
+.scope-card p { margin: 0; font-size: 14.5px; color: var(--text-mute); line-height: 1.7; }
+
+/* ===== 준비물 경고 카드 ===== */
+.prep-card-alert {
+  border-color: var(--accent) !important;
+  background: radial-gradient(120% 130% at 50% 0%, rgba(217, 119, 87, 0.12) 0%, transparent 62%), var(--bg-card) !important;
+}
+
+/* ===== 별도 실비 ===== */
+.price-extra {
+  max-width: 720px;
+  margin: 36px auto 0;
+  padding: 26px 28px;
+  border-radius: 14px;
+  border: 1px dashed var(--border-strong);
+  background: var(--bg-card);
+}
+.price-extra h4 { margin: 0 0 18px; font-size: 16px; }
+.price-extra-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 16px;
+}
+.price-extra-grid > div {
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+}
+.price-extra-grid strong { display: block; font-size: 14.5px; margin-bottom: 4px; }
+.price-extra-grid span { font-size: 13px; color: var(--text-mute); }
+.price-extra > p { margin: 0; font-size: 13.5px; color: var(--text-mute); }
+
+/* ===== 반응형 ===== */
+@media (max-width: 900px) {
+  .type-grid { grid-template-columns: 1fr; }
+  .scope-cards { grid-template-columns: 1fr; }
+  .price-extra-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .type-box { padding: 22px 18px; }
+  .scope-row { grid-template-columns: 1fr 92px; padding: 14px 16px; font-size: 14px; }
+  .scope-explain h3, .scope-explain > p { text-align: left; }
+}
+
+/* ===== "사람이 해야 하는 것" 카드 — 부정 기호가 아니라 항목 표시 ===== */
+.fit-card.fit-human {
+  border-color: rgba(217, 119, 87, 0.42);
+  background: radial-gradient(130% 120% at 50% 0%, rgba(217, 119, 87, 0.08) 0%, transparent 60%), var(--bg-card);
+}
+.fit-human li::before { content: '●'; color: var(--accent); font-size: 11px; top: 2px; }
+
+/* ===========================================================
+   월간클로드 멤버십 (정규 4주 → 매월 무료 세션)
+   =========================================================== */
+.member-flow {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  align-items: stretch;
+  gap: 14px;
+  margin-bottom: 44px;
+}
+.member-step {
+  padding: 28px 24px;
+  border-radius: 16px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-card);
+  text-align: center;
+}
+.member-step-hi {
+  border-color: var(--accent);
+  background: radial-gradient(130% 130% at 50% 0%, rgba(217, 119, 87, 0.16) 0%, transparent 62%), var(--bg-card);
+}
+.member-tag {
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+  margin-bottom: 12px;
+}
+.member-step-hi .member-tag { color: var(--accent-strong); }
+.member-tag strong { color: var(--accent); }
+.member-step h3 { margin: 0 0 10px; font-size: 21px; letter-spacing: -0.01em; }
+.member-step p { margin: 0; font-size: 14.5px; color: var(--text-mute); line-height: 1.7; }
+.member-arrow {
+  display: grid;
+  place-items: center;
+  color: var(--accent);
+  font-size: 22px;
+  font-weight: 700;
+}
+
+/* 설명 블록 */
+.member-why {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 32px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+}
+.member-why h3 { margin: 0 0 14px; font-size: 20px; }
+.member-why > p { margin: 0 0 14px; color: var(--text-soft); font-size: 15.5px; line-height: 1.8; }
+.member-why > p strong { color: var(--text); }
+.member-bullets {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 26px;
+  padding-top: 26px;
+  border-top: 1px solid var(--border);
+}
+.member-bullets > div { display: flex; gap: 12px; align-items: flex-start; }
+.member-bullets span { font-size: 22px; line-height: 1.2; flex-shrink: 0; }
+.member-bullets strong { display: block; font-size: 14.5px; margin-bottom: 4px; }
+.member-bullets p { margin: 0; font-size: 13.5px; color: var(--text-mute); line-height: 1.6; }
+
+@media (max-width: 900px) {
+  .member-flow { grid-template-columns: 1fr; }
+  .member-arrow { transform: rotate(90deg); padding: 4px 0; }
+  .member-bullets { grid-template-columns: 1fr; }
+  .member-why { padding: 24px 20px; }
+}
+
+/* 수강료 목록 — 멤버십 강조 항목 */
+.price-list li.price-hi {
+  color: var(--text);
+  padding: 10px 12px 10px 30px;
+  margin: -4px 0 14px -12px;
+  border-radius: 10px;
+  background: var(--accent-glow);
+  border: 1px solid rgba(217, 119, 87, 0.3);
+}
+.price-list li.price-hi::before { content: none; }
+
+/* ===========================================================
+   주말 특강 안내
+   =========================================================== */
+.makeup-box {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 0;
+  max-width: 940px;
+  margin: 36px auto 0;
+  border: 1px solid var(--accent);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.makeup-main {
+  padding: 28px 30px;
+  background: radial-gradient(130% 130% at 20% 0%, rgba(217, 119, 87, 0.13) 0%, transparent 62%), var(--bg-card);
+}
+.makeup-tag {
+  display: inline-block;
+  padding: 4px 11px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  margin-bottom: 12px;
+}
+.makeup-main h3 { margin: 0 0 10px; font-size: 21px; letter-spacing: -0.01em; }
+.makeup-main p { margin: 0; font-size: 15px; color: var(--text-soft); line-height: 1.75; }
+
+.makeup-cond {
+  padding: 28px 30px;
+  background: var(--bg-alt);
+  border-left: 1px dashed var(--border-strong);
+}
+.makeup-cond-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--accent-strong);
+  margin-bottom: 10px;
+}
+.makeup-cond p { margin: 0 0 8px; font-size: 15px; color: var(--text); line-height: 1.65; }
+.makeup-cond .makeup-cond-sub {
+  margin: 0;
+  font-size: 13.5px;
+  color: var(--text-mute);
+  line-height: 1.7;
+}
+
+@media (max-width: 760px) {
+  .makeup-box { grid-template-columns: 1fr; }
+  .makeup-cond { border-left: none; border-top: 1px dashed var(--border-strong); }
+  .makeup-main, .makeup-cond { padding: 22px 20px; }
+}
+
+/* ===========================================================
+   수강료 2종 (정식 / 스페셜 할인)
+   =========================================================== */
+.price-duo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  max-width: 760px;
+  margin: 0 auto;
+  align-items: stretch;
+}
+.price-duo .price-card { max-width: none; margin: 0; position: relative; }
+.price-card-std {
+  border-color: var(--border-strong);
+  background: var(--bg-card);
+}
+.price-card-sale {
+  border-color: var(--accent);
+  border-width: 2px;
+  background: radial-gradient(130% 130% at 50% 0%, rgba(217, 119, 87, 0.16) 0%, transparent 62%), var(--bg-card);
+}
+.price-ribbon {
+  position: absolute;
+  top: -13px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 5px 16px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.price-was {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-mute);
+  text-decoration: line-through;
+  letter-spacing: 0;
+  margin-bottom: 2px;
+}
+.price-cond {
+  margin: 14px 0 0;
+  font-size: 12.5px;
+  color: var(--text-mute);
+  line-height: 1.6;
+}
+
+/* 공통 포함사항 */
+.price-included {
+  max-width: 760px;
+  margin: 26px auto 0;
+  padding: 28px 30px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+}
+.price-included h4 {
+  margin: 0 0 20px;
+  font-size: 16px;
+  text-align: center;
+  color: var(--text-soft);
+}
+.price-included .price-list { margin-bottom: 0; }
+
+@media (max-width: 700px) {
+  .price-duo { grid-template-columns: 1fr; gap: 28px; }
+  .price-included { padding: 22px 20px; }
+}
+
+/* ===========================================================
+   신청 절차 (신청 → 결제 → 카톡방 → 개강)
+   =========================================================== */
+.apply-flow {
+  max-width: 760px;
+  margin: 26px auto 0;
+  padding: 28px 30px;
+  border-radius: 16px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-card);
+}
+.apply-flow h4 {
+  margin: 0 0 22px;
+  font-size: 16px;
+  text-align: center;
+  color: var(--text-soft);
+}
+.apply-flow ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  counter-reset: flowstep;
+}
+.apply-flow li {
+  counter-increment: flowstep;
+  position: relative;
+  padding: 16px 16px 16px 46px;
+  border-radius: 10px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+}
+.apply-flow li::before {
+  content: counter(flowstep);
+  position: absolute;
+  left: 14px;
+  top: 15px;
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--accent-glow);
+  color: var(--accent-strong);
+  font-size: 12px;
+  font-weight: 800;
+}
+.apply-flow li strong { display: block; font-size: 14.5px; margin-bottom: 3px; }
+.apply-flow li span { font-size: 12.5px; color: var(--text-mute); line-height: 1.5; }
+
+@media (max-width: 760px) {
+  .apply-flow { padding: 22px 20px; }
+  .apply-flow ol { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .apply-flow ol { grid-template-columns: 1fr; }
+}
+
+/* ===========================================================
+   강사 소개
+   =========================================================== */
+.teacher {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 30px;
+  align-items: start;
+  max-width: 940px;
+  margin: 0 auto;
+  padding: 36px;
+  border-radius: 18px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-card);
+}
+.teacher-side { text-align: center; }
+.teacher-photo {
+  width: 95px;
+  margin: 0 auto;
+  aspect-ratio: 1 / 1;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--bg-alt);
+  margin-bottom: 16px;
+}
+.teacher-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.teacher-name {
+  font-size: 19px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+.teacher-name span { font-size: 14px; font-weight: 600; color: var(--text-mute); }
+.teacher-role {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-strong);
+  line-height: 1.5;
+}
+
+.teacher-bio {
+  margin: 0 0 14px;
+  font-size: 16px;
+  color: var(--text-soft);
+  line-height: 1.85;
+}
+.teacher-bio strong { color: var(--text); }
+
+.teacher-list {
+  list-style: none;
+  margin: 26px 0 0;
+  padding: 22px 0 0;
+  border-top: 1px solid var(--border);
+}
+.teacher-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 12px;
+  font-size: 14.5px;
+  color: var(--text-soft);
+  line-height: 1.6;
+}
+.teacher-list li:last-child { margin-bottom: 0; }
+.teacher-list li > span {
+  flex: 0 0 58px;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: var(--accent-strong);
+  background: var(--accent-glow);
+  border-radius: 999px;
+  padding: 3px 0;
+  text-align: center;
+}
+.teacher-list li strong { color: var(--text); }
+
+@media (max-width: 780px) {
+  .teacher { grid-template-columns: 1fr; gap: 26px; padding: 24px 20px; }
+  .teacher-photo { width: 95px; }
+  .teacher-list li { gap: 10px; font-size: 14px; }
+}
+
+/* ===========================================================
+   하단 고정 신청 바
+   =========================================================== */
+.sticky-cta {
+  position: fixed;
+  left: 50%;
+  bottom: 22px;
+  z-index: 80;
+  transform: translate(-50%, 130%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.24s ease;
+}
+.sticky-cta.is-on {
+  transform: translate(-50%, 0);
+  opacity: 1;
+  pointer-events: auto;
+}
+.sticky-cta-inner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 10px 10px 20px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: rgba(22, 27, 34, 0.92);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+}
+.sticky-cta-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--good);
+  flex-shrink: 0;
+  animation: stickyPulse 2s ease-in-out infinite;
+}
+@keyframes stickyPulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(110, 231, 183, 0.5); }
+  50%      { opacity: 0.75; box-shadow: 0 0 0 6px rgba(110, 231, 183, 0); }
+}
+.sticky-cta-text {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--text);
+}
+.sticky-cta-text strong { font-weight: 700; }
+.sticky-cta-sub { color: var(--text-mute); font-size: 13px; }
+.sticky-cta-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+.sticky-cta-btn:hover { background: var(--accent-strong); transform: translateY(-1px); }
+
+@media (max-width: 620px) {
+  .sticky-cta { left: 12px; right: 12px; bottom: 12px; transform: translate(0, 130%); }
+  .sticky-cta.is-on { transform: translate(0, 0); }
+  .sticky-cta-inner {
+    justify-content: space-between;
+    gap: 10px;
+    padding: 9px 9px 9px 16px;
+    white-space: normal;
+  }
+  .sticky-cta-text { flex-direction: column; gap: 1px; font-size: 13px; line-height: 1.3; }
+  .sticky-cta-sub { font-size: 11.5px; }
+  .sticky-cta-btn { padding: 10px 15px; font-size: 13px; flex-shrink: 0; }
+}
+
+/* 고정 바에 푸터가 가리지 않도록 */
+.site-footer { padding-bottom: 86px; }

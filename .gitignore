@@ -33,3 +33,11 @@ venv/
 # Claude 임시 / 로컬 설정
 .claude/cache/
 .claude/settings.local.json
+
+.vercel
+.env*
+
+# 실제 비밀값이 담긴 파일 (공개 저장소에 올리지 않음)
+docs/season2/apps-script-mailer.gs
+docs/season2/_SECRET.txt
+vercel.json.bak
