@@ -41,3 +41,7 @@ venv/
 docs/season2/apps-script-mailer.gs
 docs/season2/_SECRET.txt
 vercel.json.bak
+
+# 계좌번호 등 운영 정보가 담긴 문서 (공개 저장소 제외)
+docs/season1/kakao-notice.md
+docs/season1/workspace-structure.md
