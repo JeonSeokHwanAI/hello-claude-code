@@ -46,8 +46,10 @@ const CONFIG = {
   START_DATE: '9월 14일(월) 밤 9시',
   LANDING_URL: '',   // 모집 페이지
 
-  // 카톡 오픈채팅방
-  KAKAO_URL: 'https://open.kakao.com/o/XXXXXXX',
+  // 카톡 오픈채팅방 — open.kakao.com 을 직접 걸면 Gmail이 '리디렉션 알림' 경고 페이지를
+  // 한 번 띄웁니다. 그래서 우리 도메인(/kakao)을 거쳐 카톡방으로 넘기고 있어요.
+  // 실제 오픈채팅 주소는 season2-site/vercel.json 의 redirects 에서 바꿉니다.
+  KAKAO_URL: 'https://monthly-claude-2.vercel.app/kakao',
   // ⚠️ 참여 코드는 '사장님 알림 메일'에만 나옵니다. 신청자 메일에는 절대 들어가지 않습니다.
   //    (신청만 하고 결제 안 한 사람이 들어오는 걸 막기 위함)
   KAKAO_CODE: 'CHANGE_ME',
@@ -103,11 +105,11 @@ function sendApplicantMail(r) {
     : '';
 
   const html = wrap(`
-    <h1 style="margin:0 0 6px;font-size:22px;color:#1a1a1a;">신청이 완료되었습니다 🎉</h1>
+    <h1 style="margin:0 0 6px;font-size:22px;color:#1a1a1a;">신청이 완료되었습니다 &#127881;</h1>
     <p style="margin:0 0 24px;color:#666;font-size:15px;">${name}님, 월간클로드 2기 신청해 주셔서 감사합니다.</p>
 
     <div style="background:#fff7f3;border:1px solid #f0d5c8;border-left:3px solid #d97757;border-radius:10px;padding:20px 22px;margin-bottom:24px;">
-      <div style="font-size:14px;color:#b8613f;font-weight:700;margin-bottom:14px;">💳 수강료 안내</div>
+      <div style="font-size:14px;color:#b8613f;font-weight:700;margin-bottom:14px;">&#128179; 수강료 안내</div>
       <table style="width:100%;border-collapse:collapse;font-size:14.5px;">
         <tr>
           <td style="padding:5px 12px 5px 0;color:#888;white-space:nowrap;vertical-align:top;">수강료</td>
@@ -131,7 +133,7 @@ function sendApplicantMail(r) {
         방 입장에는 <strong>참여 코드</strong>가 필요합니다.<br>
         입금이 확인되면 코드를 따로 보내드릴게요.
       </div>
-      <a href="${esc(CONFIG.KAKAO_URL)}" style="display:inline-block;padding:11px 20px;border-radius:8px;background:#FEE500;color:#191600;font-size:14.5px;font-weight:700;text-decoration:none;">💬 월간클로드 2기 카톡방 →</a>
+      <a href="${esc(CONFIG.KAKAO_URL)}" style="display:inline-block;padding:11px 20px;border-radius:8px;background:#FEE500;color:#191600;font-size:14.5px;font-weight:700;text-decoration:none;">&#128172; 월간클로드 2기 카톡방 →</a>
     </div>
 
     <table style="width:100%;border-collapse:collapse;font-size:14.5px;margin-bottom:24px;">
@@ -215,7 +217,7 @@ function sendOwnerMail(r) {
     <table style="width:100%;border-collapse:collapse;">${table}</table>
 
     <div style="margin-top:26px;padding:18px 20px;border-radius:10px;background:#f7f7f8;border:1px dashed #d5d5da;">
-      <div style="font-size:13px;font-weight:700;color:#555;margin-bottom:10px;">💬 입금 확인되면 이 문구를 보내세요</div>
+      <div style="font-size:13px;font-weight:700;color:#555;margin-bottom:10px;">&#128172; 입금 확인되면 이 문구를 보내세요</div>
       <div style="font-size:14px;color:#222;line-height:1.85;background:#fff;border-radius:8px;padding:14px 16px;">
         ${esc(r.name || '')}님, 입금 확인했습니다 :)<br>
         아래 링크로 들어오셔서 참여 코드를 입력해 주세요.<br><br>
@@ -286,7 +288,11 @@ function wrap(inner, linkUrl) {
 
 function esc(s) {
   return String(s == null ? '' : s)
-    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+    .replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function (m) {
+      var cp = (m.charCodeAt(0) - 0xD800) * 0x400 + (m.charCodeAt(1) - 0xDC00) + 0x10000;
+      return '&#' + cp + ';';
+    });
 }
 
 function won(n) {
