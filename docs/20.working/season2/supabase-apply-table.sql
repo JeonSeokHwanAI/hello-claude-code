@@ -13,7 +13,8 @@ create table public.season2_applications (
   name text not null,
   email text not null,
   phone text not null,
-  blkup text,                 -- 'yes' | 'no'  (블크업 13기 = 스페셜 할인 50만원)
+  blkup text,                 -- 'yes'(블크업 13기) | 'season1'(월간클로드 1기) | 'no'
+                              --   'yes' / 'season1' = 스페셜 할인 50만원
   referral text,              -- 'season1' | 'friend' | 'sns' | 'search' | 'other'
 
   -- 실습 환경

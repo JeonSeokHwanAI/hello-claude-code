@@ -282,9 +282,9 @@ Week 1          Week 2         Week 3                      Week 4
 |---|---|
 | 주소 | **https://monthly-claude-2.vercel.app** (신청: `/apply`) |
 | Vercel 프로젝트 | `monthly-claude-2` — **1기(`hello-claude-code`)와 완전 분리** |
-| 소스 | `season2-site/` (저장소 루트가 아님 — Vercel `rootDirectory` 설정됨) |
+| 소스 | `sites/season2/` (저장소 루트가 아님 — Vercel `rootDirectory` 설정됨) |
 
-> ⚠️ **주의**: Vercel 프로젝트가 GitHub 저장소에 연결돼 있고 `rootDirectory=season2-site`로 지정돼 있다. 이 설정이 비면 푸시할 때 저장소 루트(1기)가 배포되어 2기 주소에 1기 페이지가 뜬다. (실제 발생했던 사고)
+> ⚠️ **주의**: Vercel 프로젝트가 GitHub 저장소에 연결돼 있고 `rootDirectory=sites/season2`로 지정돼 있다. 이 설정이 비면 푸시할 때 저장소 루트(1기)가 배포되어 2기 주소에 1기 페이지가 뜬다. (실제 발생했던 사고)
 
 ### 7.2 신청 접수
 - **Supabase** `season2_applications` 테이블

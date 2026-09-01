@@ -2,7 +2,7 @@
 // 월간클로드 2기 — 수강 신청 접수
 //
 // 1) Supabase 프로젝트에서 Settings → API 의 값을 아래에 채웁니다.
-// 2) docs/season2/supabase-apply-table.sql 을 SQL Editor에서 실행해
+// 2) docs/20.working/season2/supabase-apply-table.sql 을 SQL Editor에서 실행해
 //    season2_applications 테이블 + RLS 정책을 생성합니다.
 //
 // anon key는 공개되어도 안전합니다 — RLS가 INSERT만 허용하도록 설정되어 있습니다.

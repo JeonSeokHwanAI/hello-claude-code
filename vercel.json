@@ -3,11 +3,11 @@
   "rewrites": [
     {
       "source": "/",
-      "destination": "/season1-site/index.html"
+      "destination": "/sites/season1/index.html"
     },
     {
       "source": "/(.*)",
-      "destination": "/season1-site/$1"
+      "destination": "/sites/season1/$1"
     }
   ],
   "headers": [

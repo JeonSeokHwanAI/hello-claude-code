@@ -37,9 +37,9 @@ const CONFIG = {
   // 현금영수증 안내 (비워두면 메일에 안 나옵니다)
   CASH_RECEIPT: '현금영수증이 필요하신 분은 개인톡으로 신청해 주세요.',
 
-  // 수강료 — 신청서의 '블크업 13기' 응답에 따라 자동으로 갈립니다
+  // 수강료 — 신청서의 '스페셜 할인 대상' 응답에 따라 자동으로 갈립니다
   PRICE_NORMAL: 650000,   // 정식
-  PRICE_BLKUP:  500000,   // 블크업 13기 스페셜 할인
+  PRICE_SPECIAL: 500000,  // 스페셜 할인 (블크업 13기 · 월간클로드 1기)
 
   // 모집 안내
   DEADLINE: '9월 12일(토)',
@@ -87,13 +87,13 @@ function doPost(e) {
 
 /** ① 신청자에게 — 접수 확인 + 결제 안내 */
 function sendApplicantMail(r) {
-  const isBlkup = r.blkup === 'yes';
-  const price = isBlkup ? CONFIG.PRICE_BLKUP : CONFIG.PRICE_NORMAL;
-  const priceLabel = isBlkup
-    ? won(CONFIG.PRICE_BLKUP) + ' <span style="color:#999;text-decoration:line-through;font-weight:400;font-size:15px;">' + won(CONFIG.PRICE_NORMAL) + '</span>'
+  const discount = discountOf(r.blkup);
+  const price = discount ? CONFIG.PRICE_SPECIAL : CONFIG.PRICE_NORMAL;
+  const priceLabel = discount
+    ? won(CONFIG.PRICE_SPECIAL) + ' <span style="color:#999;text-decoration:line-through;font-weight:400;font-size:15px;">' + won(CONFIG.PRICE_NORMAL) + '</span>'
     : won(CONFIG.PRICE_NORMAL);
-  const priceNote = isBlkup
-    ? '블크업 13기 스페셜 할인가로 안내드립니다.'
+  const priceNote = discount
+    ? discount + ' 스페셜 할인가로 안내드립니다.'
     : '정식 수강료입니다.';
 
   const name = esc(r.name || '');
@@ -160,14 +160,14 @@ function sendApplicantMail(r) {
 
 /** ② 사장님에게 — 신청 알림 */
 function sendOwnerMail(r) {
-  const isBlkup = r.blkup === 'yes';
-  const price = isBlkup ? CONFIG.PRICE_BLKUP : CONFIG.PRICE_NORMAL;
+  const discount = discountOf(r.blkup);
+  const price = discount ? CONFIG.PRICE_SPECIAL : CONFIG.PRICE_NORMAL;
 
   const rows = [
     ['이름', r.name],
     ['이메일', r.email],
     ['연락처', r.phone],
-    ['수강료', won(price) + (isBlkup ? '  (블크업 13기 할인)' : '  (정식)')],
+    ['수강료', won(price) + (discount ? '  (' + discount + ' 할인)' : '  (정식)')],
     ['유형', label(r.user_type, { shop: '🏪 가게형', personal: '🧑 개인형', tool: '🛠 도구형', undecided: '🤔 미정' })],
     ['사업자등록증', label(r.business, { yes: '✅ 있음 — 테스터 12명 요건 면제', no: '없음 (개인 계정)', unsure: '모르겠다고 응답' })],
     ['개발자 계정', label(r.play_account, { done: '이미 보유', will: '개강 전 등록 예정', guide: '⚠️ 등록 방법 안내 필요', skip: '⚠️ 등록 안 하겠다고 응답' })],
@@ -177,7 +177,7 @@ function sendOwnerMail(r) {
     ['코딩 경험', label(r.coding, { none: '전혀 없음', beginner: '조금 따라해 봄', some: '어느 정도 가능', pro: '직업적으로 코딩' })],
     ['PC', [label(r.os, { windows: 'Windows', mac: 'macOS', other: '기타' }), label(r.device_owner, { personal: '개인 PC', company: '⚠️ 회사 PC' })].join(' · ')],
     ['스마트폰', label(r.phone_os, { android: '안드로이드', both: '안드로이드+아이폰', ios: '⚠️ 아이폰만' })],
-    ['유입 경로', label(r.referral, { season1: '1기 수강생', friend: '지인 추천', sns: 'SNS·블로그', search: '검색', other: '기타' })],
+    ['유입 경로', label(r.referral, { friend: '지인 추천', blkup: '블크업에서', season1: '월간클로드 1기', sns: 'SNS·블로그', search: '검색', other: '기타' })],
     ['만들고 싶은 것', r.build_idea],
     ['남긴 말', r.notes],
   ];
@@ -209,7 +209,7 @@ function sendOwnerMail(r) {
   const html = wrap(`
     <h1 style="margin:0 0 4px;font-size:20px;color:#1a1a1a;">신청 접수</h1>
     <p style="margin:0 0 22px;color:#666;font-size:14.5px;">
-      ${esc(r.name || '')} · ${won(price)}${isBlkup ? ' (할인)' : ''}
+      ${esc(r.name || '')} · ${won(price)}${discount ? ' (할인)' : ''}
     </p>
     ${flagBox}
     <table style="width:100%;border-collapse:collapse;">${table}</table>
@@ -228,7 +228,7 @@ function sendOwnerMail(r) {
     </p>
   `, '');
 
-  send(CONFIG.OWNER_EMAIL, `[2기 신청접수] ${r.name || '이름없음'} · ${won(price)}${isBlkup ? ' (할인)' : ''}`, html);
+  send(CONFIG.OWNER_EMAIL, `[2기 신청접수] ${r.name || '이름없음'} · ${won(price)}${discount ? ' (할인)' : ''}`, html);
 }
 
 /** 발송 실패 시 사장님께 알림 */
@@ -291,6 +291,19 @@ function esc(s) {
       var cp = (m.charCodeAt(0) - 0xD800) * 0x400 + (m.charCodeAt(1) - 0xDC00) + 0x10000;
       return '&#' + cp + ';';
     });
+}
+
+/**
+ * 스페셜 할인 대상이면 할인 사유를, 아니면 null 을 돌려준다.
+ * 신청서의 '스페셜 할인 대상' 응답값:
+ *   'yes'     — 블크업 13기      (초기 폼의 '네' 응답도 이 값이라 그대로 둔다)
+ *   'season1' — 월간클로드 1기
+ *   'no'      — 해당 없음
+ */
+function discountOf(blkup) {
+  if (blkup === 'yes') return '블크업 13기';
+  if (blkup === 'season1') return '월간클로드 1기';
+  return null;
 }
 
 function won(n) {
