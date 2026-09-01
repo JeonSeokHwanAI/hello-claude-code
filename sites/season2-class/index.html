@@ -14,6 +14,7 @@
 </head>
 <body>
 
+<!-- Header -->
 <header class="site-header">
   <div class="container header-inner">
     <a href="./index.html" class="brand">
@@ -21,199 +22,269 @@
       <span class="brand-text">월간클로드 2기</span>
     </a>
     <nav class="nav">
-      <a href="./index.html#schedule">일정</a>
-      <a href="./index.html#curriculum">커리큘럼</a>
-      <a href="./index.html#prep">사전 준비</a>
-      <a href="./index.html#faq">FAQ</a>
+      <a href="#schedule">일정</a>
+      <a href="#curriculum">커리큘럼</a>
+      <a href="./study.html">미리 공부</a>
+      <a href="./survey.html">사전 설문</a>
+      <a href="#prep">사전 준비</a>
+      <a href="#faq">FAQ</a>
       <a href="https://monthly-claude-2.vercel.app" target="_blank" rel="noopener">모집 안내</a>
     </nav>
   </div>
 </header>
 
-<section class="detail-hero">
+<!-- Hero -->
+<section class="hero">
   <div class="container">
-    <div class="detail-eyebrow">SEASON 2 · 수강생 안내</div>
-    <h1 class="detail-title">웹사이트부터 스토어 업로드까지, 4주</h1>
-    <p class="detail-sub">
-      1주차에 웹사이트를 만들고, 2주차에 앱을 만들고, 3주차에 둘 다 인터넷에 올립니다.
-      4주차에는 공공데이터를 붙여 살아 있는 서비스로 만듭니다.
-      이 페이지에 일정 · 커리큘럼 · 준비물을 모아 두었습니다.
+    <div class="hero-tag">4주 화상강의 · 입문자 환영 · Instructor <strong style="color: var(--accent-strong);">전석환</strong></div>
+    <h1 class="hero-title">
+      만들고, <span class="accent">올린다</span>.
+    </h1>
+    <p class="hero-sub">
+      1주차에 웹사이트를 만들고, 2주차에 앱을 만들고, 3주차에 둘 다 인터넷에 올립니다.<br>
+      4주차에는 <strong>공공데이터</strong>를 붙여 살아 있는 서비스로 만듭니다.
     </p>
-    <div class="detail-meta">
-      <div class="detail-meta-item">개강<strong>9월 14일 (월)</strong></div>
-      <div class="detail-meta-item">시간<strong>매주 월요일 21:00</strong></div>
-      <div class="detail-meta-item">형식<strong>화상 실시간 · 4주</strong></div>
-      <div class="detail-meta-item">정원<strong>8명</strong></div>
+
+    <div class="hero-meta">
+      <div class="meta-card">
+        <div class="meta-label">강의 기간</div>
+        <div class="meta-value">9/14 → 10/5 <span class="meta-sub">(Week 0 별도)</span></div>
+      </div>
+      <div class="meta-card">
+        <div class="meta-label">시간</div>
+        <div class="meta-value">매주 월요일 21:00~ <span class="meta-sub">(기본 2시간)</span></div>
+      </div>
+      <div class="meta-card">
+        <div class="meta-label">형식</div>
+        <div class="meta-value">화상 (실시간) · 4주 · 정원 8명</div>
+      </div>
+    </div>
+
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="./survey.html">사전 설문 참여 →</a>
+      <a class="btn btn-ghost" href="./study.html">미리 공부하기</a>
     </div>
   </div>
 </section>
 
-<section class="detail-section" id="schedule">
+<!-- Schedule -->
+<section id="schedule" class="section">
   <div class="container">
-    <h2>일정</h2>
-    <p class="sub">모든 회차는 밤 9시에 시작합니다. 화상 링크는 강의 전 카톡방에 올립니다.</p>
+    <div class="section-head">
+      <span class="eyebrow">Schedule</span>
+      <h2>회차 일정</h2>
+      <p class="section-desc">매주 월요일 21:00 시작. 화상 링크는 강의 전 카톡방에 올립니다.</p>
+    </div>
 
-    <div class="session-list">
-      <div class="session">
-        <div class="session-num">WEEK 0 · 온라인 1시간</div>
-        <h3>같이 설치하기 ⭐</h3>
-        <ul>
-          <li>날짜 미정 — 수강생이 모두 모이면 카톡방에서 되는 시간으로 조율합니다</li>
-          <li>혼자 설치하다 막히면 하루가 날아가지만, 같이 하면 한 시간이면 끝납니다</li>
-          <li>개발자 계정 신청 상태를 이 자리에서 함께 확인합니다</li>
-        </ul>
+    <div class="schedule-grid">
+      <div class="sched-card sched-extra">
+        <div class="sched-week">Week 0</div>
+        <div class="sched-date">날짜 조율 중</div>
+        <div class="sched-time">온라인 1시간</div>
+        <div class="sched-topic">같이 설치하기 · 개발자 계정 점검</div>
       </div>
-      <div class="session">
-        <div class="session-num">WEEK 1 · 9월 14일 (월)</div>
-        <h3>내 웹사이트 만들기</h3>
-        <ul><li>사이트를 뽑는 데서 끝내지 않고, <strong>내가 원하는 대로 고치는 법</strong>까지</li></ul>
+      <div class="sched-card">
+        <div class="sched-week">Week 1</div>
+        <div class="sched-date">9월 14일 (월)</div>
+        <div class="sched-time">21:00~</div>
+        <div class="sched-topic">내 웹사이트 만들기</div>
       </div>
-      <div class="session">
-        <div class="session-num">WEEK 2 · 9월 21일 (월)</div>
-        <h3>안드로이드 앱 만들기</h3>
-        <ul><li>내 폰에서 실제로 실행되는 앱을 만듭니다</li></ul>
+      <div class="sched-card">
+        <div class="sched-week">Week 2</div>
+        <div class="sched-date">9월 21일 (월)</div>
+        <div class="sched-time">21:00~</div>
+        <div class="sched-topic">안드로이드 앱 만들기</div>
       </div>
-      <div class="session">
-        <div class="session-num">WEEK 3 · 9월 28일 (월)</div>
-        <h3>배포하기 ⭐ 이 강의의 본체</h3>
-        <ul><li>웹사이트는 주소를 갖고, 앱은 플레이스토어에 올라갑니다</li></ul>
+      <div class="sched-card">
+        <div class="sched-week">Week 3</div>
+        <div class="sched-date">9월 28일 (월)</div>
+        <div class="sched-time">21:00~</div>
+        <div class="sched-topic">배포하기 — Vercel + Google Play</div>
       </div>
-      <div class="session">
-        <div class="session-num">WEEK 4 · 10월 5일 (월)</div>
-        <h3>공공데이터 활용하기</h3>
-        <ul><li>진짜 데이터를 붙이고, 앞으로 혼자 갈 길을 정리합니다</li></ul>
+      <div class="sched-card">
+        <div class="sched-week">Week 4</div>
+        <div class="sched-date">10월 5일 (월)</div>
+        <div class="sched-time">21:00~</div>
+        <div class="sched-topic">공공데이터 활용하기</div>
       </div>
     </div>
 
-    <div class="homework" style="margin-top:22px">
-      <h3>연휴가 겹치는 회차</h3>
-      <ul>
-        <li>9/28(3주차)과 10/5(4주차)가 연휴와 겹칠 수 있지만 <strong>저녁 화상이라 예정대로 진행</strong>합니다.</li>
-        <li>못 오시는 회차는 녹화본과 주말 특강으로 메꿔 드립니다.</li>
-      </ul>
+    <div class="prep-foot">
+      <p><strong>연휴가 겹치는 회차</strong> — 9/28(3주차)과 10/5(4주차)가 연휴와 겹칠 수 있지만 저녁 화상이라 예정대로 진행합니다. 못 오시는 회차는 녹화본과 주말 특강으로 메꿔 드립니다.</p>
     </div>
   </div>
 </section>
 
-<section class="detail-section" id="curriculum">
+<!-- Curriculum -->
+<section id="curriculum" class="section section-alt">
   <div class="container">
-    <h2>주차별 상세</h2>
-    <p class="sub">각 주차를 눌러 그날 무엇을 하는지, 미리 읽을 이론 자료가 무엇인지 확인하세요.</p>
+    <div class="section-head">
+      <span class="eyebrow">Curriculum</span>
+      <h2>4주 커리큘럼</h2>
+      <p class="section-desc">"웹사이트 → 앱 → 배포 → 데이터" 순서로 만든 것을 세상에 내놓는 데까지 갑니다.</p>
+    </div>
 
-    <div class="session-list">
-      <a href="./week-1.html" class="next-week" style="margin-top:0;">
-        <div>
-          <div class="next-week-label">WEEK 01 · 9/14 (월)</div>
-          <div class="next-week-title">내 웹사이트 만들기</div>
-          <p style="margin:8px 0 0; color:var(--text-mute); font-size:14px;">여러 섹션을 갖춘 소개 사이트를 완성하고, Claude Code를 원하는 대로 부리는 법을 익힙니다.</p>
-        </div>
-        <div class="next-week-arrow">→</div>
+    <div class="week-grid">
+      <a class="week-card" href="./week-1.html">
+        <div class="week-num">01</div>
+        <div class="week-title">내 웹사이트 만들기</div>
+        <p class="week-desc">여러 섹션을 갖춘 소개 사이트를 완성합니다. 뽑는 건 20분이면 되고, 본론은 그다음 — 원하는 대로 고치는 법입니다.</p>
+        <ul class="week-bullets">
+          <li>첫 대화 · 권한 창 · 되돌리기</li>
+          <li>⭐ 원하는 대로 고치기 (35분)</li>
+          <li>참고 사이트 흉내내기 · 취향 기억시키기</li>
+        </ul>
+        <div class="week-resource">📚 이론: <code>Skill</code></div>
+        <span class="week-link">자세히 →</span>
       </a>
-      <a href="./week-2.html" class="next-week" style="margin-top:0;">
-        <div>
-          <div class="next-week-label">WEEK 02 · 9/21 (월)</div>
-          <div class="next-week-title">안드로이드 앱 만들기</div>
-          <p style="margin:8px 0 0; color:var(--text-mute); font-size:14px;">Expo로 앱을 만들고, QR을 찍어 그 자리에서 내 폰에서 실행합니다.</p>
-        </div>
-        <div class="next-week-arrow">→</div>
+      <a class="week-card" href="./week-2.html">
+        <div class="week-num">02</div>
+        <div class="week-title">안드로이드 앱 만들기</div>
+        <p class="week-desc">내 폰에서 실제로 실행되는 앱을 만듭니다. QR을 찍으면 그 자리에서 바로 돌아갑니다.</p>
+        <ul class="week-bullets">
+          <li>Expo로 첫 앱 만들기</li>
+          <li>QR 찍고 내 폰에서 실행 🎉</li>
+          <li>스토어에 올릴 <code>.aab</code> 빌드 걸기</li>
+        </ul>
+        <div class="week-resource">📚 이론: <code>PRD</code></div>
+        <span class="week-link">자세히 →</span>
       </a>
-      <a href="./week-3.html" class="next-week" style="margin-top:0;">
-        <div>
-          <div class="next-week-label">WEEK 03 · 9/28 (월) · 핵심 ⭐</div>
-          <div class="next-week-title">배포하기 — Vercel + Google Play</div>
-          <p style="margin:8px 0 0; color:var(--text-mute); font-size:14px;">웹사이트에 주소를 붙이고, 앱을 플레이스토어에 올려 내 폰에 설치합니다.</p>
-        </div>
-        <div class="next-week-arrow">→</div>
+      <a class="week-card" href="./week-3.html">
+        <div class="week-num">03</div>
+        <div class="week-title">배포하기 ⭐</div>
+        <p class="week-desc">이 강의의 본체. 웹사이트는 아무나 접속할 수 있는 주소를 갖고, 앱은 플레이스토어를 통해 내 폰에 설치됩니다.</p>
+        <ul class="week-bullets">
+          <li>GitHub → Vercel 배포 · 주소 획득</li>
+          <li>카톡 미리보기 · 개인정보처리방침</li>
+          <li>Play Console 등록 → 내 폰에 설치 🎉</li>
+        </ul>
+        <div class="week-resource">📚 이론: <code>GitHub</code> <code>Vercel</code> <code>Play Console</code></div>
+        <span class="week-link">자세히 →</span>
       </a>
-      <a href="./week-4.html" class="next-week" style="margin-top:0;">
-        <div>
-          <div class="next-week-label">WEEK 04 · 10/5 (월)</div>
-          <div class="next-week-title">공공데이터 활용하기</div>
-          <p style="margin:8px 0 0; color:var(--text-mute); font-size:14px;">공공데이터포털에서 키를 받아 내 웹·앱에 붙이고, 비밀키를 안전하게 관리합니다.</p>
-        </div>
-        <div class="next-week-arrow">→</div>
+      <a class="week-card" href="./week-4.html">
+        <div class="week-num">04</div>
+        <div class="week-title">공공데이터 활용하기</div>
+        <p class="week-desc">지금까지는 내가 적은 내용만 보여줬습니다. 이번 주에는 진짜 데이터가 실시간으로 흘러 들어오게 만듭니다.</p>
+        <ul class="week-bullets">
+          <li>공공데이터포털에서 키 받기</li>
+          <li>내 웹·앱에 데이터 붙이기</li>
+          <li>비밀키 관리 + 재배포</li>
+        </ul>
+        <div class="week-resource">📚 이론: <code>API</code> <code>data.go.kr</code></div>
+        <span class="week-link">자세히 →</span>
       </a>
     </div>
   </div>
 </section>
 
-<section class="detail-section" id="prep">
+<!-- Prep -->
+<section id="prep" class="section">
   <div class="container">
-    <h2>사전 준비</h2>
-    <p class="sub">설치는 Week 0에서 같이 합니다. 딱 하나, 개발자 계정만 미리 신청해 주세요.</p>
-
-    <div class="homework">
-      <h3>⭐ 지금 바로 — 구글 플레이 개발자 계정 등록 ($25)</h3>
-      <ul>
-        <li>3주차에 앱을 스토어에 올리려면 <strong>반드시 필요합니다.</strong></li>
-        <li>신원 확인이 보통 하루면 끝나지만, 서류가 어긋나면 <strong>최대 2주</strong>까지 걸립니다.</li>
-        <li>3주차 당일에 계정이 없으면 그 회차 실습을 통째로 놓치게 됩니다.</li>
-        <li><strong>사업자등록증이 있으시면 조직 계정으로</strong> 만드세요 — 정식 출시에 필요한 테스터 12명 요건이 면제됩니다.</li>
-        <li>등록 방법은 카톡방에서 안내드리고, Week 0에서 함께 확인합니다.</li>
-      </ul>
+    <div class="section-head">
+      <span class="eyebrow">Week 0 · Pre-class</span>
+      <h2>사전 준비</h2>
+      <p class="section-desc">설치는 Week 0에서 <strong>같이</strong> 합니다. 딱 하나, 개발자 계정만 미리 신청해 주세요.</p>
     </div>
 
-    <div class="session" style="margin-top:18px">
-      <h3>Week 0에서 같이 하는 것</h3>
-      <ul>
-        <li>VS Code · Claude Code 확장 설치 (Claude Pro 이상 구독 필요)</li>
-        <li>Node.js 설치</li>
-        <li>개발자 계정 신청 상태 확인</li>
-        <li>GitHub 계정 · 공공데이터포털 가입</li>
-        <li>안드로이드 폰 준비 — 2주차에 앱을 직접 돌려봅니다</li>
-      </ul>
+    <div class="prep-grid">
+      <div class="prep-card">
+        <div class="prep-step">1</div>
+        <h3>⭐ 구글 플레이 개발자 계정</h3>
+        <p>등록비 <strong>$25</strong>. 신원 확인이 보통 하루, 길면 <strong>2주</strong>. 3주차 당일에 없으면 그 회차 실습을 놓칩니다. <strong>지금 신청하세요.</strong></p>
+        <a href="https://play.google.com/console/signup" target="_blank" rel="noopener">등록하러 가기 ↗</a>
+      </div>
+      <div class="prep-card">
+        <div class="prep-step">2</div>
+        <h3>VS Code 설치</h3>
+        <p>코드 편집기. Claude Code가 여기서 실행됩니다.</p>
+        <a href="https://code.visualstudio.com/" target="_blank" rel="noopener">다운로드 ↗</a>
+      </div>
+      <div class="prep-card">
+        <div class="prep-step">3</div>
+        <h3>Claude 구독</h3>
+        <p>실습 분량이 많아 무료 플랜으로는 한도에 막힙니다. <strong>Pro(월 $20) 이상</strong> 결제해 주세요.</p>
+        <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai ↗</a>
+      </div>
+      <div class="prep-card">
+        <div class="prep-step">4</div>
+        <h3>Node.js 설치</h3>
+        <p>2주차 앱 만들기에 필요합니다. Week 0에서 같이 설치합니다.</p>
+        <a href="https://nodejs.org/" target="_blank" rel="noopener">다운로드 ↗</a>
+      </div>
+      <div class="prep-card">
+        <div class="prep-step">5</div>
+        <h3>GitHub 계정</h3>
+        <p>3주차 배포에 필요합니다. 가입만 해두시면 됩니다.</p>
+        <a href="https://github.com/signup" target="_blank" rel="noopener">가입하기 ↗</a>
+      </div>
+      <div class="prep-card">
+        <div class="prep-step">6</div>
+        <h3>공공데이터포털 가입</h3>
+        <p>4주차에 씁니다. 3주차 과제로 데이터 하나를 정해 활용신청까지 넣습니다.</p>
+        <a href="https://www.data.go.kr/" target="_blank" rel="noopener">data.go.kr ↗</a>
+      </div>
+      <div class="prep-card">
+        <div class="prep-step">7</div>
+        <h3>안드로이드 폰</h3>
+        <p>2주차에 내가 만든 앱을 직접 돌려봅니다. 아이폰만 있으시면 카톡방으로 알려 주세요.</p>
+      </div>
+      <div class="prep-card">
+        <div class="prep-step">8</div>
+        <h3>설치영상</h3>
+        <p>Week 0 전에 미리 보고 오시면 훨씬 수월합니다. 암호는 카톡방 공지에 있습니다.</p>
+        <span class="prep-pending">카톡방 공지 참고</span>
+      </div>
+    </div>
+
+    <div class="prep-foot">
+      <p><strong>사업자등록증이 있으시면 조직 계정으로</strong> 만드세요 — 정식 출시에 필요한 테스터 12명 요건이 면제됩니다. 막히는 부분은 카톡방에 물어보시면 Week 0에서 함께 봐드립니다.</p>
     </div>
   </div>
 </section>
 
-<section class="detail-section" id="faq">
+<!-- FAQ -->
+<section id="faq" class="section section-alt">
   <div class="container">
-    <h2>자주 묻는 것</h2>
-
-    <div class="session-list">
-      <div class="session">
-        <h3>월요일 밤에 참석이 어렵습니다</h3>
-        <ul>
-          <li>주말에 1시간짜리 특강을 따로 엽니다.</li>
-          <li>단, <strong>해당 회차 녹화본을 먼저 보고 오셔야 합니다.</strong> 1시간 안에 진도를 맞추는 자리라 녹화본 없이는 따라가기 어렵습니다.</li>
-          <li>녹화본은 전 회차 제공됩니다.</li>
-        </ul>
-      </div>
-      <div class="session">
-        <h3>4주 안에 앱이 정식 출시되나요?</h3>
-        <ul>
-          <li>정확히는 <strong>“올리는 데까지”</strong>입니다. 3주차에 스토어에 업로드하고 내부 테스트로 내 폰에 설치까지 갑니다.</li>
-          <li>아무나 검색해서 받는 정식 공개는 — 사업자 계정이면 곧바로, 개인 계정이면 테스터 12명이 14일 연속 참여한 뒤입니다.</li>
-          <li><strong>웹사이트는 조건이 없습니다.</strong> 3주차에 주소를 받으면 그날부터 아무나 접속할 수 있습니다.</li>
-        </ul>
-      </div>
-      <div class="session">
-        <h3>테스터 12명은 어떻게 모으나요?</h3>
-        <ul>
-          <li>혼자서는 어렵습니다. 여기서 포기하는 분이 많습니다.</li>
-          <li>월간클로드는 매달 사람이 모이는 커뮤니티라 <strong>서로의 앱에 테스터로 등록해 드릴 수 있습니다.</strong></li>
-          <li>수료생이 계속 남아 있으므로 테스터 풀이 유지됩니다. 혼자서는 못 넘는 벽을 기수가 같이 넘습니다.</li>
-        </ul>
-      </div>
-      <div class="session">
-        <h3>4주가 끝나면요?</h3>
-        <ul>
-          <li>정규 4주는 <strong>한 번만 결제</strong>하시면 됩니다.</li>
-          <li>수료하시면 매달 열리는 월간클로드 세션에 <strong>무료로 계속 참여</strong>하실 수 있습니다.</li>
-          <li>그달에 새로 나온 주제·기술을 다룹니다. 4주로 끝나는 게 아니라 계속 이어집니다.</li>
-        </ul>
-      </div>
-      <div class="session">
-        <h3>코딩을 전혀 모릅니다</h3>
-        <ul>
-          <li>괜찮습니다. 코드는 Claude가 씁니다. 여러분은 무엇을 만들지 정하고, 마음에 안 드는 부분을 말로 고칩니다.</li>
-          <li>1주차 3교시가 통째로 “원하는 대로 고치기”입니다. 그 감각을 익히는 게 이 강의의 절반입니다.</li>
-        </ul>
-      </div>
+    <div class="section-head">
+      <span class="eyebrow">FAQ</span>
+      <h2>자주 묻는 질문</h2>
+    </div>
+    <div class="faq-list">
+      <details class="faq">
+        <summary>코딩을 전혀 몰라도 따라갈 수 있나요?</summary>
+        <p>네. 코드는 Claude가 씁니다. 여러분은 무엇을 만들지 정하고, 마음에 안 드는 부분을 말로 고칩니다. 1주차 3교시가 통째로 "원하는 대로 고치기"인데, 그 감각을 익히는 게 이 강의의 절반입니다.</p>
+      </details>
+      <details class="faq">
+        <summary>4주 안에 앱이 정식 출시되나요?</summary>
+        <p>정확히는 <strong>"올리는 데까지"</strong>입니다. 3주차에 스토어에 업로드하고 내부 테스트로 내 폰에 설치까지 갑니다.</p>
+        <p style="margin-top: 8px;">아무나 검색해서 받는 정식 공개는 — <strong>사업자 계정이면 곧바로</strong>, 개인 계정이면 테스터 12명이 14일 연속 참여한 뒤입니다.</p>
+        <p style="margin-top: 8px;"><strong>웹사이트는 조건이 없습니다.</strong> 3주차에 주소를 받으면 그날부터 아무나 접속할 수 있습니다.</p>
+      </details>
+      <details class="faq">
+        <summary>테스터 12명은 어떻게 모으나요?</summary>
+        <p>혼자서는 어렵습니다. 여기서 포기하는 분이 많습니다.</p>
+        <p style="margin-top: 8px;">월간클로드는 매달 사람이 모이는 커뮤니티라 <strong>서로의 앱에 테스터로 등록해 드릴 수 있습니다.</strong> 수료생이 계속 남아 있으므로 테스터 풀이 유지됩니다. 혼자서는 못 넘는 벽을 기수가 같이 넘습니다.</p>
+      </details>
+      <details class="faq">
+        <summary>월요일 밤에 참석이 어렵습니다</summary>
+        <p>주말에 1시간짜리 특강을 따로 엽니다. 단, <strong>해당 회차 녹화본을 먼저 보고 오셔야 합니다.</strong> 1시간 안에 진도를 맞추는 자리라 녹화본 없이는 따라가기 어렵습니다.</p>
+        <p style="margin-top: 8px;">녹화본은 전 회차 제공됩니다.</p>
+      </details>
+      <details class="faq">
+        <summary>개발자 계정 등록이 꼭 필요한가요?</summary>
+        <p>3주차에 앱을 스토어에 올리려면 <strong>반드시 필요합니다.</strong> 등록비 $25가 들고, 신원 확인에 보통 하루, 서류가 어긋나면 최대 2주까지 걸립니다.</p>
+        <p style="margin-top: 8px;">당일에 신청하면 그 자리에서 진행할 수 없어서, 개강 전부터 안내드리고 있습니다. 웹 배포(2·3교시)는 계정 없이도 그대로 진행됩니다.</p>
+      </details>
+      <details class="faq">
+        <summary>4주가 끝나면요?</summary>
+        <p>정규 4주는 <strong>한 번만 결제</strong>하시면 됩니다. 수료하시면 매달 열리는 월간클로드 세션에 <strong>무료로 계속 참여</strong>하실 수 있습니다.</p>
+        <p style="margin-top: 8px;">AI는 반년이면 판이 바뀝니다. 한 번 배우고 끝나는 강의로는 따라갈 수 없어서, 매달 새로 나온 주제·기술을 이어서 전달합니다.</p>
+      </details>
     </div>
   </div>
 </section>
 
+<!-- Footer -->
 <footer class="site-footer">
   <div class="container footer-inner">
     <div class="brand">
