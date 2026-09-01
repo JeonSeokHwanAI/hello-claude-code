@@ -25,6 +25,7 @@ docs/
 sites/
   season1/       ← 1기 안내 사이트 (Vercel `hello-claude-code`)
   season2/       ← 2기 모집 사이트 (Vercel `monthly-claude-2`)
+  season2-class/ ← 2기 수강생 강의 안내 (Vercel `monthly-claude-2-class`)
 ```
 
 기수 폴더는 진행 중이면 `20.working/`, 끝나면 `30.output/` 으로 옮깁니다.
@@ -53,7 +54,7 @@ sites/
   파일은 `.gitignore` 에 추가한다.
 
 ### 사이트 배포
-- `sites/season1/` 와 `sites/season2/` 는 **Vercel 프로젝트가 서로 다르다.**
+- `sites/` 아래 각 폴더는 **Vercel 프로젝트가 서로 다르다.**
   `monthly-claude-2` 는 `rootDirectory = sites/season2` 로 지정돼 있어야 한다.
   이 설정이 비면 푸시할 때 저장소 루트(1기)가 배포되어 2기 주소에 1기 페이지가 뜬다.
 - 사이트 폴더를 옮기면 **Vercel 대시보드의 Root Directory 설정도 같이 바꿔야 한다.**

@@ -25,6 +25,7 @@
 |---|---|
 | [`sites/season1/`](../sites/season1) | 1기 안내 사이트 (Vercel `hello-claude-code`) |
 | [`sites/season2/`](../sites/season2) | 2기 모집 사이트 (Vercel `monthly-claude-2`) |
+| [`sites/season2-class/`](../sites/season2-class) | 2기 수강생 강의 안내 (Vercel `monthly-claude-2-class`) |
 
 > ⚠️ 두 사이트는 **Vercel 프로젝트가 서로 다릅니다.** `monthly-claude-2`는
 > `rootDirectory = sites/season2` 로 지정돼 있어야 하며, 이 설정이 비면

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 1 — 내 웹사이트 만들기 · 월간클로드 2기</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;700;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="./favicon.svg">
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="./index.html" class="brand">
+      <span class="brand-mark">●</span>
+      <span class="brand-text">월간클로드 2기</span>
+    </a>
+    <nav class="nav">
+      <a href="./index.html#schedule">일정</a>
+      <a href="./index.html#curriculum">커리큘럼</a>
+      <a href="./index.html#prep">사전 준비</a>
+      <a href="./index.html#faq">FAQ</a>
+    </nav>
+  </div>
+</header>
+
+<section class="detail-hero">
+  <div class="container">
+    <a href="./index.html" class="detail-back">← 전체 커리큘럼</a>
+    <div class="detail-eyebrow">WEEK 01</div>
+    <h1 class="detail-title">내 웹사이트 만들기</h1>
+    <p class="detail-sub">사이트 하나 뽑는 건 20분이면 됩니다. 이 회차의 본론은 그다음입니다 — 뽑힌 결과물을 <strong>내가 원하는 대로 고치는 법</strong>을 익힙니다.</p>
+    <div class="detail-meta">
+      <div class="detail-meta-item">날짜<strong>9월 14일 (월)</strong></div>
+      <div class="detail-meta-item">시간<strong>21:00~</strong></div>
+      <div class="detail-meta-item">난이도<strong>입문</strong></div>
+      <div class="detail-meta-item">선수 학습<strong>Week 0 설치 세션</strong></div>
+    </div>
+  </div>
+</section>
+
+<section class="detail-section">
+  <div class="container">
+    <h2>학습 목표</h2>
+    <p class="sub">이 회차가 끝나면 여러분은:</p>
+    <div class="session">
+      <ul>
+        <li>여러 섹션을 갖춘 소개 사이트를 내 컴퓨터에서 열어 볼 수 있다</li>
+        <li>색·배치·문구·이미지를 <strong>말로 지시해서</strong> 원하는 대로 고칠 수 있다</li>
+        <li>Claude가 뭔가 잘못 고쳤을 때 <strong>되돌릴 수 있다</strong></li>
+        <li>권한 창이 왜 뜨는지 알고, 무엇을 허용할지 판단할 수 있다</li>
+        <li>내 취향을 <code>CLAUDE.md</code>에 적어 매번 설명하지 않게 만들 수 있다</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="detail-section">
+  <div class="container">
+    <h2>커리큘럼 구성</h2>
+    <p class="sub">6교시 · 총 130분</p>
+
+    <div class="session-list">
+      <div class="session">
+        <div class="session-num">0교시 · 15min</div>
+        <h3>Week 0 점검 + 4주 로드맵</h3>
+        <ul>
+          <li>⭐ 구글 플레이 개발자 계정 신원 확인 진행 상태 점검</li>
+          <li>4주 동안 무엇을 만들어 어디까지 가는지</li>
+        </ul>
+      </div>
+      <div class="session">
+        <div class="session-num">1교시 · 20min</div>
+        <h3>Claude Code 첫 대화 · 권한 창 · 되돌리기</h3>
+        <ul>
+          <li>ChatGPT 웹과 무엇이 다른가 — 파일을 직접 읽고 고친다</li>
+          <li>권한 창(Allow / Deny)이 뜨는 이유</li>
+          <li><strong>되돌리기</strong> — 잘못 고쳤을 때 원래대로</li>
+        </ul>
+      </div>
+      <div class="session">
+        <div class="session-num">2교시 · 25min</div>
+        <h3>유형 정하기 + 첫 사이트 뽑기</h3>
+        <ul>
+          <li>가게형 / 개인형 / 도구형 — 무엇을 만들지 정하기</li>
+          <li>첫 요청 한 번으로 사이트 뼈대 만들기</li>
+        </ul>
+      </div>
+      <div class="session">
+        <div class="session-num">3교시 · 35min ⭐</div>
+        <h3>원하는 대로 고치기</h3>
+        <ul>
+          <li>색 바꾸기 · 섹션 순서 바꾸기 · 문구 다듬기 · 이미지 넣기</li>
+          <li>“마음에 안 든다”를 Claude가 알아듣는 말로 바꾸는 연습</li>
+          <li><strong>이 회차의 절반이 여기에 있습니다.</strong></li>
+        </ul>
+      </div>
+      <div class="session">
+        <div class="session-num">4교시 · 15min ⭐</div>
+        <h3>참고 사이트 흉내내기</h3>
+        <ul>
+          <li>“이 사이트처럼 해줘”가 먹히는 이유와 한계</li>
+          <li>레퍼런스를 주는 법</li>
+        </ul>
+      </div>
+      <div class="session">
+        <div class="session-num">5교시 · 20min</div>
+        <h3>모바일 대응 · 취향 기억시키기 · 계획 모드</h3>
+        <ul>
+          <li>폰에서도 제대로 보이게</li>
+          <li><code>CLAUDE.md</code>에 내 취향을 적어두기</li>
+          <li>계획 모드 — 바로 고치지 말고 계획부터 받아보기</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="detail-section">
+  <div class="container">
+    <h2>이론 · 미리 읽을거리</h2>
+    <p class="sub">강의 전에 읽어두면 훨씬 수월합니다. 몰라도 수업은 따라올 수 있습니다.</p>
+
+    <div class="session-list">
+      <div class="session">
+        <h3>1. Claude Code는 무엇이 다른가</h3>
+        <ul>
+          <li>ChatGPT 웹은 <strong>답을 말해주고</strong>, Claude Code는 <strong>내 컴퓨터의 파일을 직접 만들고 고칩니다.</strong></li>
+          <li>그래서 “복사해서 붙여넣기”가 사라집니다. 대신 <strong>무엇을 허용할지</strong>를 내가 정해야 합니다.</li>
+          <li>작업은 항상 <strong>폴더 단위</strong>로 이루어집니다. 폴더를 열어주는 것이 곧 “여기서 일해라”라는 뜻입니다.</li>
+        </ul>
+      </div>
+      <div class="session">
+        <h3>2. 권한 창 — 왜 자꾸 물어보는가</h3>
+        <ul>
+          <li>파일을 읽고 쓰거나 명령을 실행할 때마다 Claude는 허락을 구합니다. 실수로 지우거나 덮어쓰는 걸 막기 위한 장치입니다.</li>
+          <li>매번 누르기 번거로우면 <strong>자주 하는 작업만 미리 허용</strong>해 둘 수 있습니다. 반대로 위험한 명령은 아예 막아둘 수 있습니다.</li>
+          <li>1기 심화 자료가 이 주제를 자세히 다룹니다 —
+            <a href="https://hello-claude-code-iota.vercel.app/week1-permission-guide.html" target="_blank" rel="noopener">권한 설정 &amp; 완전 자동화 가이드 ↗</a>
+            <br><span style="color:var(--text-mute); font-size:13px;">1기 강의 자료라 예시가 다를 수 있지만, 권한 개념 자체는 그대로 적용됩니다.</span>
+          </li>
+        </ul>
+      </div>
+      <div class="session">
+        <h3>3. 되돌리기 — 안심하고 시켜보기 위한 안전장치</h3>
+        <ul>
+          <li>Claude가 고친 내용이 마음에 안 들면 되돌릴 수 있습니다. <strong>되돌릴 수 있다는 걸 알아야 과감하게 시켜볼 수 있습니다.</strong></li>
+          <li>입문자가 가장 많이 겁내는 지점이라 1교시에 먼저 다룹니다.</li>
+        </ul>
+      </div>
+      <div class="session">
+        <h3>4. CLAUDE.md — 매번 설명하지 않는 법</h3>
+        <ul>
+          <li>작업 폴더에 <code>CLAUDE.md</code> 파일을 두면 Claude가 대화를 시작할 때마다 그 내용을 먼저 읽습니다.</li>
+          <li>“나는 파란색을 좋아한다”, “문장은 짧게 써라” 같은 취향을 여기 적어두면 매번 말하지 않아도 됩니다.</li>
+          <li>이 사이트를 만드는 데 쓴 저장소에도 <code>CLAUDE.md</code>가 있습니다. 3주차에 그 실물을 함께 봅니다.</li>
+        </ul>
+      </div>
+      <div class="session">
+        <h3>5. Skill — 반복 작업에 이름 붙여 저장하기 ⭐</h3>
+        <ul>
+          <li>사이트를 고치다 보면 <strong>같은 요청을 반복</strong>하게 됩니다. “사진 받아서 크기 줄이고 넣어줘” 같은 것들입니다.</li>
+          <li><strong>Skill</strong>은 그 작업 순서를 글로 적어 저장해 두고, 다음부터는 <strong>이름만 불러 쓰는</strong> 것입니다.</li>
+          <li>저장 위치는 작업 폴더의 <code>.claude/skills/{이름}/SKILL.md</code> 입니다.</li>
+          <li><code>CLAUDE.md</code>와의 차이 — <code>CLAUDE.md</code>는 <strong>항상</strong> 적용되는 배경 규칙이고, Skill은 <strong>부를 때만</strong> 실행되는 작업 절차입니다.</li>
+          <li>이 강의 저장소에도 Skill이 들어 있습니다. 수강생 안내 메일을 만드는 Skill을 3주차에 실물로 보여드립니다.</li>
+        </ul>
+      </div>
+      <div class="session">
+        <h3>6. 좋은 요청 vs 막연한 요청</h3>
+        <ul>
+          <li><span style="color:var(--text-mute)">막연함</span> — “예쁘게 해줘”</li>
+          <li><strong>구체적</strong> — “상단 배경을 짙은 남색으로 바꾸고, 제목 글씨를 키워줘”</li>
+          <li>결과가 마음에 안 들 때는 처음부터 다시 시키지 말고 <strong>바로 그 부분만</strong> 다시 말하는 편이 빠릅니다.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="detail-section">
+  <div class="container">
+    <h2>강의 영상</h2>
+    <div class="homework">
+      <h3>🎬 Week 1 녹화본</h3>
+      <ul>
+        <li>강의 종료 후 업로드됩니다.</li>
+        <li>영상: <em>준비 중</em></li>
+        <li>암호: <em>준비 중</em></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="detail-section">
+  <div class="container">
+    <h2>강의 자료</h2>
+    <div class="homework">
+      <h3>📦 Week 1 실습 자료</h3>
+      <ul>
+        <li>수업 전에 이곳에 올려 드립니다.</li>
+        <li><em>준비 중</em></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="detail-section">
+  <div class="container">
+    <h2>이번 주 과제</h2>
+    <div class="homework">
+      <h3>📝 내 사이트 계속 다듬기</h3>
+      <ul>
+        <li>수업에서 만든 사이트를 본인 취향대로 더 고쳐 오기</li>
+        <li>고치다 막힌 지점을 하나 이상 카톡방에 남기기 — 다음 회차에서 함께 풉니다</li>
+        <li>⭐ 개발자 계정 신원 확인이 아직이라면 반드시 이번 주에 마무리</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="detail-section">
+  <div class="container">
+    <a href="./week-2.html" class="next-week">
+      <div>
+        <div class="next-week-label">NEXT · WEEK 02</div>
+        <div class="next-week-title">안드로이드 앱 만들기</div>
+      </div>
+      <div class="next-week-arrow">→</div>
+    </a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="brand">
+      <span class="brand-mark">●</span>
+      <span class="brand-text">월간클로드 2기</span>
+    </div>
+    <div class="footer-meta">
+      <span>© 2026 전석환 · 월간클로드</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
