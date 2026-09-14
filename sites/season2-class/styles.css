@@ -727,6 +727,33 @@ img { max-width: 100%; display: block; }
   padding-left: 20px;
   color: var(--text-soft);
 }
+.download-btn {
+  display: inline-block;
+  padding: 10px 18px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  border-radius: 8px;
+  text-decoration: none;
+}
+.download-btn:hover { background: var(--accent-strong); }
+.download-note {
+  margin: 8px 0 0;
+  color: var(--text-mute);
+  font-size: 14px;
+}
+.zip-contents {
+  margin: 16px 0 0 12px;
+  padding: 12px 16px;
+  border: 1px dashed var(--border-strong);
+  border-radius: 8px;
+  font-size: 14px;
+}
+.zip-contents-label {
+  margin-bottom: 6px;
+  color: var(--text-mute);
+  font-size: 13px;
+}
 .next-week {
   display: flex;
   justify-content: space-between;
